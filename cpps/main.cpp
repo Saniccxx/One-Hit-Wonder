@@ -2,15 +2,12 @@
 #include <iostream>
 #include "../headers/renderer.h"
 #include "../headers/game.h"
+#include "../headers/config.h"
 
 
 int main() {
-    constexpr int screenWidth = 960;
-    constexpr int screenHeight = 540;
-
-    Renderer::init_window(screenWidth, screenHeight, "One hit wonder™");
-
-    Game* game = new Game(screenWidth, screenHeight);
+    Renderer::init_window(config::screenWidth, config::screenHeight, "One hit wonder™");
+    Game* game = new Game(config::screenWidth, config::screenHeight);
     game->init();
 
 
