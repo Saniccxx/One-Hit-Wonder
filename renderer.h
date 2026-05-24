@@ -21,8 +21,8 @@ public:
 
     static void set_target_fps(int fps);
     static double get_delta_time();
+    static int get_monitor_refresh_rate();
 
     static constexpr auto black = BLACK;
     static constexpr auto white = WHITE;
 };
-

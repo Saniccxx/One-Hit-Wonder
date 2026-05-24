@@ -11,7 +11,9 @@ int main() {
     game->init();
 
     Renderer::init_window(screenWidth, screenHeight, "One hit wonder™");
-    Renderer::set_target_fps(60);
+
+    int hz = Renderer::get_monitor_refresh_rate();
+    Renderer::set_target_fps(hz);
 
     while (!Renderer::window_should_close())
     {

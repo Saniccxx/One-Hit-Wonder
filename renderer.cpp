@@ -50,3 +50,6 @@ double Renderer::get_delta_time() {
     return GetFrameTime();
 }
 
+int Renderer::get_monitor_refresh_rate() {
+    return GetMonitorRefreshRate(0);
+}
