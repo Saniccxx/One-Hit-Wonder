@@ -1,5 +1,7 @@
 #include "game.h"
 #include <iostream>
+#include <string>
+#include <format>
 #include "renderer.h"
 #include "player.h"
 
@@ -13,6 +15,7 @@ void Game::init() {
 #endif
     std::cout << " helllo epstein ";
     player = new Player(500, 200, *this);
+    camera = new GameCamera(width, height);
 }
 double delta_time = 0.0f;
 void Game::tick() const {
@@ -26,6 +29,13 @@ void Game::tick() const {
 #else
     Renderer::draw_text("Debug mode", 67, 67, 20, Renderer::white);
     Renderer::draw_fps(10, 10);
+
+    if (camera) {
+        const auto zoom_text = std::format("Camera Zoom: {:.2f}", camera->get_camera().zoom);
+        Renderer::draw_text(zoom_text, 67, 100, 20, Renderer::white);
+        std::cout << zoom_text << std::endl;
+    }
+
 #endif
     Renderer::end_drawing();
 
