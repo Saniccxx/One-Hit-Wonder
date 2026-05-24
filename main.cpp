@@ -1,5 +1,5 @@
 #include <iostream>
-#include "raylib.h"
+#include "renderer.h"
 
 int main() {
 #ifdef NDEBUG
@@ -7,24 +7,24 @@ int main() {
 #else
     std::cout << "Running in Debug mode\n";
 #endif
-    const int screenWidth = 2000;
-    const int screenHeight = 1000;
+    constexpr int screenWidth = 2000;
+    constexpr int screenHeight = 1000;
 
-    InitWindow(screenWidth, screenHeight, "major major major major");
+    Renderer::init_window(screenWidth, screenHeight, "major major major major");
 
-    while (!WindowShouldClose())
+    while (!Renderer::window_should_close())
     {
-        BeginDrawing();
-        ClearBackground(BLACK);
+        Renderer::begin_drawing();
+        Renderer::clear_background(Renderer::black());
 #ifdef NDEBUG
-        DrawText("Release mode", 67, 67, 20, WHITE);
+        Renderer::draw_text("Release mode", 67, 67, 20, Renderer::white());
 #else
-        DrawText("Debug mode", 67, 67, 20, WHITE);
-        DrawFPS(10, 10);
+        Renderer::draw_text("Debug mode", 67, 67, 20, Renderer::white());
+        Renderer::draw_fps(10, 10);
 #endif
-        EndDrawing();
+        Renderer::end_drawing();
     }
-    CloseWindow();
+    Renderer::close_window();
 
     std::cout << "arch btw\n";
     return 0;

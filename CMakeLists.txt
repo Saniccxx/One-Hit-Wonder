@@ -4,7 +4,8 @@ project(major_jam)
 set(CMAKE_CXX_STANDARD 20)
 
 add_executable(major_jam
-        main.cpp)
+        main.cpp
+        renderer.cpp)
 
 # Dependencies
 set(RAYLIB_VERSION 5.5)
