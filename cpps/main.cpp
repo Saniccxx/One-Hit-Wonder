@@ -2,7 +2,6 @@
 #include <iostream>
 #include "../headers/renderer.h"
 #include "../headers/game.h"
-#include <iostream>
 
 
 int main() {
@@ -34,19 +33,12 @@ int main() {
     {
         if (IsKeyDown(KEY_H)) PlaySound(C);
         if (IsKeyDown(KEY_J)) PlaySound(D);
-        else StopSound(D);
         if (IsKeyDown(KEY_K)) PlaySound(E);
-        else StopSound(E);
         if (IsKeyDown(KEY_L)) PlaySound(F);
-        else StopSound(F);
         if (IsKeyDown(KEY_B)) PlaySound(G);
-        else StopSound(G);
         if (IsKeyDown(KEY_N)) PlaySound(A);
-        else StopSound(A);
         if (IsKeyDown(KEY_M)) PlaySound(B);
-        else StopSound(B);
         if (IsKeyDown(KEY_COMMA)) PlaySound(C2);
-        else StopSound(C2);
         game->tick();
     }
     Renderer::close_window();
