@@ -1,4 +1,4 @@
-#include "camera.h"
+#include "../headers/camera.h"
 #include <algorithm>
 
 GameCamera::GameCamera(const int width, const int height)

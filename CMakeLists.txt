@@ -4,23 +4,25 @@ project(major_jam)
 set(CMAKE_CXX_STANDARD 20)
 
 add_executable(major_jam
-        main.cpp
-        renderer.cpp
-        renderer.h
-        game.h
-        game.cpp
-        game_display.h
-        game_display.cpp
-        start_display.h
-        start_display.cpp
-        display.h
-        player.h
-        player.cpp
-        camera.h
-        camera.cpp
-        game_display.cpp
-        assets.cpp
-        assets.h)
+        cpps/main.cpp
+        cpps/renderer.cpp
+        headers/renderer.h
+        headers/game.h
+        cpps/game.cpp
+        headers/game_display.h
+        cpps/game_display.cpp
+        headers/start_display.h
+        cpps/start_display.cpp
+        headers/display.h
+        headers/player.h
+        cpps/player.cpp
+        headers/camera.h
+        cpps/camera.cpp
+        cpps/game_display.cpp
+        cpps/assets.cpp
+        headers/assets.h
+        cpps/Button.cpp
+        headers/Button.h)
 
 # Dependencies
 set(RAYLIB_VERSION 6.0)

@@ -1,4 +1,4 @@
-#include "renderer.h"
+#include "../headers/renderer.h"
 #include <raylib.h>
 #include <string>
 #include <iostream>

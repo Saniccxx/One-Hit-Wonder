@@ -1,12 +1,16 @@
 #include "raylib.h"
 #include "renderer.h"
 #include "game.h"
+#include <iostream>
+#include "../headers/renderer.h"
+#include "../headers/game.h"
 
 
 int main() {
-    constexpr int screenWidth = 1900;
-    constexpr int screenHeight = 1000;
+    constexpr int screenWidth = 1800;
+    constexpr int screenHeight = 1100;
 
+    Renderer::init_window(screenWidth, screenHeight, "One hit wonder™");
 
     Game* game = new Game(screenWidth, screenHeight);
     game->init();
