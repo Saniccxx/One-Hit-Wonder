@@ -24,6 +24,7 @@ public:
     static void set_target_fps(int fps);
     static double get_delta_time();
     static int get_monitor_refresh_rate();
+    static void DrawImage(const Texture2D& texture, int x, int y, Color tint = WHITE);
 
     static constexpr auto black = BLACK;
     static constexpr auto white = WHITE;

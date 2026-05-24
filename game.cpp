@@ -5,12 +5,19 @@
 #include "start_display.h"
 #include "game_display.h"
 #include "renderer.h"
+#include "assets.h"
 #include <iostream>
 #include <typeinfo>
 
-Game::Game(int width, int height): width(width), height(height) {}
+Game::Game(int width, int height): width(width), height(height)
+{
+    images = load_all_images("Resources/Images");
+}
 
-Game::~Game() = default;
+Game::~Game()
+{
+    unload_all_images(images);
+};
 
 void Game::set_display(std::unique_ptr<Display> new_display) {
     display = std::move(new_display);
@@ -40,8 +47,8 @@ void Game::init() {
     if (!display) {
         set_display(std::make_unique<StartDisplay>(*this));
     }
-
     display->init();
+    images = load_all_images("Resources/Images");
 }
 
 double delta_time = 0.0f;
@@ -58,6 +65,13 @@ void Game::tick(){
     Renderer::begin_drawing();
     camera->begin_mode();
     Renderer::clear_background(Renderer::black);
+
+    if (!images.empty() && images[0].tex.id != 0) {
+        Renderer::DrawImage(images[0].tex, 100, 100);
+    } else {
+        DrawText("No images loaded", 20, 20, 20, RED);
+    }
+
     if (display) {
         display->tick();
     }
