@@ -1,6 +1,6 @@
-#include "player.h"
-#include "game.h"
-#include "renderer.h"
+#include "../headers/player.h"
+#include "../headers/game.h"
+#include "../headers/renderer.h"
 #include <iostream>
 
 Player::Player(float x, float y, Game& game): x(x), y(y), game(game) {}

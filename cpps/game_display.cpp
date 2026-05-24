@@ -1,12 +1,12 @@
-#include "game_display.h"
+#include "../headers/game_display.h"
 
 #include <format>
 #include <iostream>
 
-#include "camera.h"
-#include "game.h"
-#include "player.h"
-#include "renderer.h"
+#include "../headers/camera.h"
+#include "../headers/game.h"
+#include "../headers/player.h"
+#include "../headers/renderer.h"
 
 GameDisplay::GameDisplay(Game& game): game(game) {}
 

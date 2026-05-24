@@ -1,11 +1,11 @@
-#include "game.h"
+#include "../headers/game.h"
 #include <utility>
-#include "display.h"
-#include "camera.h"
-#include "start_display.h"
-#include "game_display.h"
-#include "renderer.h"
-#include "assets.h"
+#include "../headers/display.h"
+#include "../headers/camera.h"
+#include "../headers/start_display.h"
+#include "../headers/game_display.h"
+#include "../headers/renderer.h"
+#include "../headers/assets.h"
 #include <iostream>
 #include <typeinfo>
 

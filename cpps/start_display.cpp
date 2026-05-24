@@ -1,9 +1,9 @@
-#include "start_display.h"
+#include "../headers/start_display.h"
 
 
-#include "game.h"
-#include "game_display.h"
-#include "renderer.h"
+#include "../headers/game.h"
+#include "../headers/game_display.h"
+#include "../headers/renderer.h"
 
 StartDisplay::StartDisplay(Game& game): game(game) {}
 

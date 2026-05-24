@@ -1,6 +1,6 @@
 #include <iostream>
-#include "renderer.h"
-#include "game.h"
+#include "../headers/renderer.h"
+#include "../headers/game.h"
 
 
 int main() {
