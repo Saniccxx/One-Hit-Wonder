@@ -1,7 +1,7 @@
 #pragma once
 #include <memory>
 
-class GameDisplay;
+class Display;
 class Game {
     public:
     Game(int width, int height);
@@ -10,15 +10,16 @@ class Game {
     void init();
     void tick();
 
-    void set_display(std::unique_ptr<GameDisplay> new_display);
-    [[nodiscard]] GameDisplay* get_display() const;
+    void request_display_change(std::unique_ptr<Display> new_display);
+    [[nodiscard]] Display* get_display() const;
     [[nodiscard]] double get_delta_time() const;
 
     int width = 1920;
     int height = 1080;
-    void controls() const;
 
     private:
+    void set_display(std::unique_ptr<Display> new_display);
     double delta_time = 0.0;
-    std::unique_ptr<GameDisplay> display;
+    std::unique_ptr<Display> display;
+    std::unique_ptr<Display> pending_display;
 };

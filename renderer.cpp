@@ -62,6 +62,11 @@ std::vector<int> Renderer::controls() {
 
     return keys;
 }
+
+bool Renderer::is_enter_pressed() {
+    return IsKeyPressed(KEY_ENTER);
+}
+
 double Renderer::get_delta_time() {
     return GetFrameTime();
 }

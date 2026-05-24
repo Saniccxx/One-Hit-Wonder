@@ -11,6 +11,9 @@ add_executable(major_jam
         game.cpp
         game_display.h
         game_display.cpp
+        start_display.h
+        start_display.cpp
+        display.h
         player.h
         player.cpp
         camera.h

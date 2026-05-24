@@ -28,9 +28,6 @@ void GameDisplay::tick() {
     const auto delta_time = game.get_delta_time();
     std::cout << delta_time << '\n';
 
-    Renderer::begin_drawing();
-    Renderer::clear_background(Renderer::black);
-
 #ifdef NDEBUG
     Renderer::draw_text("Release mode", 67, 67, 20, Renderer::white);
 #else
@@ -47,7 +44,5 @@ void GameDisplay::tick() {
     if (player) {
         player->tick(static_cast<float>(delta_time));
     }
-
-    Renderer::end_drawing();
 }
 

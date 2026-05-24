@@ -1,18 +1,19 @@
 #pragma once
 
 #include <memory>
+#include "display.h"
 
 class Game;
 class Player;
 class GameCamera;
 
-class GameDisplay {
+class GameDisplay : public Display {
 public:
     explicit GameDisplay(Game& game);
-    ~GameDisplay();
+    ~GameDisplay() override;
 
-    void init();
-    void tick();
+    void init() override;
+    void tick() override;
 
 private:
     Game& game;
