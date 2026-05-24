@@ -3,7 +3,7 @@
 
 class Game {
     public:
-    Game();
+    Game(int width, int height);
     void tick();
     void init();
     int width = 1920;

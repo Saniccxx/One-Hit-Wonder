@@ -2,10 +2,10 @@
 #include "game.h"
 #include <iostream>
 
-Game::Game() {}
+Game::Game(int width, int height): width(width), height(height) {}
 
 void Game::init() {
-    std::cout << "helllo epstein";
+    std::cout << " helllo epstein ";
 }
 
 void Game::tick() {

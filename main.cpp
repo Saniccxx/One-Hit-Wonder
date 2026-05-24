@@ -3,8 +3,6 @@
 #include "game.h"
 
 int main() {
-    Game* game = new Game();
-    game->init();
 #ifdef NDEBUG
     std::cout << "Running in Release mode\n";
 #else
@@ -12,6 +10,9 @@ int main() {
 #endif
     constexpr int screenWidth = 2000;
     constexpr int screenHeight = 1000;
+
+    Game* game = new Game(screenWidth, screenHeight);
+    game->init();
 
     Renderer::init_window(screenWidth, screenHeight, "major major major major");
 
