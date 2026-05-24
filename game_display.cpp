@@ -21,7 +21,6 @@ void GameDisplay::init() {
     std::cout << " helllo epstein ";
 
     player = std::make_unique<Player>(500, 200, game);
-    camera = std::make_unique<GameCamera>(game.width, game.height);
 }
 
 void GameDisplay::tick() {
@@ -34,7 +33,7 @@ void GameDisplay::tick() {
     Renderer::draw_text("Debug mode", 67, 67, 20, Renderer::white);
     Renderer::draw_fps(10, 10);
 
-    if (camera) {
+    if (const auto* camera = game.get_camera()) {
         const auto zoom_text = std::format("Camera Zoom: {:.2f}", camera->get_camera().zoom);
         Renderer::draw_text(zoom_text, 67, 100, 20, Renderer::white);
         std::cout << zoom_text << std::endl;
