@@ -9,6 +9,7 @@
 #include <iostream>
 #include <typeinfo>
 #include <array>
+#include "../headers/sequence.h"
 
 Game::Game(int width, int height): width(width), height(height)
 {
@@ -50,6 +51,8 @@ void Game::init() {
     }
     display->init();
     images = load_all_images("Resources/Images");
+    sequence=std::make_unique<Sequence>(std::vector{1,2,3},0);
+
 }
 
 double delta_time = 0.0f;
@@ -57,6 +60,9 @@ double delta_time = 0.0f;
 
 
 void Game::tick(){
+    sequence->test();
+    std::cout<<sequence->zmienna<<"zmienna";
+
     if (pending_display) {
         set_display(std::move(pending_display));
         display->init();
@@ -82,6 +88,7 @@ void Game::tick(){
     clicks = Renderer::get_mouse_clicks();
     std::cout<<clicks[0]<<" "<<clicks[1]<<" "<<clicks[2]<<std::endl;
     Renderer::draw_fps(10, 10);
+
     GameCamera::end_mode();
 
 #ifndef NDEBUG

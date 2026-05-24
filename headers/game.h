@@ -2,6 +2,7 @@
 #include <memory>
 #include <vector>
 #include "raylib.h"
+#include "sequence.h"
 
 class Display;
 class GameCamera;
@@ -18,6 +19,7 @@ class Game {
 
     void init();
     void tick();
+    std::unique_ptr<Sequence> sequence;
 
     void request_display_change(std::unique_ptr<Display> new_display);
     [[nodiscard]] Display* get_display() const;
