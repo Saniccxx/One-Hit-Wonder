@@ -23,6 +23,9 @@ add_executable(major_jam
         headers/assets.h
         headers/obstacle.h
         cpps/obstacle.cpp)
+        headers/assets.h
+        cpps/Button.cpp
+        headers/Button.h)
 
 # Dependencies
 set(RAYLIB_VERSION 6.0)

@@ -1,9 +1,11 @@
 #pragma once
 
 #include "display.h"
+#include <memory>
 
 class Game;
 class GameDisplay;
+class Button;
 
 class StartDisplay : public Display {
 public:
@@ -15,5 +17,6 @@ public:
 
 private:
     Game& game;
+    std::unique_ptr<Button> start_button;
 };
 
