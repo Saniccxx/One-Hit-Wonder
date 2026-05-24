@@ -4,7 +4,6 @@
 #include "../headers/game.h"
 #include "../headers/config.h"
 
-
 int main() {
     Renderer::init_window(config::screenWidth, config::screenHeight, "One hit wonder™");
     Game* game = new Game(config::screenWidth, config::screenHeight);
@@ -74,4 +73,5 @@ int main() {
     Renderer::close_window();
 
     return 0;
+    
 }
