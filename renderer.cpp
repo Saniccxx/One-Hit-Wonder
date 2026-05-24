@@ -47,19 +47,19 @@ void Renderer::draw_line(int x1, int y1, int x2, int y2, Color color) {
 void Renderer::set_target_fps(int fps) {
     SetTargetFPS(fps);
 }
-std::vector<int> Renderer::controls() {
+std::vector<int> Renderer::controls(int mode) { // indeces 0-7 are respectively: SPACE, F,D,S,A,J,K,L
 
-
-    int w=0;int s=0;int a=0;int d=0;
-    if (IsKeyDown(KEY_W)) w=1;
-    if (IsKeyDown(KEY_S)) s=1;
-    if (IsKeyDown(KEY_A)) a=1;
-    if (IsKeyDown(KEY_D)) d=1;
-    std::vector<int> keys={w,s,a,d};
-    for (int i=0;i<keys.size();i++) {
-        std::cout<<keys[i]<<std::endl;
+    std::vector<int> keys={};
+    if (mode == 0) {
+        IsKeyDown(KEY_SPACE)? keys.emplace_back(1): keys.emplace_back(0);
+        IsKeyDown(KEY_F)? keys.emplace_back(1): keys.emplace_back(0);
+        IsKeyDown(KEY_D)? keys.emplace_back(1): keys.emplace_back(0);
+        IsKeyDown(KEY_S)? keys.emplace_back(1): keys.emplace_back(0);
+        IsKeyDown(KEY_A)? keys.emplace_back(1): keys.emplace_back(0);
+        IsKeyDown(KEY_J)? keys.emplace_back(1): keys.emplace_back(0);
+        IsKeyDown(KEY_K)? keys.emplace_back(1): keys.emplace_back(0);
+        IsKeyDown(KEY_L)? keys.emplace_back(1): keys.emplace_back(0);
     }
-
     return keys;
 }
 

@@ -21,6 +21,5 @@ int main() {
     }
     Renderer::close_window();
 
-    std::cout << "arch btw\n";
     return 0;
 }

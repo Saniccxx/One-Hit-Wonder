@@ -45,10 +45,9 @@ void Game::tick(){
     }
 
     delta_time = Renderer::get_delta_time() * 1000;
-    std::cout << delta_time<<'\n';
     Renderer::begin_drawing();
     Renderer::clear_background(Renderer::black);
-    Renderer::controls();
+
     Renderer::draw_fps(10, 10);
 
 
