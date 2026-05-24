@@ -6,11 +6,13 @@ set(CMAKE_CXX_STANDARD 20)
 add_executable(major_jam
         main.cpp
         renderer.cpp
-        game.h
+        renderer.h
         game.h
         game.cpp
         player.h
-        player.cpp)
+        player.cpp
+        camera.h
+        camera.cpp)
 
 # Dependencies
 set(RAYLIB_VERSION 6.0)
