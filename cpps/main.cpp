@@ -30,14 +30,46 @@ int main() {
 
     while (!Renderer::window_should_close())
     {
-        if (IsKeyDown(KEY_H)) PlaySound(C);
-        if (IsKeyDown(KEY_J)) PlaySound(D);
-        if (IsKeyDown(KEY_K)) PlaySound(E);
-        if (IsKeyDown(KEY_L)) PlaySound(F);
-        if (IsKeyDown(KEY_B)) PlaySound(G);
-        if (IsKeyDown(KEY_N)) PlaySound(A);
-        if (IsKeyDown(KEY_M)) PlaySound(B);
-        if (IsKeyDown(KEY_COMMA)) PlaySound(C2);
+        static bool wasHeld = false;
+        bool isHeld = IsKeyDown(KEY_H);
+        if (isHeld && !wasHeld) PlaySound(C);
+        if (!isHeld && wasHeld) StopSound(C);
+        wasHeld = isHeld;
+        static bool wasHeld2 = false;
+        bool isHeld2 = IsKeyDown(KEY_J);
+        if (isHeld2 && !wasHeld2) PlaySound(D);
+        if (!isHeld2 && wasHeld2) StopSound(D);
+        wasHeld2 = isHeld2;
+        static bool wasHeld3 = false;
+        bool isHeld3 = IsKeyDown(KEY_K);
+        if (isHeld3 && !wasHeld3) PlaySound(E);
+        if (!isHeld3 && wasHeld3) StopSound(E);
+        wasHeld3 = isHeld3;
+        static bool wasHeld4 = false;
+        bool isHeld4 = IsKeyDown(KEY_L);
+        if (isHeld4 && !wasHeld4) PlaySound(F);
+        if (!isHeld4 && wasHeld4) StopSound(F);
+        wasHeld4 = isHeld4;
+        static bool wasHeld5 = false;
+        bool isHeld5 = IsKeyDown(KEY_B);
+        if (isHeld5 && !wasHeld5) PlaySound(G);
+        if (!isHeld5 && wasHeld5) StopSound(G);
+        wasHeld5 = isHeld5;
+        static bool wasHeld6 = false;
+        bool isHeld6 = IsKeyDown(KEY_N);
+        if (isHeld6 && !wasHeld6) PlaySound(A);
+        if (!isHeld6 && wasHeld6) StopSound(A);
+        wasHeld6 = isHeld6;
+        static bool wasHeld7 = false;
+        bool isHeld7 = IsKeyDown(KEY_M);
+        if (isHeld7 && !wasHeld7) PlaySound(B);
+        if (!isHeld7 && wasHeld7) StopSound(B);
+        wasHeld7 = isHeld7;
+        static bool wasHeld8 = false;
+        bool isHeld8 = IsKeyDown(KEY_COMMA);
+        if (isHeld8 && !wasHeld8) PlaySound(C2);
+        if (!isHeld8 && wasHeld8) StopSound(C2);
+        wasHeld8 = isHeld8;
         game->tick();
     }
     Renderer::close_window();
