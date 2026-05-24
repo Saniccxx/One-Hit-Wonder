@@ -1,4 +1,5 @@
 #include "raylib.h"
+#include <iostream>
 #include "../headers/renderer.h"
 #include "../headers/game.h"
 #include <iostream>
@@ -13,6 +14,7 @@ int main() {
     Game* game = new Game(screenWidth, screenHeight);
     game->init();
 
+    Renderer::init_window(screenWidth, screenHeight, "One hit wonder™");
 
     InitAudioDevice();      // Initialize audio device
 
