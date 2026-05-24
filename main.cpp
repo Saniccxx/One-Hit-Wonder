@@ -4,8 +4,8 @@
 
 
 int main() {
-    constexpr int screenWidth = 2000;
-    constexpr int screenHeight = 1000;
+    constexpr int screenWidth = 1000;
+    constexpr int screenHeight = 500;
 
     Game* game = new Game(screenWidth, screenHeight);
     game->init();

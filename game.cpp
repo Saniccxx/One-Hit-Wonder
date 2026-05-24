@@ -26,6 +26,7 @@ void Game::tick() const {
 #else
     Renderer::draw_text("Debug mode", 67, 67, 20, Renderer::white);
     Renderer::draw_fps(10, 10);
+    Renderer::draw_text("Island", 68, 68, 13, Renderer::white);
 #endif
     Renderer::end_drawing();
 
