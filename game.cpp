@@ -59,8 +59,8 @@ void Game::tick(){
     if (pending_display) {
         set_display(std::move(pending_display));
         display->init();
-    }
 
+    }
     delta_time = Renderer::get_delta_time() * 1000;
     Renderer::begin_drawing();
     camera->begin_mode();
