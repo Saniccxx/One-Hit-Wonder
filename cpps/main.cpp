@@ -5,8 +5,8 @@
 
 
 int main() {
-    constexpr int screenWidth = 1800;
-    constexpr int screenHeight = 1100;
+    constexpr int screenWidth = 960;
+    constexpr int screenHeight = 540;
 
     Renderer::init_window(screenWidth, screenHeight, "One hit wonder™");
 
@@ -24,6 +24,7 @@ int main() {
     Sound A = LoadSound("Resources/A.wav");
     Sound B = LoadSound("Resources/B.wav");
     Sound C2 = LoadSound("Resources/C2.wav");
+    Sound retry = LoadSound("Resources/retry.wav");
 
     int hz = Renderer::get_monitor_refresh_rate();
     Renderer::set_target_fps(hz);
@@ -70,6 +71,7 @@ int main() {
         if (isHeld8 && !wasHeld8) PlaySound(C2);
         if (!isHeld8 && wasHeld8) StopSound(C2);
         wasHeld8 = isHeld8;
+        if (IsKeyPressed(KEY_BACKSPACE)) PlaySound(retry);
         game->tick();
     }
     Renderer::close_window();
