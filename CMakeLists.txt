@@ -8,7 +8,9 @@ add_executable(major_jam
         renderer.cpp
         game.h
         game.h
-        game.cpp)
+        game.cpp
+        player.h
+        player.cpp)
 
 # Dependencies
 set(RAYLIB_VERSION 6.0)

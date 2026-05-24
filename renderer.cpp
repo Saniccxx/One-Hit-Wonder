@@ -34,3 +34,11 @@ void Renderer::draw_fps(const int x, const int y) {
     DrawFPS(x, y);
 }
 
+void Renderer::set_target_fps(int fps) {
+    SetTargetFPS(fps);
+}
+
+double Renderer::get_delta_time() {
+    return GetFrameTime();
+}
+

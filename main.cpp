@@ -2,6 +2,7 @@
 #include "renderer.h"
 #include "game.h"
 
+
 int main() {
 #ifdef NDEBUG
     std::cout << "Running in Release mode\n";
@@ -15,12 +16,11 @@ int main() {
     game->init();
 
     Renderer::init_window(screenWidth, screenHeight, "major major major major");
+    Renderer::set_target_fps(60);
 
     while (!Renderer::window_should_close())
     {
         game->tick();
-        Renderer::begin_drawing();
-        Renderer::clear_background(Renderer::black);
 
 #ifdef NDEBUG
         Renderer::draw_text("Release mode", 67, 67, 20, Renderer::white);
