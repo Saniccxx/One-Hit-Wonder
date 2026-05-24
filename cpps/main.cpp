@@ -24,7 +24,7 @@ int main() {
     Sound A = LoadSound("Resources/A.wav");
     Sound B = LoadSound("Resources/B.wav");
     Sound C2 = LoadSound("Resources/C2.wav");
-    Sound retry = LoadSound("Resources/retry.wav");
+    Sound retry = LoadSound("Resources/retry2.wav");
 
     int hz = Renderer::get_monitor_refresh_rate();
     Renderer::set_target_fps(hz);
