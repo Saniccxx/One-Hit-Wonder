@@ -1,12 +1,19 @@
 #include "../headers/Button.h"
+#include "../headers/camera.h"
 #include "raylib.h"
 
 Button::Button(float x, float y, float width, float height, const std::string& text, int textSize, Color textColor, Color buttonColor, Color hoverColor, Color clickColor)
     : rect{ x, y, width, height }, text(text), textSize(textSize), textColor(textColor), buttonColor(buttonColor), hoverColor(hoverColor), clickColor(clickColor), isHovered(false), isClicked(false) {}
 
-void Button::Update() {
+void Button::Update(const GameCamera& camera) {
     Vector2 mousePoint = GetMousePosition();
-    isHovered = CheckCollisionPointRec(mousePoint, rect);
+
+    const Camera2D& cam = camera.get_camera();
+
+    Vector2 worldMousePos = GetScreenToWorld2D(mousePoint, cam);
+
+
+    isHovered = CheckCollisionPointRec(worldMousePos, rect);
     isClicked = isHovered && IsMouseButtonPressed(MOUSE_BUTTON_LEFT);
 }
 
