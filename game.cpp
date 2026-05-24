@@ -58,13 +58,12 @@ void Game::tick(){
     Renderer::begin_drawing();
     camera->begin_mode();
     Renderer::clear_background(Renderer::black);
-
-    Renderer::draw_fps(10, 10);
-    GameCamera::end_mode();
-
     if (display) {
         display->tick();
     }
+    Renderer::draw_fps(10, 10);
+    GameCamera::end_mode();
+
 #ifndef NDEBUG
     Renderer::draw_text(typeid(*display).name(), 200, 10, 20, Renderer::white );
 
