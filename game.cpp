@@ -1,22 +1,33 @@
 #include "game.h"
-#include <iostream>
-#include <string>
-#include <format>
+#include <utility>
+#include "game_display.h"
 #include "renderer.h"
-#include "player.h"
 
 Game::Game(int width, int height): width(width), height(height) {}
 
-void Game::init() {
-#ifdef NDEBUG
-    std::cout << "Running in Release mode\n";
-#else
-    std::cout << "Running in Debug mode\n";
-#endif
-    std::cout << " helllo epstein ";
-    player = new Player(500, 200, *this);
-    camera = new GameCamera(width, height);
+Game::~Game() = default;
+
+void Game::set_display(std::unique_ptr<GameDisplay> new_display) {
+    display = std::move(new_display);
 }
+
+GameDisplay* Game::get_display() const {
+    return display.get();
+}
+
+double Game::get_delta_time() const {
+    return delta_time;
+}
+
+void Game::init() {
+    if (!display) {
+        set_display(std::make_unique<GameDisplay>(*this));
+    }
+
+    display->init();
+}
+
+void Game::tick() {
 double delta_time = 0.0f;
 
 void Game::controls() const{
@@ -37,15 +48,7 @@ void Game::tick() const {
     Renderer::draw_text("Debug mode", 67, 67, 20, Renderer::white);
     Renderer::draw_fps(10, 10);
 
-    if (camera) {
-        const auto zoom_text = std::format("Camera Zoom: {:.2f}", camera->get_camera().zoom);
-        Renderer::draw_text(zoom_text, 67, 100, 20, Renderer::white);
-        std::cout << zoom_text << std::endl;
+    if (display) {
+        display->tick();
     }
-
-    Renderer::draw_text("Island", 68, 68, 13, Renderer::white);
-#endif
-    Renderer::end_drawing();
-
-    player->tick(delta_time);
 }

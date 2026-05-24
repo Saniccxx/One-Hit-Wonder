@@ -9,10 +9,13 @@ add_executable(major_jam
         renderer.h
         game.h
         game.cpp
+        game_display.h
+        game_display.cpp
         player.h
         player.cpp
         camera.h
-        camera.cpp)
+        camera.cpp
+        game_display.cpp)
 
 # Dependencies
 set(RAYLIB_VERSION 6.0)
