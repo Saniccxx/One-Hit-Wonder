@@ -21,7 +21,7 @@ void GameCamera::end_mode() {
     EndMode2D();
 }
 
-Camera2D& GameCamera::get_camera() {
+const Camera2D& GameCamera::get_camera() const {
     return camera;
 }
 

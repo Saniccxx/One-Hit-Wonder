@@ -5,7 +5,6 @@
 
 class Game;
 class Player;
-class GameCamera;
 
 class GameDisplay : public Display {
 public:
@@ -18,6 +17,5 @@ public:
 private:
     Game& game;
     std::unique_ptr<Player> player;
-    std::unique_ptr<GameCamera> camera;
 };
 

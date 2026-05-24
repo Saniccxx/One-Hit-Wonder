@@ -2,6 +2,7 @@
 #include <memory>
 
 class Display;
+class GameCamera;
 class Game {
     public:
     Game(int width, int height);
@@ -12,6 +13,7 @@ class Game {
 
     void request_display_change(std::unique_ptr<Display> new_display);
     [[nodiscard]] Display* get_display() const;
+    [[nodiscard]] GameCamera* get_camera() const;
     [[nodiscard]] double get_delta_time() const;
 
     int width = 1920;
@@ -20,6 +22,7 @@ class Game {
     private:
     void set_display(std::unique_ptr<Display> new_display);
     double delta_time = 0.0;
+    std::unique_ptr<GameCamera> camera;
     std::unique_ptr<Display> display;
     std::unique_ptr<Display> pending_display;
 };
