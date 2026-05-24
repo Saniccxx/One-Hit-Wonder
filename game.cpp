@@ -30,21 +30,18 @@ void Game::init() {
 
 double delta_time = 0.0f;
 
-void Game::controls() const {
-    std::cout<<"aaa";
 
-}
 
 void Game::tick(){
     delta_time = Renderer::get_delta_time() * 1000;
     std::cout << delta_time<<'\n';
     Renderer::begin_drawing();
     Renderer::clear_background(Renderer::black);
-    Game::controls();
-
+    Renderer::controls();
     Renderer::draw_text("Release mode", 67, 67, 20, Renderer::white);
     Renderer::draw_text("Debug mode", 67, 67, 20, Renderer::white);
     Renderer::draw_fps(10, 10);
+
 
     if (display) {
         display->tick();

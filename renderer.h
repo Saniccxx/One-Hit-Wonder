@@ -2,6 +2,7 @@
 
 #include <raylib.h>
 #include <string>
+#include <vector>
 
 class Renderer {
 public:
@@ -17,7 +18,7 @@ public:
     static void draw_fps(int x, int y);
     static void draw_circle(int x, int y, int radius, Color color);
     static void draw_line(int x1, int y1, int x2, int y2, Color color);
-
+    static std::vector<int> controls();
 
     static void set_target_fps(int fps);
     static double get_delta_time();

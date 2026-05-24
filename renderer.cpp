@@ -1,7 +1,9 @@
 #include "renderer.h"
 #include <raylib.h>
 #include <string>
-
+#include <iostream>
+#include <vector>
+#include <list>
 void Renderer::init_window(const int width, const int height, const char *title) {
     InitWindow(width, height, title);
 }
@@ -45,7 +47,21 @@ void Renderer::draw_line(int x1, int y1, int x2, int y2, Color color) {
 void Renderer::set_target_fps(int fps) {
     SetTargetFPS(fps);
 }
+std::vector<int> Renderer::controls() {
 
+
+    int w=0;int s=0;int a=0;int d=0;
+    if (IsKeyDown(KEY_W)) w=1;
+    if (IsKeyDown(KEY_S)) s=1;
+    if (IsKeyDown(KEY_A)) a=1;
+    if (IsKeyDown(KEY_D)) d=1;
+    std::vector<int> keys={w,s,a,d};
+    for (int i=0;i<keys.size();i++) {
+        std::cout<<keys[i]<<std::endl;
+    }
+
+    return keys;
+}
 double Renderer::get_delta_time() {
     return GetFrameTime();
 }
