@@ -5,8 +5,8 @@
 
 
 int main() {
-    constexpr int screenWidth = 1800;
-    constexpr int screenHeight = 1100;
+    constexpr int screenWidth = 1000;
+    constexpr int screenHeight = 800;
 
     Renderer::init_window(screenWidth, screenHeight, "One hit wonder™");
 

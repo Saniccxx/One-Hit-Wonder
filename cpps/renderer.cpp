@@ -62,7 +62,10 @@ std::vector<int> Renderer::controls(int mode) { // indeces 0-7 are respectively:
     }
     return keys;
 }
-
+Vector2 Renderer::get_mouse_pos() {
+    Vector2 mousePos = GetMousePosition();
+    return mousePos;
+}
 bool Renderer::is_enter_pressed() {
     return IsKeyPressed(KEY_ENTER);
 }
