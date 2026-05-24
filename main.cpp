@@ -2,9 +2,10 @@
 #include "renderer.h"
 #include "game.h"
 
+
 int main() {
-    constexpr int screenWidth = 960;
-    constexpr int screenHeight = 540;
+    constexpr int screenWidth = 1900;
+    constexpr int screenHeight = 1000;
 
     Game* game = new Game(screenWidth, screenHeight);
     game->init();
@@ -20,6 +21,5 @@ int main() {
     }
     Renderer::close_window();
 
-    std::cout << "arch btw\n";
     return 0;
 }

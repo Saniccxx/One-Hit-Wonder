@@ -18,14 +18,11 @@ void GameDisplay::init() {
 #else
     std::cout << "Running in Debug mode\n";
 #endif
-    std::cout << " helllo epstein ";
-
     player = std::make_unique<Player>(500, 200, game);
 }
 
 void GameDisplay::tick() {
     const auto delta_time = game.get_delta_time();
-    std::cout << delta_time << '\n';
 
 #ifdef NDEBUG
     Renderer::draw_text("Release mode", 67, 67, 20, Renderer::white);
@@ -36,7 +33,6 @@ void GameDisplay::tick() {
     if (const auto* camera = game.get_camera()) {
         const auto zoom_text = std::format("Camera Zoom: {:.2f}", camera->get_camera().zoom);
         Renderer::draw_text(zoom_text, 67, 100, 20, Renderer::white);
-        std::cout << zoom_text << std::endl;
     }
 #endif
 

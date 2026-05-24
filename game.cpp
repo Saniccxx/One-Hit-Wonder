@@ -55,17 +55,15 @@ void Game::tick(){
     }
 
     delta_time = Renderer::get_delta_time() * 1000;
-    std::cout << delta_time<<'\n';
     Renderer::begin_drawing();
     camera->begin_mode();
     Renderer::clear_background(Renderer::black);
-    Renderer::controls();
-    Renderer::draw_fps(10, 10);
-    GameCamera::end_mode();
-
     if (display) {
         display->tick();
     }
+    Renderer::draw_fps(10, 10);
+    GameCamera::end_mode();
+
 #ifndef NDEBUG
     Renderer::draw_text(typeid(*display).name(), 200, 10, 20, Renderer::white );
 
