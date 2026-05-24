@@ -1,10 +1,12 @@
 #include "game.h"
 #include <utility>
 #include "display.h"
+#include "camera.h"
 #include "start_display.h"
 #include "game_display.h"
 #include "renderer.h"
 #include <iostream>
+#include <typeinfo>
 
 Game::Game(int width, int height): width(width), height(height) {}
 
@@ -22,11 +24,19 @@ Display* Game::get_display() const {
     return display.get();
 }
 
+GameCamera* Game::get_camera() const {
+    return camera.get();
+}
+
 double Game::get_delta_time() const {
     return delta_time;
 }
 
 void Game::init() {
+    if (!camera) {
+        camera = std::make_unique<GameCamera>(width, height);
+    }
+
     if (!display) {
         set_display(std::make_unique<StartDisplay>(*this));
     }
@@ -46,14 +56,18 @@ void Game::tick(){
 
     delta_time = Renderer::get_delta_time() * 1000;
     Renderer::begin_drawing();
+    camera->begin_mode();
     Renderer::clear_background(Renderer::black);
 
     Renderer::draw_fps(10, 10);
-
+    GameCamera::end_mode();
 
     if (display) {
         display->tick();
     }
+#ifndef NDEBUG
+    Renderer::draw_text(typeid(*display).name(), 200, 10, 20, Renderer::white );
 
+#endif
     Renderer::end_drawing();
 };

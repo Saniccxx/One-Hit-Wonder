@@ -9,7 +9,7 @@ public:
     void begin_mode() const;
     static void end_mode();
 
-    Camera2D& get_camera();
+    [[nodiscard]] const Camera2D& get_camera() const;
 
 private:
     Camera2D camera{};
