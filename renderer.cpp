@@ -34,6 +34,14 @@ void Renderer::draw_fps(const int x, const int y) {
     DrawFPS(x, y);
 }
 
+void Renderer::draw_circle(int x, int y, int radius, Color color) {
+    DrawCircle(x, y, radius, color);
+}
+
+void Renderer::draw_line(int x1, int y1, int x2, int y2, Color color) {
+    DrawLine(x1, y1, x2, y2, color);
+}
+
 void Renderer::set_target_fps(int fps) {
     SetTargetFPS(fps);
 }
