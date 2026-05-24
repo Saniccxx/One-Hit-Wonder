@@ -1,8 +1,16 @@
 #pragma once
 #include <memory>
+#include <vector>
+#include "raylib.h"
 
 class Display;
 class GameCamera;
+
+struct LoadedTex {
+    std::string path;
+    Texture2D tex;
+};
+
 class Game {
     public:
     Game(int width, int height);
@@ -20,6 +28,7 @@ class Game {
     int height = 1080;
 
     private:
+    std::vector<LoadedTex> images;
     void set_display(std::unique_ptr<Display> new_display);
     double delta_time = 0.0;
     std::unique_ptr<GameCamera> camera;

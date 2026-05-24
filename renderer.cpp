@@ -3,7 +3,7 @@
 #include <string>
 #include <iostream>
 #include <vector>
-#include <list>
+
 void Renderer::init_window(const int width, const int height, const char *title) {
     InitWindow(width, height, title);
 }
@@ -73,4 +73,9 @@ double Renderer::get_delta_time() {
 
 int Renderer::get_monitor_refresh_rate() {
     return GetMonitorRefreshRate(0);
+}
+
+void Renderer::DrawImage(const Texture2D& texture, int x, int y, Color tint) {
+    if (texture.id == 0) return; //notgut
+    DrawTexture(texture, x, y, tint);
 }
