@@ -16,8 +16,6 @@ class Game {
 
     int width = 1920;
     int height = 1080;
-    Player* player = nullptr;
-    GameCamera* camera = nullptr;
     void controls() const;
 
     private:

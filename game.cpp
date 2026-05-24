@@ -2,6 +2,7 @@
 #include <utility>
 #include "game_display.h"
 #include "renderer.h"
+#include <iostream>
 
 Game::Game(int width, int height): width(width), height(height) {}
 
@@ -27,28 +28,25 @@ void Game::init() {
     display->init();
 }
 
-void Game::tick() {
 double delta_time = 0.0f;
 
-void Game::controls() const{
+void Game::controls() const {
     std::cout<<"aaa";
 
 }
 
-void Game::tick() const {
+void Game::tick(){
     delta_time = Renderer::get_delta_time() * 1000;
     std::cout << delta_time<<'\n';
     Renderer::begin_drawing();
     Renderer::clear_background(Renderer::black);
     Game::controls();
 
-#ifdef NDEBUG
     Renderer::draw_text("Release mode", 67, 67, 20, Renderer::white);
-#else
     Renderer::draw_text("Debug mode", 67, 67, 20, Renderer::white);
     Renderer::draw_fps(10, 10);
 
     if (display) {
         display->tick();
-    }
-}
+    };
+};
