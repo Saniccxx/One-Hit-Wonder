@@ -1,7 +1,10 @@
 #include <iostream>
 #include "renderer.h"
+#include "game.h"
 
 int main() {
+    Game* game = new Game();
+    game->init();
 #ifdef NDEBUG
     std::cout << "Running in Release mode\n";
 #else
@@ -14,8 +17,10 @@ int main() {
 
     while (!Renderer::window_should_close())
     {
+        game->tick();
         Renderer::begin_drawing();
         Renderer::clear_background(Renderer::black);
+
 #ifdef NDEBUG
         Renderer::draw_text("Release mode", 67, 67, 20, Renderer::white);
 #else
