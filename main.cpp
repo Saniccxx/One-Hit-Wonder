@@ -4,13 +4,13 @@
 
 
 int main() {
-    constexpr int screenWidth = 1000;
-    constexpr int screenHeight = 500;
+    constexpr int screenWidth = 1920;
+    constexpr int screenHeight = 1080;
 
     Game* game = new Game(screenWidth, screenHeight);
     game->init();
 
-    Renderer::init_window(screenWidth, screenHeight, "major major major major");
+    Renderer::init_window(screenWidth, screenHeight, "One hit wonder™");
     Renderer::set_target_fps(60);
 
     while (!Renderer::window_should_close())
