@@ -1,5 +1,4 @@
-#ifndef BUTTON_H
-#define BUTTON_H
+#pragma once
 
 #include "raylib.h"
 #include <string>
@@ -25,5 +24,3 @@ private:
     bool isHovered;
     bool isClicked;
 };
-
-#endif
