@@ -18,7 +18,8 @@ add_executable(major_jam
         player.cpp
         camera.h
         camera.cpp
-        game_display.cpp)
+        game_display.cpp
+        musyka.cpp)
 
 # Dependencies
 set(RAYLIB_VERSION 6.0)
