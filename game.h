@@ -4,7 +4,7 @@ class Player;
 class Game {
     public:
     Game(int width, int height);
-    void tick();
+    void tick() const;
     void init();
     int width = 1920;
     int height = 1080;
