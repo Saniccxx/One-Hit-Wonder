@@ -21,6 +21,9 @@ add_executable(major_jam
         cpps/game_display.cpp
         cpps/assets.cpp
         headers/assets.h
+        headers/obstacle.h
+        cpps/obstacle.cpp)
+        headers/assets.h
         cpps/Button.cpp
         headers/Button.h)
 
