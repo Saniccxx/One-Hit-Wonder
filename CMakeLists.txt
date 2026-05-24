@@ -20,7 +20,9 @@ add_executable(major_jam
         cpps/camera.cpp
         cpps/game_display.cpp
         cpps/assets.cpp
-        headers/assets.h)
+        headers/assets.h
+        cpps/Button.cpp
+        headers/Button.h)
 
 # Dependencies
 set(RAYLIB_VERSION 6.0)
