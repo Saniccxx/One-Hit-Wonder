@@ -3,6 +3,7 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include <array>
 
 void Renderer::init_window(const int width, const int height, const char *title) {
     InitWindow(width, height, title);
@@ -68,6 +69,16 @@ std::vector<int> Renderer::controls(int mode) { // indeces 0-7 are respectively:
 Vector2 Renderer::get_mouse_pos() {
     Vector2 mousePos = GetMousePosition();
     return mousePos;
+}
+std::array<int,3> Renderer::get_mouse_clicks()
+{
+    std::array<int,3> clicks{};
+
+    clicks[0] = IsMouseButtonPressed(MOUSE_LEFT_BUTTON) ? 1 : 0;
+    clicks[1] = IsMouseButtonPressed(MOUSE_RIGHT_BUTTON) ? 1 : 0;
+    clicks[2] = IsMouseButtonPressed(MOUSE_MIDDLE_BUTTON) ? 1 : 0;
+
+    return clicks;
 }
 bool Renderer::is_enter_pressed() {
     return IsKeyPressed(KEY_ENTER);

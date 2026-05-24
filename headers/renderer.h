@@ -21,6 +21,7 @@ public:
     static void draw_line(int x1, int y1, int x2, int y2, Color color);
     static std::vector<int> controls(int mode);
     static Vector2  get_mouse_pos();
+    static std::array<int,3> get_mouse_clicks();
     static bool is_enter_pressed();
 
     static void set_target_fps(int fps);

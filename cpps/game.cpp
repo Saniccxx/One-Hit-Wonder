@@ -8,6 +8,7 @@
 #include "../headers/assets.h"
 #include <iostream>
 #include <typeinfo>
+#include <array>
 
 Game::Game(int width, int height): width(width), height(height)
 {
@@ -77,6 +78,9 @@ void Game::tick(){
     }
     Vector2 m= Renderer::get_mouse_pos();
     std::cout<<m.x<<" "<<m.y<<std::endl;
+    std::array<int,3> clicks{};
+    clicks = Renderer::get_mouse_clicks();
+    std::cout<<clicks[0]<<" "<<clicks[1]<<" "<<clicks[2]<<std::endl;
     Renderer::draw_fps(10, 10);
     GameCamera::end_mode();
 
