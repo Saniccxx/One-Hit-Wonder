@@ -11,5 +11,5 @@ class Game {
     int height = 1080;
     Player* player = nullptr;
     GameCamera* camera = nullptr;
-
+    void controls() const;
 };

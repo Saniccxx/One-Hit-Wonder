@@ -18,11 +18,18 @@ void Game::init() {
     camera = new GameCamera(width, height);
 }
 double delta_time = 0.0f;
+
+void Game::controls() const{
+    std::cout<<"aaa";
+
+}
+
 void Game::tick() const {
     delta_time = Renderer::get_delta_time() * 1000;
     std::cout << delta_time<<'\n';
     Renderer::begin_drawing();
     Renderer::clear_background(Renderer::black);
+    Game::controls();
 
 #ifdef NDEBUG
     Renderer::draw_text("Release mode", 67, 67, 20, Renderer::white);
