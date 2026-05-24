@@ -15,11 +15,11 @@ int main() {
     while (!Renderer::window_should_close())
     {
         Renderer::begin_drawing();
-        Renderer::clear_background(Renderer::black());
+        Renderer::clear_background(Renderer::black);
 #ifdef NDEBUG
-        Renderer::draw_text("Release mode", 67, 67, 20, Renderer::white());
+        Renderer::draw_text("Release mode", 67, 67, 20, Renderer::white);
 #else
-        Renderer::draw_text("Debug mode", 67, 67, 20, Renderer::white());
+        Renderer::draw_text("Debug mode", 67, 67, 20, Renderer::white);
         Renderer::draw_fps(10, 10);
 #endif
         Renderer::end_drawing();
