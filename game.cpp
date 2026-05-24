@@ -5,6 +5,7 @@
 #include "game_display.h"
 #include "renderer.h"
 #include <iostream>
+#include <typeinfo>
 
 Game::Game(int width, int height): width(width), height(height) {}
 
@@ -55,6 +56,9 @@ void Game::tick(){
     if (display) {
         display->tick();
     }
+#ifndef NDEBUG
+    Renderer::draw_text(typeid(*display).name(), 200, 10, 20, Renderer::white );
 
+#endif
     Renderer::end_drawing();
 };
