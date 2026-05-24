@@ -34,7 +34,7 @@ void StartDisplay::tick() {
     Renderer::draw_text("Major Jam", game.width / 2 - 120, game.height / 2 - 120, 50, Renderer::white);
 
     if (start_button) {
-        start_button->Update();
+        start_button->Update(*game.get_camera());
         start_button->Draw();
     }
 
