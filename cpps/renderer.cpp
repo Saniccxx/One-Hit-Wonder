@@ -28,8 +28,11 @@ void Renderer::clear_background(const Color color) {
     ClearBackground(color);
 }
 
-void Renderer::draw_text(const std::string& text, const int x, const int y, const int fontSize, const Color color) {
-    DrawText(text.c_str(), x, y, fontSize, color);
+// void Renderer::draw_text(const std::string& text, const int x, const int y, const int fontSize, const Color color) {
+//     DrawText(text.c_str(), x, y, fontSize, color);
+// }
+void Renderer::draw_text(const std::string_view text, const int x, const int y, const int fontSize, const Color color) {
+    DrawText(text.data(), x, y, fontSize, color);
 }
 
 void Renderer::draw_fps(const int x, const int y) {
@@ -62,7 +65,10 @@ std::vector<int> Renderer::controls(int mode) { // indeces 0-7 are respectively:
     }
     return keys;
 }
-
+Vector2 Renderer::get_mouse_pos() {
+    Vector2 mousePos = GetMousePosition();
+    return mousePos;
+}
 bool Renderer::is_enter_pressed() {
     return IsKeyPressed(KEY_ENTER);
 }
