@@ -28,7 +28,11 @@ add_executable(major_jam
         headers/Button.h
         headers/config.h
         headers/sequence.h
-        cpps/sequence.cpp)
+        cpps/sequence.cpp
+        cpps/jeff_the_display.cpp
+        headers/jeff_the_display.h
+        cpps/jeff.cpp
+        headers/jeff.h)
 
 # Dependencies
 set(RAYLIB_VERSION 6.0)

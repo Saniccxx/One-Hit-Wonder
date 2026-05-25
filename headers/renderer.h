@@ -3,6 +3,8 @@
 #include <raylib.h>
 #include <string>
 #include <vector>
+#include <utility>
+#include <array>
 
 class Renderer {
 public:
@@ -23,6 +25,10 @@ public:
     static Vector2  get_mouse_pos();
     static std::array<int,3> get_mouse_clicks();
     static bool is_enter_pressed();
+
+    static std::pair<int,int> get_movement();
+
+    static void draw_rectangle(int x, int y, int width, int height, Color color);
 
     static void set_target_fps(int fps);
     static double get_delta_time();

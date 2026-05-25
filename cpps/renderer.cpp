@@ -96,3 +96,18 @@ void Renderer::DrawImage(const Texture2D& texture, int x, int y, Color tint) {
     if (texture.id == 0) return; //notgut
     DrawTexture(texture, x, y, tint);
 }
+
+std::pair<int,int> Renderer::get_movement() {
+    int dx = 0;
+    int dy = 0;
+    if (IsKeyDown(KEY_D)) dx += 1;
+    if (IsKeyDown(KEY_A)) dx -= 1;
+    if (IsKeyDown(KEY_S)) dy += 1;
+    if (IsKeyDown(KEY_W)) dy -= 1;
+    return {dx, dy};
+}
+
+void Renderer::draw_rectangle(int x, int y, int width, int height, Color color) {
+    DrawRectangle(x, y, width, height, color);
+}
+
