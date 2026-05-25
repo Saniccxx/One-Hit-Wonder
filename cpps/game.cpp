@@ -51,7 +51,7 @@ void Game::init() {
     }
     display->init();
     images = load_all_images("Resources/Images");
-    sequence=std::make_unique<Sequence>(std::vector{1,2,3},0);
+    sequence=std::make_unique<Sequence>(std::vector{1,2,3});
 
 }
 
@@ -61,7 +61,9 @@ double delta_time = 0.0f;
 
 void Game::tick(){
     sequence->test();
-    std::cout<<sequence->zmienna<<"zmienna";
+    sequence->get_key();
+    sequence->progress();
+
 
     if (pending_display) {
         set_display(std::move(pending_display));
