@@ -60,9 +60,10 @@ double delta_time = 0.0f;
 
 
 void Game::tick(){
-    sequence->test();
-    sequence->get_key();
-    sequence->progress();
+
+    sequence->check();
+    sequence->play();
+
 
 
     if (pending_display) {

@@ -24,8 +24,9 @@ int main() {
 
     int hz = Renderer::get_monitor_refresh_rate();
     Renderer::set_target_fps(hz);
-
+    
     while (!Renderer::window_should_close())
+
     {
         static bool wasHeld = false;
         bool isHeld = IsKeyDown(KEY_T);
