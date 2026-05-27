@@ -2,7 +2,7 @@
 #include "../headers/camera.h"
 #include "raylib.h"
 
-Button::Button(float x, float y, float width, float height, const std::string& text, int textSize, Color textColor, Color buttonColor, Color hoverColor, Color clickColor)
+Button::Button(float x, float y, float width, float height, const std::string_view text, int textSize, Color textColor, Color buttonColor, Color hoverColor, Color clickColor)
     : rect{ x, y, width, height }, text(text), textSize(textSize), textColor(textColor), buttonColor(buttonColor), hoverColor(hoverColor), clickColor(clickColor), isHovered(false), isClicked(false) {}
 
 void Button::Update(const GameCamera& camera) {
@@ -36,6 +36,6 @@ bool Button::IsClicked() const {
     return isClicked;
 }
 
-void Button::SetText(const std::string& newText) {
+void Button::SetText(const std::string_view newText) {
     text = newText;
 }

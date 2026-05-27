@@ -11,11 +11,8 @@ void Player::tick(float delta_time) {
     std::cout << y << " | " << note << std::endl;
     Renderer::draw_line(500, min_y, 500, max_y, Renderer::white);
     note = get_note();
-    target_y = (float)min_y + bar_height * note;
+    target_y = static_cast<float>(min_y) + bar_height * note;
     std::cout << target_y << std::endl;
-
-
-
 }
 
 int Player::get_note() {

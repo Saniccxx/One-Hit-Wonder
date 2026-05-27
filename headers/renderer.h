@@ -16,7 +16,6 @@ public:
     static void end_drawing();
     static void clear_background(Color color);
 
-    //static void draw_text(const std::string& text, int x, int y, int fontSize, Color color);
     static void draw_text(std::string_view text, int x, int y, int fontSize, Color color);
     static void draw_fps(int x, int y);
     static void draw_circle(int x, int y, int radius, Color color);

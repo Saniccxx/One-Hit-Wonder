@@ -8,11 +8,11 @@ class GameCamera;
 
 class Button {
 public:
-    Button(float x, float y, float width, float height, const std::string& text, int textSize, Color textColor, Color buttonColor, Color hoverColor, Color clickColor);
+    Button(float x, float y, float width, float height, const std::string_view text, int textSize, Color textColor, Color buttonColor, Color hoverColor, Color clickColor);
     void Update(const GameCamera& camera);
     void Draw() const;
     bool IsClicked() const;
-    void SetText(const std::string& newText);
+    void SetText(const std::string_view newText);
 
 private:
     Rectangle rect;

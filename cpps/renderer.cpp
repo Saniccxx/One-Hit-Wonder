@@ -29,9 +29,6 @@ void Renderer::clear_background(const Color color) {
     ClearBackground(color);
 }
 
-// void Renderer::draw_text(const std::string& text, const int x, const int y, const int fontSize, const Color color) {
-//     DrawText(text.c_str(), x, y, fontSize, color);
-// }
 void Renderer::draw_text(const std::string_view text, const int x, const int y, const int fontSize, const Color color) {
     DrawText(text.data(), x, y, fontSize, color);
 }
