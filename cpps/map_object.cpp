@@ -2,8 +2,8 @@
 #include "../headers/renderer.h"
 #include <cmath>
 
-MapObject::MapObject(float x, float y, float radius, std::string_view text)
-    : x(x), y(y), radius(radius), text(text) {}
+MapObject::MapObject(float x, float y, bool has_collision, float radius, std::string_view text)
+    : x(x), y(y), has_collision(has_collision), radius(radius), text(text) {}
 
 void MapObject::tick(float player_x, float player_y) {
     Renderer::draw_circle(static_cast<int>(x), static_cast<int>(y), 40, Renderer::black);
@@ -17,4 +17,8 @@ void MapObject::tick(float player_x, float player_y) {
         Renderer::draw_text(text, static_cast<int>(x) - 90, static_cast<int>(y) - 110, 40, Renderer::green);
     }
 }
+    bool has_collision(float dx, float dy) {
+    return false; //dokoncze to pozniej
+}
+
 

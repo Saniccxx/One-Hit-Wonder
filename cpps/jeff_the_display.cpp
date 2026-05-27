@@ -13,7 +13,7 @@ JeffTheDisplay::~JeffTheDisplay() = default;
 
 void JeffTheDisplay::init() {
     player = std::make_unique<MapPlayer>(game, 500.0f, 200.0f);
-    interact_obj = std::make_unique<MapObject>(600.0f, 300.0f, 100.0f, "GET OUT!!! IM 13 YOU PERVERT");
+    interact_obj = std::make_unique<MapObject>(600.0f, 300.0f, false, 100.0f, "GET OUT!!! IM 13 YOU PERVERT");
 }
 
 void JeffTheDisplay::tick() {
