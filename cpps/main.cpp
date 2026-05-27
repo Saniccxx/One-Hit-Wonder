@@ -4,6 +4,14 @@
 #include "../headers/game.h"
 #include "../headers/config.h"
 
+struct PianoKey {
+    int key;
+    Sound sound;
+    bool wasHeld = false;
+    bool isFading = false;
+    float volume = 1.0f;
+};
+
 int main() {
     Renderer::init_window(config::screenWidth, config::screenHeight, "One hit wonder™");
     Game* game = new Game(config::screenWidth, config::screenHeight);
@@ -22,52 +30,53 @@ int main() {
     Sound C2 = LoadSound("Resources/C2.wav");
     Sound retry = LoadSound("Resources/retry2.wav");
 
+    PianoKey pianoKeys[] = {
+        { KEY_T, C },
+        { KEY_Y, D },
+        { KEY_U, E },
+        { KEY_I, F },
+        { KEY_O, G },
+        { KEY_P, A },
+        { KEY_LEFT_BRACKET, B },
+        { KEY_RIGHT_BRACKET, C2 }
+    };
+
     int hz = Renderer::get_monitor_refresh_rate();
     Renderer::set_target_fps(hz);
     
     while (!Renderer::window_should_close())
 
     {
-        static bool wasHeld = false;
-        bool isHeld = IsKeyDown(KEY_T);
-        if (isHeld && !wasHeld) PlaySound(C);
-        if (!isHeld && wasHeld) StopSound(C);
-        wasHeld = isHeld;
-        static bool wasHeld2 = false;
-        bool isHeld2 = IsKeyDown(KEY_Y);
-        if (isHeld2 && !wasHeld2) PlaySound(D);
-        if (!isHeld2 && wasHeld2) StopSound(D);
-        wasHeld2 = isHeld2;
-        static bool wasHeld3 = false;
-        bool isHeld3 = IsKeyDown(KEY_U);
-        if (isHeld3 && !wasHeld3) PlaySound(E);
-        if (!isHeld3 && wasHeld3) StopSound(E);
-        wasHeld3 = isHeld3;
-        static bool wasHeld4 = false;
-        bool isHeld4 = IsKeyDown(KEY_I);
-        if (isHeld4 && !wasHeld4) PlaySound(F);
-        if (!isHeld4 && wasHeld4) StopSound(F);
-        wasHeld4 = isHeld4;
-        static bool wasHeld5 = false;
-        bool isHeld5 = IsKeyDown(KEY_O);
-        if (isHeld5 && !wasHeld5) PlaySound(G);
-        if (!isHeld5 && wasHeld5) StopSound(G);
-        wasHeld5 = isHeld5;
-        static bool wasHeld6 = false;
-        bool isHeld6 = IsKeyDown(KEY_P);
-        if (isHeld6 && !wasHeld6) PlaySound(A);
-        if (!isHeld6 && wasHeld6) StopSound(A);
-        wasHeld6 = isHeld6;
-        static bool wasHeld7 = false;
-        bool isHeld7 = IsKeyDown(KEY_LEFT_BRACKET);
-        if (isHeld7 && !wasHeld7) PlaySound(B);
-        if (!isHeld7 && wasHeld7) StopSound(B);
-        wasHeld7 = isHeld7;
-        static bool wasHeld8 = false;
-        bool isHeld8 = IsKeyDown(KEY_RIGHT_BRACKET);
-        if (isHeld8 && !wasHeld8) PlaySound(C2);
-        if (!isHeld8 && wasHeld8) StopSound(C2);
-        wasHeld8 = isHeld8;
+        float dt = GetFrameTime();
+
+        for (auto& pk : pianoKeys) {
+            bool isHeld = IsKeyDown(pk.key);
+
+            if (isHeld && !pk.wasHeld) {
+                pk.isFading = false;
+                pk.volume = 1.0f;
+                SetSoundVolume(pk.sound, pk.volume);
+
+                PlaySound(pk.sound);
+            }
+
+            if (!isHeld && pk.wasHeld) {
+                pk.isFading = true;
+            }
+
+            if (pk.isFading) {
+                pk.volume -= 15.0f * dt;
+                if (pk.volume <= 0.0f) {
+                    pk.volume = 0.0f;
+                    pk.isFading = false;
+                    StopSound(pk.sound);
+                }
+                SetSoundVolume(pk.sound, pk.volume);
+            }
+
+            pk.wasHeld = isHeld;
+        }
+
         if (IsKeyPressed(KEY_BACKSPACE)) PlaySound(retry);
         game->tick();
     }

@@ -67,8 +67,9 @@ void Sequence::progress() {
     if (current_note>=0){
 
         std::cout<<current_note<<std::endl;
-        std::cout<<notes[0]<<std::endl;
-        if (notes[level]==current_note) {
+        if (notes.size() > 0) std::cout<<notes[0]<<std::endl;
+
+        if (level < length && notes[level]==current_note) {
             std::cout<<"ccc";
             level++;
             if (level==length) {
@@ -76,6 +77,7 @@ void Sequence::progress() {
                 std::cout << "Completed " << completed << " pressed\n";
             }
         }
+        else if (level >= length) {}
         else {
             std::cout << "Wrong note, reset";
             level=0;
