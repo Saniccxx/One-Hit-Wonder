@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "display.h"
+#include "interaction_object.h"
 
 class Game;
 class Jeff;
@@ -17,5 +18,5 @@ public:
 private:
     Game& game;
     std::unique_ptr<Jeff> player;
+    std::unique_ptr<InteractionObject> interact_obj;
 };
-

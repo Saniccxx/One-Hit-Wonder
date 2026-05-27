@@ -32,7 +32,9 @@ add_executable(major_jam
         cpps/jeff_the_display.cpp
         headers/jeff_the_display.h
         cpps/jeff.cpp
-        headers/jeff.h)
+        headers/jeff.h
+        cpps/interaction_object.cpp
+        headers/interaction_object.h)
 
 # Dependencies
 set(RAYLIB_VERSION 6.0)

@@ -14,8 +14,8 @@ private:
 	Game& game;
 	float x;
 	float y;
-	int size = 400;
-	float speed = 240.0f*0.01;
+	int size = 40;
+	float speed = 60.0f*0.01;
 };
 
 

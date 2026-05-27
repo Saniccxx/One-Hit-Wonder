@@ -37,5 +37,8 @@ public:
 
     static constexpr auto black = BLACK;
     static constexpr auto white = WHITE;
+    static constexpr auto red = RED;
+    static constexpr auto green = GREEN;
+    static constexpr auto blue = BLUE;
 
 };
