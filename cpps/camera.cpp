@@ -8,6 +8,7 @@ GameCamera::GameCamera(const int width, const int height)
     const float zoom = std::min(width_f / REFERENCE_WIDTH, height_f / REFERENCE_HEIGHT);
 
     camera.target = {REFERENCE_WIDTH / 2.0f, REFERENCE_HEIGHT / 2.0f};
+    target_pos = camera.target;
     camera.offset = {width_f / 2.0f, height_f / 2.0f};
     camera.rotation = 0.0f;
     camera.zoom = zoom;
@@ -19,6 +20,17 @@ void GameCamera::begin_mode() const {
 
 void GameCamera::end_mode() {
     EndMode2D();
+}
+
+void GameCamera::update(float delta_time) {
+    float smoothness = 5.0f;
+    float dt_sec = delta_time / 1000.0f;
+    camera.target.x += (target_pos.x - camera.target.x) * smoothness * dt_sec;
+    camera.target.y += (target_pos.y - camera.target.y) * smoothness * dt_sec;
+}
+
+void GameCamera::set_target(Vector2 new_target) {
+    target_pos = new_target;
 }
 
 const Camera2D& GameCamera::get_camera() const {

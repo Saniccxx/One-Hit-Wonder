@@ -85,6 +85,9 @@ void Game::tick(){
     if (display) {
         display->tick();
     }
+
+    camera->update(delta_time);
+
     Vector2 m= Renderer::get_mouse_pos();
     std::cout<<m.x<<" "<<m.y<<std::endl;
     std::array<int,3> clicks{};

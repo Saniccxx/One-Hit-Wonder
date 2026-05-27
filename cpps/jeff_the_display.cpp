@@ -21,6 +21,6 @@ void JeffTheDisplay::tick() {
 
     if (player) {
         player->tick(static_cast<float>(game.get_delta_time()));
+        game.get_camera()->set_target({player->get_x(), player->get_y()});
     }
 }
-
