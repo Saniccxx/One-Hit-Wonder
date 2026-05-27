@@ -4,7 +4,7 @@
 #include <iostream>
 #include "../headers/camera.h"
 #include "../headers/game.h"
-#include "../headers/jeff.h"
+#include "../headers/map_player.h"
 #include "../headers/renderer.h"
 
 JeffTheDisplay::JeffTheDisplay(Game& game): game(game) {}
@@ -12,8 +12,8 @@ JeffTheDisplay::JeffTheDisplay(Game& game): game(game) {}
 JeffTheDisplay::~JeffTheDisplay() = default;
 
 void JeffTheDisplay::init() {
-    player = std::make_unique<Jeff>(game, 500.0f, 200.0f);
-    interact_obj = std::make_unique<InteractionObject>(600.0f, 300.0f, 100.0f, "GET OUT!!! IM 13 YOU PERVERT");
+    player = std::make_unique<MapPlayer>(game, 500.0f, 200.0f);
+    interact_obj = std::make_unique<MapObject>(600.0f, 300.0f, 100.0f, "GET OUT!!! IM 13 YOU PERVERT");
 }
 
 void JeffTheDisplay::tick() {

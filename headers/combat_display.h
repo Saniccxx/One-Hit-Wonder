@@ -4,7 +4,7 @@
 #include "display.h"
 
 class Game;
-class Player;
+class CombatPlayer;
 class Button;
 
 class CombatDisplay : public Display {
@@ -17,7 +17,7 @@ public:
 
 private:
     Game& game;
-    std::unique_ptr<Player> player;
+    std::unique_ptr<CombatPlayer> player;
     std::unique_ptr<Button> button;
 };
 

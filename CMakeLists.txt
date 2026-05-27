@@ -14,15 +14,15 @@ add_executable(major_jam
         headers/start_display.h
         cpps/start_display.cpp
         headers/display.h
-        headers/player.h
-        cpps/player.cpp
+        headers/combat_player.h
+        cpps/combat_player.cpp
         headers/camera.h
         cpps/camera.cpp
         cpps/combat_display.cpp
         cpps/assets.cpp
         headers/assets.h
-        headers/obstacle.h
-        cpps/obstacle.cpp
+        headers/combat_obstacle.h
+        cpps/combat_obstacle.cpp
         headers/assets.h
         cpps/Button.cpp
         headers/Button.h
@@ -31,10 +31,10 @@ add_executable(major_jam
         cpps/sequence.cpp
         cpps/jeff_the_display.cpp
         headers/jeff_the_display.h
-        cpps/jeff.cpp
-        headers/jeff.h
-        cpps/interaction_object.cpp
-        headers/interaction_object.h)
+        cpps/map_player.cpp
+        headers/map_player.h
+        cpps/map_object.cpp
+        headers/map_object.h)
 
 # Dependencies
 set(RAYLIB_VERSION 6.0)

@@ -2,9 +2,9 @@
 
 #include <string>
 
-class InteractionObject {
+class MapObject {
 public:
-    InteractionObject(float x, float y, float radius, std::string_view text);
+    MapObject(float x, float y, float radius, std::string_view text);
     void tick(float player_x, float player_y);
 
 private:

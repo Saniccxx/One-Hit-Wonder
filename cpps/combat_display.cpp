@@ -5,7 +5,7 @@
 
 #include "../headers/camera.h"
 #include "../headers/game.h"
-#include "../headers/player.h"
+#include "../headers/combat_player.h"
 #include "../headers/Button.h"
 #include "../headers/jeff_the_display.h"
 #include "../headers/renderer.h"
@@ -20,7 +20,7 @@ void CombatDisplay::init() {
 #else
     std::cout << "Running in Debug mode\n";
 #endif
-    player = std::make_unique<Player>(500, 200, game);
+    player = std::make_unique<CombatPlayer>(500, 200, game);
     button = std::make_unique<Button>(50.0f, 150.0f, 220.0f, 60.0f, "Enable Jeff Mode", 24, BLACK, SKYBLUE, LIGHTGRAY, DARKBLUE);
 }
 

@@ -2,9 +2,9 @@
 
 class Game;
 
-class Jeff {
+class MapPlayer {
 public:
-	Jeff(Game& game, float x, float y);
+	MapPlayer(Game& game, float x, float y);
 	void tick(float delta_time);
 
     [[nodiscard]] float get_x() const { return x + size/2; }

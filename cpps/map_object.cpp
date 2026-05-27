@@ -1,11 +1,11 @@
-#include "../headers/interaction_object.h"
+#include "../headers/map_object.h"
 #include "../headers/renderer.h"
 #include <cmath>
 
-InteractionObject::InteractionObject(float x, float y, float radius, std::string_view text)
+MapObject::MapObject(float x, float y, float radius, std::string_view text)
     : x(x), y(y), radius(radius), text(text) {}
 
-void InteractionObject::tick(float player_x, float player_y) {
+void MapObject::tick(float player_x, float player_y) {
     Renderer::draw_circle(static_cast<int>(x), static_cast<int>(y), 40, Renderer::black);
 
     float dx = player_x - x;

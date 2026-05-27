@@ -1,12 +1,12 @@
 
 
-#include "../headers/jeff.h"
+#include "../headers/map_player.h"
 #include "../headers/renderer.h"
 #include "../headers/game.h"
 
-Jeff::Jeff(Game& game, float x, float y): game(game), x(x), y(y) {}
+MapPlayer::MapPlayer(Game& game, float x, float y): game(game), x(x), y(y) {}
 
-void Jeff::tick(float delta_time) {
+void MapPlayer::tick(float delta_time) {
 	auto mv = Renderer::get_movement();
 	int dx = mv.first;
 	int dy = mv.second;
