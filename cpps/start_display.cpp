@@ -2,7 +2,7 @@
 
 
 #include "../headers/game.h"
-#include "../headers/game_display.h"
+#include "../headers/combat_display.h"
 #include "../headers/renderer.h"
 #include "../headers/Button.h"
 
@@ -39,7 +39,7 @@ void StartDisplay::tick() {
     }
 
     if (start_button && start_button->IsClicked()) {
-        auto display = std::make_unique<GameDisplay>(game);
+        auto display = std::make_unique<CombatDisplay>(game);
         game.request_display_change(std::move(display));
     }
 }

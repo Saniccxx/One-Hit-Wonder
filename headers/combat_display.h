@@ -7,10 +7,10 @@ class Game;
 class Player;
 class Button;
 
-class GameDisplay : public Display {
+class CombatDisplay : public Display {
 public:
-    explicit GameDisplay(Game& game);
-    ~GameDisplay() override;
+    explicit CombatDisplay(Game& game);
+    ~CombatDisplay() override;
 
     void init() override;
     void tick() override;

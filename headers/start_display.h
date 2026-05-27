@@ -4,7 +4,7 @@
 #include <memory>
 
 class Game;
-class GameDisplay;
+class CombatDisplay;
 class Button;
 
 class StartDisplay : public Display {

@@ -3,7 +3,7 @@
 #include "../headers/display.h"
 #include "../headers/camera.h"
 #include "../headers/start_display.h"
-#include "../headers/game_display.h"
+#include "../headers/combat_display.h"
 #include "../headers/renderer.h"
 #include "../headers/assets.h"
 #include <iostream>

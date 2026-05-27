@@ -9,8 +9,8 @@ add_executable(major_jam
         headers/renderer.h
         headers/game.h
         cpps/game.cpp
-        headers/game_display.h
-        cpps/game_display.cpp
+        headers/combat_display.h
+        cpps/combat_display.cpp
         headers/start_display.h
         cpps/start_display.cpp
         headers/display.h
@@ -18,7 +18,7 @@ add_executable(major_jam
         cpps/player.cpp
         headers/camera.h
         cpps/camera.cpp
-        cpps/game_display.cpp
+        cpps/combat_display.cpp
         cpps/assets.cpp
         headers/assets.h
         headers/obstacle.h

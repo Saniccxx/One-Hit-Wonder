@@ -1,4 +1,4 @@
-#include "../headers/game_display.h"
+#include "../headers/combat_display.h"
 
 #include <format>
 #include <iostream>
@@ -10,11 +10,11 @@
 #include "../headers/jeff_the_display.h"
 #include "../headers/renderer.h"
 
-GameDisplay::GameDisplay(Game& game): game(game) {}
+CombatDisplay::CombatDisplay(Game& game): game(game) {}
 
-GameDisplay::~GameDisplay() = default;
+CombatDisplay::~CombatDisplay() = default;
 
-void GameDisplay::init() {
+void CombatDisplay::init() {
 #ifdef NDEBUG
     std::cout << "Running in Release mode\n";
 #else
@@ -24,7 +24,7 @@ void GameDisplay::init() {
     button = std::make_unique<Button>(50.0f, 150.0f, 220.0f, 60.0f, "Enable Jeff Mode", 24, BLACK, SKYBLUE, LIGHTGRAY, DARKBLUE);
 }
 
-void GameDisplay::tick() {
+void CombatDisplay::tick() {
     const auto delta_time = game.get_delta_time();
 
 #ifdef NDEBUG
