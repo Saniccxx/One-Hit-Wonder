@@ -1,15 +1,23 @@
 #include "../headers/renderer.h"
+#include "../headers/config.h"
 #include <raylib.h>
 #include <string>
 #include <iostream>
 #include <vector>
 #include <array>
 
+RenderTexture2D Renderer::target = {0};
+Shader Renderer::bloom = {0};
+
 void Renderer::init_window(const int width, const int height, const char *title) {
     InitWindow(width, height, title);
+    target = LoadRenderTexture(width, height);
+    bloom = LoadShader(0, "Resources/shaders/bloom.fs");
 }
 
 void Renderer::close_window() {
+    UnloadShader(bloom);
+    UnloadRenderTexture(target);
     CloseWindow();
 }
 
@@ -18,10 +26,26 @@ bool Renderer::window_should_close() {
 }
 
 void Renderer::begin_drawing() {
-    BeginDrawing();
+    BeginTextureMode(target);
 }
 
 void Renderer::end_drawing() {
+    EndTextureMode();
+
+    BeginDrawing();
+    ClearBackground(BLACK);
+
+    if (config::enableBloom) {
+        BeginShaderMode(bloom);
+    }
+    DrawTextureRec(target.texture,
+        Rectangle{ 0, 0, (float)target.texture.width, (float)-target.texture.height },
+        Vector2{ 0, 0 },
+        WHITE);
+    if (config::enableBloom) {
+        EndShaderMode();
+    }
+
     EndDrawing();
 }
 

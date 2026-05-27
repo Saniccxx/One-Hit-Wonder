@@ -41,4 +41,7 @@ public:
     static constexpr auto green = GREEN;
     static constexpr auto blue = BLUE;
 
+private:
+    static RenderTexture2D target;
+    static Shader bloom;
 };
