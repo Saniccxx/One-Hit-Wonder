@@ -2,8 +2,8 @@
 #include "../headers/renderer.h"
 #include <cmath>
 
-InteractionObject::InteractionObject(float x, float y, float radius, std::string text)
-    : x(x), y(y), radius(radius), text(std::move(text)) {}
+InteractionObject::InteractionObject(float x, float y, float radius, std::string_view text)
+    : x(x), y(y), radius(radius), text(text) {}
 
 void InteractionObject::tick(float player_x, float player_y) {
     Renderer::draw_circle(static_cast<int>(x), static_cast<int>(y), 40, Renderer::black);
