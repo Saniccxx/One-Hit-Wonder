@@ -14,7 +14,7 @@ out vec4 finalColor;
 
 const vec2 size = vec2(800, 450);   // Framebuffer size
 const float samples = 9.0;          // Pixels per axis; higher = bigger glow, worse performance
-const float quality = 1;          // Defines size factor: Lower = smaller glow, better quality
+const float quality = 0.1;          // Defines size factor: Lower = smaller glow, better quality
 
 void main()
 {

@@ -41,6 +41,15 @@ double Game::get_delta_time() const {
     return delta_time;
 }
 
+Texture2D Game::get_texture(std::string_view name) const {
+    for (const auto& img : images) {
+        if (img.path.find(name) != std::string::npos) {
+            return img.tex;
+        }
+    }
+    return {0};
+}
+
 void Game::init() {
     if (!camera) {
         camera = std::make_unique<GameCamera>(width, height);
