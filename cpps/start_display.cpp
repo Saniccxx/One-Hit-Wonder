@@ -5,6 +5,7 @@
 #include "../headers/combat_display.h"
 #include "../headers/renderer.h"
 #include "../headers/Button.h"
+#include "../headers/settings_display.h"
 
 StartDisplay::StartDisplay(Game& game): game(game) {}
 
@@ -18,7 +19,7 @@ void StartDisplay::init() {
 
     start_button = std::make_unique<Button>(
         x,
-        y,
+        y - button_height / 2 - 10,
         button_width,
         button_height,
         "Start Game",
@@ -28,18 +29,41 @@ void StartDisplay::init() {
         BLUE,
         SKYBLUE
     );
+
+    settings_button = std::make_unique<Button>(
+        x,
+        y + button_height / 2 + 10,
+        button_width,
+        button_height,
+        "Settings",
+        36,
+        WHITE,
+        DARKBLUE,
+        BLUE,
+        SKYBLUE
+    );
 }
 
 void StartDisplay::tick() {
-    Renderer::draw_text("Major Jam", game.width / 2 - 120, game.height / 2 - 120, 50, Renderer::white);
+    Renderer::draw_text("Major Jam", game.width / 2 - 120, game.height / 2 - 180, 50, Renderer::white);
 
     if (start_button) {
         start_button->Update(*game.get_camera());
         start_button->Draw();
     }
 
+    if (settings_button) {
+        settings_button->Update(*game.get_camera());
+        settings_button->Draw();
+    }
+
     if (start_button && start_button->IsClicked()) {
         auto display = std::make_unique<CombatDisplay>(game);
+        game.request_display_change(std::move(display));
+    }
+
+    if (settings_button && settings_button->IsClicked()) {
+        auto display = std::make_unique<SettingsDisplay>(game);
         game.request_display_change(std::move(display));
     }
 }

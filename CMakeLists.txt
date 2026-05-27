@@ -34,7 +34,9 @@ add_executable(major_jam
         cpps/map_player.cpp
         headers/map_player.h
         cpps/map_object.cpp
-        headers/map_object.h)
+        headers/map_object.h
+        headers/settings_display.h
+        cpps/settings_display.cpp)
 
 # Dependencies
 set(RAYLIB_VERSION 6.0)
