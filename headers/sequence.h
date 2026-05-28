@@ -1,7 +1,7 @@
 #pragma once
 #include <array>
 #include <vector>
-#include "raylib.h"
+#include "renderer.h"
 #include <unordered_map>
 
 class Sequence {

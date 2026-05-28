@@ -1,6 +1,6 @@
 #pragma once
 
-#include <raylib.h>
+#include "renderer.h"
 
 class GameCamera {
 public:

@@ -114,11 +114,34 @@ int Renderer::get_monitor_refresh_rate() {
 }
 
 void Renderer::DrawImage(const Texture2D& texture, int x, int y, Color tint) {
-    if (texture.id == 0) return; //notgut
     DrawTexture(texture, x, y, tint);
 }
 
-std::pair<int,int> Renderer::get_movement() {
+void Renderer::init_audio_device() { InitAudioDevice(); }
+Sound Renderer::load_sound(const char *fileName) { return LoadSound(fileName); }
+void Renderer::play_sound(Sound sound) { PlaySound(sound); }
+void Renderer::set_sound_volume(Sound sound, float volume) { SetSoundVolume(sound, volume); }
+void Renderer::stop_sound(Sound sound) { StopSound(sound); }
+float Renderer::get_frame_time() { return GetFrameTime(); }
+bool Renderer::is_key_down(int key) { return IsKeyDown(key); }
+bool Renderer::is_key_pressed(int key) { return IsKeyPressed(key); }
+
+Texture2D Renderer::load_texture(const char *fileName) { return LoadTexture(fileName); }
+void Renderer::unload_texture(Texture2D texture) { UnloadTexture(texture); }
+FilePathList Renderer::load_directory_files_ex(const char *basePath, const char *filter, bool scanSubdirs) { return LoadDirectoryFilesEx(basePath, filter, scanSubdirs); }
+void Renderer::unload_directory_files(FilePathList files) { UnloadDirectoryFiles(files); }
+
+bool Renderer::check_collision_point_rec(Vector2 point, Rectangle rec) { return CheckCollisionPointRec(point, rec); }
+void Renderer::draw_rectangle_rec(Rectangle rec, Color color) { DrawRectangleRec(rec, color); }
+int Renderer::measure_text(const char *text, int fontSize) { return MeasureText(text, fontSize); }
+void Renderer::begin_mode_2d(Camera2D camera) { BeginMode2D(camera); }
+void Renderer::end_mode_2d() { EndMode2D(); }
+Vector2 Renderer::get_screen_to_world_2d(Vector2 position, Camera2D camera) { return GetScreenToWorld2D(position, camera); }
+void Renderer::draw_circle_lines(int centerX, int centerY, float radius, Color color) { DrawCircleLines(centerX, centerY, radius, color); }
+void Renderer::draw_texture_pro(Texture2D texture, Rectangle source, Rectangle dest, Vector2 origin, float rotation, Color tint) { DrawTexturePro(texture, source, dest, origin, rotation, tint); }
+bool Renderer::is_mouse_button_pressed(int button) { return IsMouseButtonPressed(button); }
+
+std::pair<int, int> Renderer::get_movement() {
     int dx = 0;
     int dy = 0;
     if (IsKeyDown(KEY_D)) dx += 1;
@@ -131,4 +154,3 @@ std::pair<int,int> Renderer::get_movement() {
 void Renderer::draw_rectangle(int x, int y, int width, int height, Color color) {
     DrawRectangle(x, y, width, height, color);
 }
-

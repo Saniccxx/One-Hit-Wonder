@@ -1,18 +1,18 @@
 #include "../headers/sequence.h"
+#include "../headers/renderer.h"
 #include <iostream>
-#include "raylib.h"
 
 
 Sequence::Sequence(std::vector<int> notes) {
     this->notes=notes;
-    C = LoadSound("../Resources/C.wav");
-    D = LoadSound("../Resources/D.wav");
-    E = LoadSound("../Resources/E.wav");
-    F = LoadSound("../Resources/F.wav");
-    G = LoadSound("../Resources/G.wav");
-    A = LoadSound("../Resources/A.wav");
-    B = LoadSound("../Resources/B.wav");
-    C2 = LoadSound("../Resources/C2.wav");
+    C = Renderer::load_sound("../Resources/C.wav");
+    D = Renderer::load_sound("../Resources/D.wav");
+    E = Renderer::load_sound("../Resources/E.wav");
+    F = Renderer::load_sound("../Resources/F.wav");
+    G = Renderer::load_sound("../Resources/G.wav");
+    A = Renderer::load_sound("../Resources/A.wav");
+    B = Renderer::load_sound("../Resources/B.wav");
+    C2 = Renderer::load_sound("../Resources/C2.wav");
     plays = {
         {0, C},
         {1, D},
@@ -41,13 +41,13 @@ void Sequence::add_level() {
 void Sequence::get_key() {
     int a=0;
     for (auto& pair : keys) {
-        if (IsKeyPressed(pair.first)) {
+        if (Renderer::is_key_pressed(pair.first)) {
             int index = pair.second;
             std::cout << "Key index " << index << " pressed\n";
             a=1;
             current_note=index;
         }
-    if (IsKeyPressed(KEY_BACKSPACE)) {
+    if (Renderer::is_key_pressed(KEY_BACKSPACE)) {
         a=1;
         current_note=-2;
     }
@@ -95,7 +95,7 @@ void Sequence::check() {
 void Sequence::play() {
     if (timer==0) {
         std::cout<<"start-play";
-        PlaySound(C);
+        Renderer::play_sound(C);
         timer++;
     }
     else {

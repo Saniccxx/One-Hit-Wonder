@@ -1,7 +1,7 @@
 #pragma once
 #include <memory>
 #include <vector>
-#include "raylib.h"
+#include "renderer.h"
 #include "sequence.h"
 
 class Display;

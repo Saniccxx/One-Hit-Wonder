@@ -15,11 +15,11 @@ GameCamera::GameCamera(const int width, const int height)
 }
 
 void GameCamera::begin_mode() const {
-    BeginMode2D(camera);
+    Renderer::begin_mode_2d(camera);
 }
 
 void GameCamera::end_mode() {
-    EndMode2D();
+    Renderer::end_mode_2d();
 }
 
 void GameCamera::update(float delta_time) {
@@ -36,4 +36,3 @@ void GameCamera::set_target(Vector2 new_target) {
 const Camera2D& GameCamera::get_camera() const {
     return camera;
 }
-

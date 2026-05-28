@@ -22,7 +22,7 @@ void MapObject::tick(float player_x, float player_y, double delta_time) {
         Rectangle dest = {x, y, render_size, render_size};
         Vector2 origin = {render_size / 2.0f, render_size / 2.0f};
 
-        DrawTexturePro(texture, source, dest, origin, 0.0f, WHITE);
+        Renderer::draw_texture_pro(texture, source, dest, origin, 0.0f, Renderer::white);
     } else {
         Renderer::draw_circle(static_cast<int>(x), static_cast<int>(y), 40, Renderer::black);
     }
@@ -37,11 +37,9 @@ void MapObject::tick(float player_x, float player_y, double delta_time) {
     }
 
 #ifndef NDEBUG
-    DrawCircleLines(static_cast<int>(x), static_cast<int>(y), radius, RED);
+    Renderer::draw_circle_lines(static_cast<int>(x), static_cast<int>(y), radius, Renderer::red);
 #endif
 }
     bool has_collision(float dx, float dy) {
     return false; //dokoncze to pozniej
 }
-
-

@@ -31,7 +31,7 @@ void SettingsDisplay::init() {
 void SettingsDisplay::tick() {
     const char* text = "nothing there yet, also i use arch btw";
     int font_size = 50;
-    int text_width = MeasureText(text, font_size);
+    int text_width = Renderer::measure_text(text, font_size);
     Renderer::draw_text(text, game.width / 2 - text_width / 2, game.height / 2 - 120, font_size, Renderer::white);
 
     if (back_button) {

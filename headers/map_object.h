@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>
-#include <raylib.h>
+#include "renderer.h"
 
 class MapObject {
 public:

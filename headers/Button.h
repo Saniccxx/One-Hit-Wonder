@@ -1,7 +1,7 @@
 #ifndef BUTTON_H
 #define BUTTON_H
 
-#include "raylib.h"
+#include "renderer.h"
 #include <string>
 
 class GameCamera;
