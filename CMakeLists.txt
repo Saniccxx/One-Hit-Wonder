@@ -9,29 +9,45 @@ add_executable(major_jam
         headers/renderer.h
         headers/game.h
         cpps/game.cpp
-        headers/game_display.h
-        cpps/game_display.cpp
+        headers/combat_display.h
+        cpps/combat_display.cpp
         headers/start_display.h
         cpps/start_display.cpp
         headers/display.h
-        headers/player.h
-        cpps/player.cpp
+        headers/combat_player.h
+        cpps/combat_player.cpp
         headers/camera.h
         cpps/camera.cpp
-        cpps/game_display.cpp
+        cpps/combat_display.cpp
         cpps/assets.cpp
         headers/assets.h
-        headers/obstacle.h
-        cpps/obstacle.cpp
+        headers/combat_obstacle.h
+        cpps/combat_obstacle.cpp
         headers/assets.h
         cpps/Button.cpp
         headers/Button.h
         headers/config.h
         headers/sequence.h
-        cpps/sequence.cpp)
+        cpps/sequence.cpp
+        cpps/jeff_the_display.cpp
+        headers/jeff_the_display.h
+        cpps/map_player.cpp
+        headers/map_player.h
+        cpps/map_object.cpp
+        headers/map_object.h
+        headers/settings_display.h
+        cpps/settings_display.cpp)
 
 # Dependencies
 set(RAYLIB_VERSION 6.0)
+
+# Enable raylib web backend when using Emscripten
+if (EMSCRIPTEN)
+    set(PLATFORM Web CACHE STRING "" FORCE)
+    # Web builds typically use an HTML launcher
+    set(CMAKE_EXECUTABLE_SUFFIX ".html")
+endif()
+
 find_package(raylib ${RAYLIB_VERSION} QUIET) # QUIET or REQUIRED
 if (NOT raylib_FOUND) # If there's none, fetch and build raylib
     include(FetchContent)
@@ -51,15 +67,27 @@ endif()
 
 target_link_libraries(${PROJECT_NAME} raylib)
 
-add_custom_command(
-        TARGET ${PROJECT_NAME} POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy_directory
-        ${CMAKE_CURRENT_SOURCE_DIR}/Resources
-        $<TARGET_FILE_DIR:${PROJECT_NAME}>/Resources
-)
+# Copy assets for native builds
+if (NOT EMSCRIPTEN)
+    add_custom_command(
+            TARGET ${PROJECT_NAME} POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy_directory
+            ${CMAKE_CURRENT_SOURCE_DIR}/Resources
+            $<TARGET_FILE_DIR:${PROJECT_NAME}>/Resources
+    )
+endif()
 
-# Apply static linking only for Windows
-if(WIN32)
+# Web build flags and asset preloading
+if (EMSCRIPTEN)
+    target_link_options(${PROJECT_NAME} PRIVATE
+            "-sUSE_GLFW=3"
+            "-sALLOW_MEMORY_GROWTH=1"
+            "-sASSERTIONS=1"
+            "-sEXIT_RUNTIME=0"
+            "-sASYNCIFY=1"
+            "--preload-file" "${CMAKE_CURRENT_SOURCE_DIR}/Resources@/Resources"
+    )
+elseif(WIN32)
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -static -static-libgcc -static-libstdc++")
 else()
     # Use dynamic linking on Linux and ensure Wayland support

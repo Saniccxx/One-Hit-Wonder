@@ -1,24 +1,21 @@
-#include "../headers/player.h"
+#include "../headers/combat_player.h"
 #include "../headers/game.h"
 #include "../headers/renderer.h"
 #include <iostream>
 
-Player::Player(float x, float y, Game& game): x(x), y(y), game(game) {}
+CombatPlayer::CombatPlayer(float x, float y, Game& game): x(x), y(y), game(game) {}
 
-void Player::tick(float delta_time) {
-    Player::movement(delta_time);
+void CombatPlayer::tick(float delta_time) {
+    CombatPlayer::movement(delta_time);
     Renderer::draw_circle(x, y, 20, Renderer::white);
     std::cout << y << " | " << note << std::endl;
     Renderer::draw_line(500, min_y, 500, max_y, Renderer::white);
     note = get_note();
-    target_y = (float)min_y + bar_height * note;
+    target_y = static_cast<float>(min_y) + bar_height * note;
     std::cout << target_y << std::endl;
-
-
-
 }
 
-int Player::get_note() {
+int CombatPlayer::get_note() {
     buttons = Renderer::controls(0);
     for (int i = 0; i < buttons.size(); i++) {
         if (buttons[i] == 0) return i -1;
@@ -26,7 +23,7 @@ int Player::get_note() {
     return 7;
 }
 
-void Player::movement(float delta_time) {
+void CombatPlayer::movement(float delta_time) {
 
 
     int dist = y - target_y;

@@ -4,7 +4,7 @@
 #include <memory>
 
 class Game;
-class GameDisplay;
+class CombatDisplay;
 class Button;
 
 class StartDisplay : public Display {
@@ -18,5 +18,5 @@ public:
 private:
     Game& game;
     std::unique_ptr<Button> start_button;
+    std::unique_ptr<Button> settings_button;
 };
-

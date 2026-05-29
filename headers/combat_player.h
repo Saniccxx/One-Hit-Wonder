@@ -3,7 +3,7 @@
 #include "renderer.h"
 
 class Game;
-class Player {
+class CombatPlayer {
     Game& game;
     public:
     float x;
@@ -15,7 +15,7 @@ class Player {
     int base_speed = 0.5;
     float distance_speed_gain = 0.02;
     int direction = 1;
-    Player(float x, float y, Game& game);
+    CombatPlayer(float x, float y, Game& game);
     void tick(float delta_time);
     int note = 0;
     float bar_height = (max_y - min_y) / 7;

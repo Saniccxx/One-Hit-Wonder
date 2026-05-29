@@ -1,27 +1,30 @@
-#include "../headers/game_display.h"
+#include "../headers/combat_display.h"
 
 #include <format>
 #include <iostream>
 
 #include "../headers/camera.h"
 #include "../headers/game.h"
-#include "../headers/player.h"
+#include "../headers/combat_player.h"
+#include "../headers/Button.h"
+#include "../headers/jeff_the_display.h"
 #include "../headers/renderer.h"
 
-GameDisplay::GameDisplay(Game& game): game(game) {}
+CombatDisplay::CombatDisplay(Game& game): game(game) {}
 
-GameDisplay::~GameDisplay() = default;
+CombatDisplay::~CombatDisplay() = default;
 
-void GameDisplay::init() {
+void CombatDisplay::init() {
 #ifdef NDEBUG
     std::cout << "Running in Release mode\n";
 #else
     std::cout << "Running in Debug mode\n";
 #endif
-    player = std::make_unique<Player>(500, 200, game);
+    player = std::make_unique<CombatPlayer>(500, 200, game);
+    button = std::make_unique<Button>(50.0f, 150.0f, 220.0f, 60.0f, "Enable Jeff Mode", 24, BLACK, SKYBLUE, LIGHTGRAY, DARKBLUE);
 }
 
-void GameDisplay::tick() {
+void CombatDisplay::tick() {
     const auto delta_time = game.get_delta_time();
 
 #ifdef NDEBUG
@@ -38,6 +41,16 @@ void GameDisplay::tick() {
 
     if (player) {
         player->tick(static_cast<float>(delta_time));
+    }
+
+    if (button) {
+        if (const auto* camera = game.get_camera()) {
+            button->Update(*camera);
+        }
+        button->Draw();
+        if (button->IsClicked()) {
+            game.request_display_change(std::make_unique<JeffTheDisplay>(game));
+        }
     }
 }
 

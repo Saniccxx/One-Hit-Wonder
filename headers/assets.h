@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 #include <vector>
-#include "raylib.h"
+#include "renderer.h"
 
 
 std::vector<LoadedTex> load_all_images(const char* folder);

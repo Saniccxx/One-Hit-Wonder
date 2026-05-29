@@ -1,73 +1,85 @@
-#include "raylib.h"
 #include <iostream>
 #include "../headers/renderer.h"
 #include "../headers/game.h"
 #include "../headers/config.h"
 
+struct PianoKey {
+    int key;
+    Sound sound;
+    bool wasHeld = false;
+    bool isFading = false;
+    float volume = 1.0f;
+};
+
 int main() {
+    Renderer::init_audio_device();
     Renderer::init_window(config::screenWidth, config::screenHeight, "One hit wonder™");
     Game* game = new Game(config::screenWidth, config::screenHeight);
     game->init();
 
 
-    InitAudioDevice();      // Initialize audio device
+          // Initialize audio device
 
-    Sound C = LoadSound("Resources/C.wav");
-    Sound D = LoadSound("Resources/D.wav");
-    Sound E = LoadSound("Resources/E.wav");
-    Sound F = LoadSound("Resources/F.wav");
-    Sound G = LoadSound("Resources/G.wav");
-    Sound A = LoadSound("Resources/A.wav");
-    Sound B = LoadSound("Resources/B.wav");
-    Sound C2 = LoadSound("Resources/C2.wav");
-    Sound retry = LoadSound("Resources/retry2.wav");
+    Sound C = Renderer::load_sound("Resources/C.wav");
+    Sound D = Renderer::load_sound("Resources/D.wav");
+    Sound E = Renderer::load_sound("Resources/E.wav");
+    Sound F = Renderer::load_sound("Resources/F.wav");
+    Sound G = Renderer::load_sound("Resources/G.wav");
+    Sound A = Renderer::load_sound("Resources/A.wav");
+    Sound B = Renderer::load_sound("Resources/B.wav");
+    Sound C2 = Renderer::load_sound("Resources/C2.wav");
+
+
+    Sound retry = Renderer::load_sound("Resources/retry2.wav");
+
+    PianoKey pianoKeys[] = {
+        { KEY_T, C },
+        { KEY_Y, D },
+        { KEY_U, E },
+        { KEY_I, F },
+        { KEY_O, G },
+        { KEY_P, A },
+        { KEY_LEFT_BRACKET, B },
+        { KEY_RIGHT_BRACKET, C2 }
+    };
 
     int hz = Renderer::get_monitor_refresh_rate();
     Renderer::set_target_fps(hz);
 
     while (!Renderer::window_should_close())
+
     {
-        static bool wasHeld = false;
-        bool isHeld = IsKeyDown(KEY_T);
-        if (isHeld && !wasHeld) PlaySound(C);
-        if (!isHeld && wasHeld) StopSound(C);
-        wasHeld = isHeld;
-        static bool wasHeld2 = false;
-        bool isHeld2 = IsKeyDown(KEY_Y);
-        if (isHeld2 && !wasHeld2) PlaySound(D);
-        if (!isHeld2 && wasHeld2) StopSound(D);
-        wasHeld2 = isHeld2;
-        static bool wasHeld3 = false;
-        bool isHeld3 = IsKeyDown(KEY_U);
-        if (isHeld3 && !wasHeld3) PlaySound(E);
-        if (!isHeld3 && wasHeld3) StopSound(E);
-        wasHeld3 = isHeld3;
-        static bool wasHeld4 = false;
-        bool isHeld4 = IsKeyDown(KEY_I);
-        if (isHeld4 && !wasHeld4) PlaySound(F);
-        if (!isHeld4 && wasHeld4) StopSound(F);
-        wasHeld4 = isHeld4;
-        static bool wasHeld5 = false;
-        bool isHeld5 = IsKeyDown(KEY_O);
-        if (isHeld5 && !wasHeld5) PlaySound(G);
-        if (!isHeld5 && wasHeld5) StopSound(G);
-        wasHeld5 = isHeld5;
-        static bool wasHeld6 = false;
-        bool isHeld6 = IsKeyDown(KEY_P);
-        if (isHeld6 && !wasHeld6) PlaySound(A);
-        if (!isHeld6 && wasHeld6) StopSound(A);
-        wasHeld6 = isHeld6;
-        static bool wasHeld7 = false;
-        bool isHeld7 = IsKeyDown(KEY_LEFT_BRACKET);
-        if (isHeld7 && !wasHeld7) PlaySound(B);
-        if (!isHeld7 && wasHeld7) StopSound(B);
-        wasHeld7 = isHeld7;
-        static bool wasHeld8 = false;
-        bool isHeld8 = IsKeyDown(KEY_RIGHT_BRACKET);
-        if (isHeld8 && !wasHeld8) PlaySound(C2);
-        if (!isHeld8 && wasHeld8) StopSound(C2);
-        wasHeld8 = isHeld8;
-        if (IsKeyPressed(KEY_BACKSPACE)) PlaySound(retry);
+        float dt = Renderer::get_frame_time();
+
+        for (auto& pk : pianoKeys) {
+            bool isHeld = Renderer::is_key_down(pk.key);
+
+            if (isHeld && !pk.wasHeld) {
+                pk.isFading = false;
+                pk.volume = 1.0f;
+                Renderer::set_sound_volume(pk.sound, pk.volume);
+
+                Renderer::play_sound(pk.sound);
+            }
+
+            if (!isHeld && pk.wasHeld) {
+                pk.isFading = true;
+            }
+
+            if (pk.isFading) {
+                pk.volume -= 15.0f * dt;
+                if (pk.volume <= 0.0f) {
+                    pk.volume = 0.0f;
+                    pk.isFading = false;
+                    Renderer::stop_sound(pk.sound);
+                }
+                Renderer::set_sound_volume(pk.sound, pk.volume);
+            }
+
+            pk.wasHeld = isHeld;
+        }
+
+        if (Renderer::is_key_pressed(KEY_BACKSPACE)) Renderer::play_sound(retry);
         game->tick();
     }
     Renderer::close_window();

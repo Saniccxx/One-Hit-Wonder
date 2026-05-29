@@ -3,12 +3,13 @@
 #include "../headers/display.h"
 #include "../headers/camera.h"
 #include "../headers/start_display.h"
-#include "../headers/game_display.h"
+#include "../headers/combat_display.h"
 #include "../headers/renderer.h"
 #include "../headers/assets.h"
 #include <iostream>
 #include <typeinfo>
 #include <array>
+#include "../headers/sequence.h"
 
 Game::Game(int width, int height): width(width), height(height)
 {
@@ -40,6 +41,15 @@ double Game::get_delta_time() const {
     return delta_time;
 }
 
+Texture2D Game::get_texture(std::string_view name) const {
+    for (const auto& img : images) {
+        if (img.path.find(name) != std::string::npos) {
+            return img.tex;
+        }
+    }
+    return {0};
+}
+
 void Game::init() {
     if (!camera) {
         camera = std::make_unique<GameCamera>(width, height);
@@ -50,6 +60,8 @@ void Game::init() {
     }
     display->init();
     images = load_all_images("Resources/Images");
+    sequence=std::make_unique<Sequence>(std::vector{1,2,3},std::vector{100,200,300});
+
 }
 
 double delta_time = 0.0f;
@@ -57,6 +69,13 @@ double delta_time = 0.0f;
 
 
 void Game::tick(){
+    // Sound D = Renderer::load_sound("Resources/D.wav");
+    // PlaySound(D);
+    sequence->check();
+    sequence->play();
+
+
+
     if (pending_display) {
         set_display(std::move(pending_display));
         display->init();
@@ -70,18 +89,22 @@ void Game::tick(){
     if (!images.empty() && images[0].tex.id != 0) {
         Renderer::DrawImage(images[0].tex, 100, 100);
     } else {
-        DrawText("No images loaded", 20, 20, 20, RED);
+        Renderer::draw_text("No images loaded", 20, 20, 20, Renderer::red);
     }
 
     if (display) {
         display->tick();
     }
+
+    camera->update(delta_time);
+
     Vector2 m= Renderer::get_mouse_pos();
-    std::cout<<m.x<<" "<<m.y<<std::endl;
+
     std::array<int,3> clicks{};
     clicks = Renderer::get_mouse_clicks();
-    std::cout<<clicks[0]<<" "<<clicks[1]<<" "<<clicks[2]<<std::endl;
+
     Renderer::draw_fps(10, 10);
+
     GameCamera::end_mode();
 
 #ifndef NDEBUG
