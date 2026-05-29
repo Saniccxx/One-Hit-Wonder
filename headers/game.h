@@ -27,8 +27,8 @@ class Game {
     [[nodiscard]] double get_delta_time() const;
     [[nodiscard]] Texture2D get_texture(std::string_view name) const;
 
-    int width = 1920;
-    int height = 1080;
+    int width = 800;
+    int height = 800;
 
     private:
     std::vector<LoadedTex> images;

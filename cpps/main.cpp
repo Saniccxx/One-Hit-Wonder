@@ -12,12 +12,13 @@ struct PianoKey {
 };
 
 int main() {
+    Renderer::init_audio_device();
     Renderer::init_window(config::screenWidth, config::screenHeight, "One hit wonder™");
     Game* game = new Game(config::screenWidth, config::screenHeight);
     game->init();
 
 
-    Renderer::init_audio_device();      // Initialize audio device
+          // Initialize audio device
 
     Sound C = Renderer::load_sound("Resources/C.wav");
     Sound D = Renderer::load_sound("Resources/D.wav");
@@ -27,6 +28,8 @@ int main() {
     Sound A = Renderer::load_sound("Resources/A.wav");
     Sound B = Renderer::load_sound("Resources/B.wav");
     Sound C2 = Renderer::load_sound("Resources/C2.wav");
+
+
     Sound retry = Renderer::load_sound("Resources/retry2.wav");
 
     PianoKey pianoKeys[] = {
@@ -42,7 +45,7 @@ int main() {
 
     int hz = Renderer::get_monitor_refresh_rate();
     Renderer::set_target_fps(hz);
-    
+
     while (!Renderer::window_should_close())
 
     {

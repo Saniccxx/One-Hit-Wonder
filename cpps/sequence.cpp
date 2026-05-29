@@ -3,8 +3,12 @@
 #include <iostream>
 
 
-Sequence::Sequence(std::vector<int> notes) {
+Sequence::Sequence(std::vector<int> notes,std::vector<int> durations) {
     this->notes=notes;
+    this->durations=durations;
+
+    current=0;
+    end=0;
     C = Renderer::load_sound("../Resources/C.wav");
     D = Renderer::load_sound("../Resources/D.wav");
     E = Renderer::load_sound("../Resources/E.wav");
@@ -14,7 +18,7 @@ Sequence::Sequence(std::vector<int> notes) {
     B = Renderer::load_sound("../Resources/B.wav");
     C2 = Renderer::load_sound("../Resources/C2.wav");
     plays = {
-        {0, C},
+        {0, Renderer::load_sound("../Resources/C.wav")},
         {1, D},
         {2, E},
         {3, F},
@@ -27,6 +31,7 @@ Sequence::Sequence(std::vector<int> notes) {
     level=0;
     current_note=-1;
     completed=0;
+    timer=0;
 
 
 
@@ -63,14 +68,14 @@ void Sequence::get_key() {
 
 }
 void Sequence::progress() {
-    std::cout<<"ccc";
+
     if (current_note>=0){
 
         std::cout<<current_note<<std::endl;
         if (notes.size() > 0) std::cout<<notes[0]<<std::endl;
 
         if (level < length && notes[level]==current_note) {
-            std::cout<<"ccc";
+
             level++;
             if (level==length) {
                 completed=1;
@@ -93,15 +98,29 @@ void Sequence::check() {
     progress();
 }
 void Sequence::play() {
-    if (timer==0) {
-        std::cout<<"start-play";
-        Renderer::play_sound(C);
+
+
+    if (end==0) {
+        if (timer==0) {
+            std::cout<<"start-play";
+            Renderer::play_sound(plays[notes[current]]);
+
+        }
+
         timer++;
-    }
-    else {
-        timer++;
+        if (timer==durations[current]) {
+
+            timer=0;
+            Renderer::stop_sound(plays[notes[current]]);
+            current+=1;
+            std::cout<<current;
+            if (current>=length) {
+                std::cout<<"end-play";
+                end=1;
+            }
+        }
     }
 
 
-    std::cout<<"play";
+
 }

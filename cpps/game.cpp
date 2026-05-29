@@ -60,7 +60,7 @@ void Game::init() {
     }
     display->init();
     images = load_all_images("Resources/Images");
-    sequence=std::make_unique<Sequence>(std::vector{1,2,3});
+    sequence=std::make_unique<Sequence>(std::vector{1,2,3},std::vector{100,200,300});
 
 }
 
@@ -69,7 +69,8 @@ double delta_time = 0.0f;
 
 
 void Game::tick(){
-
+    // Sound D = Renderer::load_sound("Resources/D.wav");
+    // PlaySound(D);
     sequence->check();
     sequence->play();
 
@@ -98,10 +99,10 @@ void Game::tick(){
     camera->update(delta_time);
 
     Vector2 m= Renderer::get_mouse_pos();
-    std::cout<<m.x<<" "<<m.y<<std::endl;
+
     std::array<int,3> clicks{};
     clicks = Renderer::get_mouse_clicks();
-    std::cout<<clicks[0]<<" "<<clicks[1]<<" "<<clicks[2]<<std::endl;
+
     Renderer::draw_fps(10, 10);
 
     GameCamera::end_mode();
