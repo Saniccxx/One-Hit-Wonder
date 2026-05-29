@@ -2,10 +2,12 @@
 
 #include <memory>
 #include "display.h"
-#include "map_object.h"
+#include "interaction_object.h"
+#include "collision_object.h"
 
 class Game;
 class MapPlayer;
+class CollisionObject;
 
 class JeffTheDisplay : public Display {
 public:
@@ -18,5 +20,6 @@ public:
 private:
     Game& game;
     std::unique_ptr<MapPlayer> player;
-    std::unique_ptr<MapObject> interact_obj;
+    std::unique_ptr<InteractionObject> interact_obj;
+    std::unique_ptr<CollisionObject> collision_obj;
 };

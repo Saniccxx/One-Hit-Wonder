@@ -13,12 +13,14 @@ JeffTheDisplay::~JeffTheDisplay() = default;
 
 void JeffTheDisplay::init() {
     player = std::make_unique<MapPlayer>(game, 500.0f, 200.0f);
-    interact_obj = std::make_unique<MapObject>(600.0f, 300.0f, false, 100.0f, "GET OUT!!! IM 13 YOU PERVERT",  game.get_texture("Sigma_salto.png"));
+    interact_obj = std::make_unique<InteractionObject>(600.0f, 300.0f, false, 100.0f, "GET OUT!!! IM 13 YOU PERVERT",  game.get_texture("Sigma_salto.png"));
+    collision_obj = std::make_unique<CollisionObject>(200,200, 200,200, *this);
 }
 
 void JeffTheDisplay::tick() {
 
     Renderer::draw_rectangle(0, 0, 1920, 1080, Renderer::white);
+    collision_obj->tick(game.get_delta_time());
 
     if (interact_obj && player) {
         interact_obj->tick(player->get_x(), player->get_y(), game.get_delta_time());

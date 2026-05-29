@@ -3,9 +3,12 @@
 #include <string>
 #include "renderer.h"
 
-class MapObject {
+class InteractionObject {
 public:
-    MapObject(float x, float y, bool has_collision, float radius=0, std::string_view text="", Texture2D tex={0});
+    InteractionObject(float x, float y, float radius=0, std::string_view text="", Texture2D tex={0});
+
+    InteractionObject(float x, float y, bool has_collision, float radius, std::string_view text, Texture2D tex);
+
     void tick(float player_x, float player_y, double delta_time);
     bool has_collision;
     bool collision(float dx, float dy);
