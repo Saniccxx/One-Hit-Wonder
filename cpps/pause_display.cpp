@@ -81,7 +81,7 @@ void PauseDisplay::tick() {
 
     if (resume_button && resume_button->IsClicked()) {
         if (game.paused_display) {
-            game.set_display(std::move(game.paused_display));
+            game.request_display_change(std::move(game.paused_display));
         }
     }
 
