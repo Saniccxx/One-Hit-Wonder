@@ -67,7 +67,6 @@ void Game::init() {
 double delta_time = 0.0f;
 
 
-
 void Game::tick(){
     // Sound D = Renderer::load_sound("Resources/D.wav");
     // PlaySound(D);

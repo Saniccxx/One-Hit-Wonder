@@ -14,8 +14,9 @@ struct PianoKey {
 int main() {
     Renderer::init_audio_device();
     Renderer::init_window(config::screenWidth, config::screenHeight, "One hit wonder™");
-    Game* game = new Game(config::screenWidth, config::screenHeight);
-    game->init();
+
+    Game game(config::screenWidth, config::screenHeight);
+    game.init();
 
 
           // Initialize audio device
@@ -80,7 +81,7 @@ int main() {
         }
 
         if (Renderer::is_key_pressed(KEY_BACKSPACE)) Renderer::play_sound(retry);
-        game->tick();
+        game.tick();
     }
     Renderer::close_window();
 
