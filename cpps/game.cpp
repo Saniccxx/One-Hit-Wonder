@@ -80,7 +80,7 @@ void Game::tick(){
     if (Renderer::is_key_pressed(KEY_ESCAPE)) {
         if (paused_display && dynamic_cast<PauseDisplay*>(display.get()) != nullptr) {
             set_display(std::move(paused_display));
-        } else if (!paused_display && display && dynamic_cast<StartDisplay*>(display.get()) == nullptr) {
+        } else if (!paused_display && display && dynamic_cast<CombatDisplay*>(display.get()) != nullptr) {
             paused_display = std::move(display);
             set_display(std::make_unique<PauseDisplay>(*this));
             display->init();
