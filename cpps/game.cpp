@@ -3,6 +3,7 @@
 #include "../headers/display.h"
 #include "../headers/camera.h"
 #include "../headers/start_display.h"
+#include "../headers/pause_display.h"
 #include "../headers/combat_display.h"
 #include "../headers/renderer.h"
 #include "../headers/assets.h"
@@ -75,6 +76,16 @@ void Game::tick(){
     sequence->play();
 
 
+
+    if (Renderer::is_key_pressed(KEY_ESCAPE)) {
+        if (paused_display && dynamic_cast<PauseDisplay*>(display.get()) != nullptr) {
+            set_display(std::move(paused_display));
+        } else if (!paused_display && display && dynamic_cast<StartDisplay*>(display.get()) == nullptr) {
+            paused_display = std::move(display);
+            set_display(std::make_unique<PauseDisplay>(*this));
+            display->init();
+        }
+    }
 
     if (pending_display) {
         set_display(std::move(pending_display));
