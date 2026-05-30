@@ -99,12 +99,6 @@ void Game::tick(){
     camera->begin_mode();
     Renderer::clear_background(Renderer::black);
 
-    if (!images.empty() && images[0].tex.id != 0) {
-        Renderer::DrawImage(images[0].tex, 100, 100);
-    } else {
-        Renderer::draw_text("No images loaded", 20, 20, 20, Renderer::red);
-    }
-
     if (display) {
         display->tick();
     }
