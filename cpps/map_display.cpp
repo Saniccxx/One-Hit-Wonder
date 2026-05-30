@@ -23,9 +23,19 @@ void MapDisplay::tick() {
     collision_obj->tick(game.get_delta_time());
     bool collided = false;
     if (collision_obj -> has_collision) {
-        if (collision_obj -> collision(player->get_pos())) {
+        std::vector<int> pos = player -> get_pos();
+        std::vector<int> arch_pos = player -> get_archive();
+        if (collision_obj -> collision(pos[0], pos[1], pos[2])) {
             collided = true;
-            player->collision_nudge();
+            std::cout << "collision" << game.get_delta_time() << std::endl;
+            if (collision_obj -> collision(arch_pos[0], pos[1], arch_pos[2])) { //verical
+                if (pos[1] > arch_pos[1]) player->collision_nudge(0, collision_obj -> get_parameters()[1]);
+                else player->collision_nudge(1, collision_obj -> get_parameters()[1] + collision_obj -> get_parameters()[3]);
+            }
+            if (collision_obj -> collision(pos[0], arch_pos[1], pos[2])) { //horizontal
+                if (pos[0] > arch_pos[0]) player->collision_nudge(2, collision_obj -> get_parameters()[0]);
+                else player->collision_nudge(3, collision_obj -> get_parameters()[0] + collision_obj -> get_parameters()[2]);
+            }
         }
     }
     if (!collided) player->upddate_archive();

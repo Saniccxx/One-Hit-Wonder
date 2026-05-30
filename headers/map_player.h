@@ -12,7 +12,7 @@ public:
     [[nodiscard]] float get_y() const { return y + size/2; }
 
 	void upddate_archive();
-	void collision_nudge();
+	void collision_nudge(int type, int collided_edge_coord);
 	std::vector<int> get_archive();
 	std::vector<int> get_pos();
 

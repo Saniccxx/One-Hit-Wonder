@@ -11,7 +11,10 @@ public:
     CollisionObject(int x, int y, int width, int height, MapDisplay& display);
     void tick(double delta_time);
     bool has_collision = true;
-    bool collision(std::vector<int> player_pos);
+    bool collision(int px, int py, int size);
+    std::vector<int> get_parameters() {
+        return {x, y, width, height};
+    }
 
 private:
     int x, y, width, height;

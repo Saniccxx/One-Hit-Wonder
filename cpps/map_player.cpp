@@ -13,12 +13,12 @@ void MapPlayer::tick(float delta_time) {
 	auto mv = Renderer::get_movement();
 	int dx = mv.first;
 	int dy = mv.second;
+	Renderer::draw_rectangle(static_cast<int>(x), static_cast<int>(y), size, size, Renderer::black);
 
 	x += dx * speed * delta_time;
 	y += dy * speed * delta_time;
 
 
-	Renderer::draw_rectangle(static_cast<int>(x), static_cast<int>(y), size, size, Renderer::black);
 }
 
 void MapPlayer::upddate_archive() {
@@ -27,13 +27,17 @@ void MapPlayer::upddate_archive() {
 }
 
 std::vector<int> MapPlayer::get_archive() {
-	return {archive_x, archive_y, size};
+	return {(int)archive_x, (int)archive_y, size};
 }
 std::vector<int> MapPlayer::get_pos() {
-	return {x, y, size};
+	return {(int)x, (int)y, size};
 }
 
-void MapPlayer::collision_nudge() {
-	x = archive_x;
-	y = archive_y;
-}
+// type 0 is up collision, type 1 is down collision, type 2 is left, type 3 is right
+void MapPlayer::collision_nudge(int type, int collided_edge_coord) {
+	if (type == 0) y = collided_edge_coord - size;
+	if (type == 1) y = collided_edge_coord;
+	if (type == 2) x = collided_edge_coord - size;
+	if (type == 3) x = collided_edge_coord;
+	};
+

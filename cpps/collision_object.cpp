@@ -15,10 +15,8 @@ void CollisionObject::tick(double delta_time) {
 
 }
 
-bool CollisionObject::collision(std::vector<int> player_pos) {
-    int px = player_pos[0];
-    int py = player_pos[1];
-    int size = player_pos[2];
+bool CollisionObject::collision(int px, int py, int size) {
+
     int x2 = x + width;
     int y2 = y + height;
     if (px > x2 || px + size<x) return false;
