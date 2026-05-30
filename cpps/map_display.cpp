@@ -12,19 +12,30 @@ MapDisplay::MapDisplay(Game& game): game(game) {}
 MapDisplay::~MapDisplay() = default;
 
 void MapDisplay::init() {
+    if (!camera) {
+        camera = std::make_unique<GameCamera>(game.width, game.height);
+    }
     player = std::make_unique<MapPlayer>(
         500.0f,
         200.0f,
         game.get_texture("front.png"),
         game.get_texture("back.png"),
         game.get_texture("side.png")
+
     );
+
     interact_obj = std::make_unique<InteractionObject>(600.0f, 300.0f, false, 100.0f, "GET OUT!!! IM 13 YOU PERVERT",  game.get_texture("Sigma_salto.png"));
     collision_obj = std::make_unique<CollisionObject>(200,200, 200,200, *this);
 }
 
 void MapDisplay::tick() {
-
+    if (camera) camera->begin_mode();
+    std::cout << debug;
+    if (Renderer::is_mouse_button_pressed(0)) {
+        Vector2 mousePos = Renderer::get_mouse_pos();
+        mousePos = Renderer::get_screen_to_world_2d(mousePos, camera->get_camera());
+        place_block(mousePos.x, mousePos.y, current_block);
+    }
     Renderer::draw_rectangle(0, 0, 1920, 1080, Renderer::white);
     collision_obj->tick(game.get_delta_time());
     bool collided = false;
@@ -52,6 +63,28 @@ void MapDisplay::tick() {
 
     if (player) {
         player->tick(static_cast<float>(game.get_delta_time()));
-        game.get_camera()->set_target({player->get_x(), player->get_y()});
+        if (camera) camera->set_target({player->get_x(), player->get_y()});
     }
+
+    for (int i = 0; i < height_in_tiles; i++) {
+        for (int j = 0; j < width_in_tiles; j++) {
+            if (map[i][j] != 0) {
+                Renderer::draw_rectangle(j * tile_size, i * tile_size, tile_size, tile_size, Renderer::red);
+            }
+        }
+    }
+
+    if (camera) {
+        camera->update(static_cast<float>(game.get_delta_time()));
+        GameCamera::end_mode();
+    }
+}
+
+void MapDisplay::place_block(int x, int y, int type) {
+    int tile_x = x / tile_size;
+    int tile_y = y / tile_size;
+    if (tile_x >= 0 && tile_x < width_in_tiles && tile_y >= 0 && tile_y < height_in_tiles) {
+        map[tile_y][tile_x] = type;
+    }
+
 }

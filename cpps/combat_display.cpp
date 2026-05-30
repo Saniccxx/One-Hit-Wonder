@@ -3,7 +3,6 @@
 #include <format>
 #include <iostream>
 
-#include "../headers/camera.h"
 #include "../headers/game.h"
 #include "../headers/combat_player.h"
 #include "../headers/Button.h"
@@ -32,11 +31,6 @@ void CombatDisplay::tick() {
 #else
     Renderer::draw_text("Debug mode", 67, 67, 20, Renderer::white);
     Renderer::draw_fps(10, 10);
-
-    if (const auto* camera = game.get_camera()) {
-        const auto zoom_text = std::format("Camera Zoom: {:.2f}", camera->get_camera().zoom);
-        Renderer::draw_text(zoom_text, 67, 100, 20, Renderer::white);
-    }
 #endif
 
     if (player) {
@@ -44,9 +38,7 @@ void CombatDisplay::tick() {
     }
 
     if (button) {
-        if (const auto* camera = game.get_camera()) {
-            button->Update(*camera);
-        }
+        button->Update(nullptr);
         button->Draw();
         if (button->IsClicked()) {
             game.request_display_change(std::make_unique<MapDisplay>(game));

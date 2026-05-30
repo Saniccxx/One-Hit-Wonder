@@ -1,17 +1,16 @@
 #include "../headers/Button.h"
-#include "../headers/camera.h"
 #include "../headers/renderer.h"
 
 Button::Button(float x, float y, float width, float height, const std::string_view text, int textSize, Color textColor, Color buttonColor, Color hoverColor, Color clickColor)
     : rect{ x, y, width, height }, text(text), textSize(textSize), textColor(textColor), buttonColor(buttonColor), hoverColor(hoverColor), clickColor(clickColor), isHovered(false), isClicked(false) {}
 
-void Button::Update(const GameCamera& camera) {
+void Button::Update(const Camera2D* camera) {
     Vector2 mousePoint = Renderer::get_mouse_pos();
 
-    const Camera2D& cam = camera.get_camera();
-
-    Vector2 worldMousePos = Renderer::get_screen_to_world_2d(mousePoint, cam);
-
+    Vector2 worldMousePos = mousePoint;
+    if (camera) {
+        worldMousePos = Renderer::get_screen_to_world_2d(mousePoint, *camera);
+    }
 
     isHovered = Renderer::check_collision_point_rec(worldMousePos, rect);
     isClicked = isHovered && Renderer::is_mouse_button_pressed(MOUSE_BUTTON_LEFT);

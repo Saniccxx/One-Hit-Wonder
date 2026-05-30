@@ -35,10 +35,6 @@ Display* Game::get_display() const {
     return display.get();
 }
 
-GameCamera* Game::get_camera() const {
-    return camera.get();
-}
-
 double Game::get_delta_time() const {
     return delta_time;
 }
@@ -53,10 +49,6 @@ Texture2D Game::get_texture(std::string_view name) const {
 }
 
 void Game::init() {
-    if (!camera) {
-        camera = std::make_unique<GameCamera>(width, height);
-    }
-
     if (!display) {
         set_display(std::make_unique<StartDisplay>(*this));
     }
@@ -64,12 +56,15 @@ void Game::init() {
     images = load_all_images("Resources/Images");
     int speed=1;
     //sequence=std::make_unique<Sequence>(std::vector{0,2,4,4,4,4,4,5,4,2,0,2,1,0,1,2},std::vector{100/speed,100/speed,50/speed,50/speed,50/speed,50/speed,100/speed,100/speed,100/speed,100/speed,100/speed,100/speed,200/speed,100/speed,100/speed,200/speed});
-    sequence=std::make_unique<Sequence>(*this,std::vector{0,1},std::vector{100,100});
+    //sequence=std::make_unique<Sequence>(std::vector{0,1},std::vector{100,100});
+    //sequence=std::make_unique<Sequence>(std::vector{0,4,3,2,1,7,4,3,2,1,7,4,3,2,3,1},std::vector{50,50,10,10,10,50,50,10,10,10,50,50,15,15,15,100});
+    sequence=std::make_unique<Sequence>(std::vector{0,1,2,1,2,3,2,1,0,0,4,0,0,0,0},std::vector{30,10,30,30,10,25,20,20,20,20,40,15,15,15,50});
+    //sequence=std::make_unique<Sequence>(std::vector{0,0,4,4,5,5,4},std::vector{30,30,30,30,30,30,100});
+    //sequence=std::make_unique<Sequence>(std::vector{2,2,2,4,3,2,2,2,4,3},std::vector{30,30,30,20,20,30,30,30,20,20});
+
     std::cout<<sequence->completed<<std::endl;
     std::cout<<sequence->compleation_level<<std::endl;
 }
-
-double delta_time = 0.0f;
 
 
 void Game::tick(){
@@ -79,8 +74,6 @@ void Game::tick(){
     //std::cout<<sequence->completed<<std::endl;
     //std::cout<<sequence->compleation_level<<std::endl;
     sequence->play();
-
-
 
     if (Renderer::is_key_pressed(KEY_ESCAPE)) {
         if (paused_display && dynamic_cast<PauseDisplay*>(display.get()) != nullptr) {
@@ -101,23 +94,13 @@ void Game::tick(){
     }
     delta_time = Renderer::get_delta_time() * 1000;
     Renderer::begin_drawing();
-    camera->begin_mode();
     Renderer::clear_background(Renderer::black);
 
     if (display) {
         display->tick();
     }
 
-    camera->update(delta_time);
-
-    Vector2 m= Renderer::get_mouse_pos();
-
-    std::array<int,3> clicks{};
-    clicks = Renderer::get_mouse_clicks();
-
     Renderer::draw_fps(10, 10);
-
-    GameCamera::end_mode();
 
 #ifndef NDEBUG
     Renderer::draw_text(typeid(*display).name(), 200, 10, 20, Renderer::white );

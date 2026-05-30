@@ -1,21 +1,30 @@
 #pragma once
 
 #include <memory>
+#include <iostream>
 #include "display.h"
 #include "interaction_object.h"
 #include "collision_object.h"
+#include "camera.h"
 
 class Game;
 class MapPlayer;
 class CollisionObject;
 
 class MapDisplay : public Display {
+#ifdef NDEBUG
+    bool debug = false;
+#else
+    bool debug = true;
+#endif
 public:
     explicit MapDisplay(Game& game);
     ~MapDisplay() override;
 
     void init() override;
     void tick() override;
+    void place_block(int x, int y, int type);
+
 
     std::unique_ptr<MapPlayer> player;
     std::unique_ptr<InteractionObject> interact_obj;
@@ -23,4 +32,12 @@ public:
 
 private:
     Game& game;
+    int current_block = 1;
+     static constexpr int tile_size = 20;
+    static constexpr int width = 2000;
+    static constexpr int height = 1500;
+     static constexpr int width_in_tiles = width / tile_size;
+     static constexpr int height_in_tiles = height / tile_size;;
+    int map[height_in_tiles][width_in_tiles]{};
+    std::unique_ptr<GameCamera> camera;
 };

@@ -37,7 +37,7 @@ void SettingsDisplay::tick() {
     Renderer::draw_text(text, game.width / 2 - text_width / 2, game.height / 2 - 120, font_size, Renderer::white);
 
     if (back_button) {
-        back_button->Update(*game.get_camera());
+        back_button->Update(nullptr);
         back_button->Draw();
     }
 
