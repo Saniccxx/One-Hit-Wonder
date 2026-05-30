@@ -5,7 +5,7 @@ GameCamera::GameCamera(const int width, const int height)
 {
     const auto width_f = static_cast<float>(width);
     const auto height_f = static_cast<float>(height);
-    const float zoom = std::min(width_f / REFERENCE_WIDTH, height_f / REFERENCE_HEIGHT);
+    const float zoom = std::min(2*width_f / REFERENCE_WIDTH, 2*height_f / REFERENCE_HEIGHT);
 
     camera.target = {REFERENCE_WIDTH / 2.0f, REFERENCE_HEIGHT / 2.0f};
     target_pos = camera.target;

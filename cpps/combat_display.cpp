@@ -21,7 +21,7 @@ void CombatDisplay::init() {
     std::cout << "Running in Debug mode\n";
 #endif
     player = std::make_unique<CombatPlayer>(500, 200, game);
-    button = std::make_unique<Button>(50.0f, 150.0f, 220.0f, 60.0f, "Enable Jeff Mode", 24, BLACK, SKYBLUE, LIGHTGRAY, DARKBLUE);
+    button = std::make_unique<Button>(600.0f, 550.0f, 220.0f/2, 60.0f/2, "Enable Jeff Mode", 24, BLACK, SKYBLUE, LIGHTGRAY, DARKBLUE);
 }
 
 void CombatDisplay::tick() {
