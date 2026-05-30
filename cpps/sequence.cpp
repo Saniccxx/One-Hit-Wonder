@@ -83,7 +83,7 @@ void Sequence::progress() {
             level++;
             flevel=level;
             compleation_level=flevel/length;
-            std::cout<<"Upgrade"<<compleation_level<<level<<length<<std::endl;
+            std::cout<<"Upgrade, compleation_level"<<compleation_level<<std::endl;
             if (level==length) {
                 completed=1;
                 std::cout << "Completed ";
