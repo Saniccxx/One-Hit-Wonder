@@ -50,11 +50,7 @@ void MapPlayer::tick(float delta_time) {
 			break;
 	}
 
-}
 
-void MapPlayer::update_archive() {
-	archive_x = x;
-	archive_y = y;
 	mirror_x = (facing == Facing::Left);
 
 	if (texture && texture->id != 0) {
@@ -88,6 +84,12 @@ void MapPlayer::update_archive() {
 			Renderer::draw_texture_pro(*texture, source, dest, origin, 0.0f, Renderer::white);
 		}
 	}
+}
+
+void MapPlayer::update_archive()
+{
+	archive_x = x;
+	archive_y = y;
 }
 
 std::vector<int> MapPlayer::get_archive() {

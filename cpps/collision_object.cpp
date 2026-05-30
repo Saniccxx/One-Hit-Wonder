@@ -1,4 +1,3 @@
-#include "../headers/Collision_object.h"
 #include "../headers/renderer.h"
 #include <cmath>
 #include "../headers/map_display.h"

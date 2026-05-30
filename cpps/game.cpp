@@ -5,7 +5,7 @@
 #include "../headers/start_display.h"
 #include "../headers/pause_display.h"
 #include "../headers/combat_display.h"
-#include "../headers/jeff_the_display.h"
+#include "../headers/map_display.h"
 #include "../headers/renderer.h"
 #include "../headers/assets.h"
 #include <iostream>
@@ -83,7 +83,7 @@ void Game::tick(){
             set_display(std::move(paused_display));
         } else if (!paused_display && display &&
                    (dynamic_cast<CombatDisplay*>(display.get()) != nullptr ||
-                    dynamic_cast<JeffTheDisplay*>(display.get()) != nullptr)) {
+                    dynamic_cast<MapDisplay*>(display.get()) != nullptr)) {
             paused_display = std::move(display);
             set_display(std::make_unique<PauseDisplay>(*this));
             display->init();
