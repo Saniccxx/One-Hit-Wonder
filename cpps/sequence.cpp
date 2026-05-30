@@ -12,6 +12,7 @@ Sequence::Sequence(std::vector<int> notes,std::vector<int> durations) {
     current=0;
     end=0;
     offset=20;
+    compleation_level=0.0f;
     C = Renderer::load_sound("../Resources/C.wav");
     D = Renderer::load_sound("../Resources/D.wav");
     E = Renderer::load_sound("../Resources/E.wav");
@@ -80,9 +81,10 @@ void Sequence::progress() {
         if (level < length && notes[level]==current_note) {
 
             level++;
+            compleation_level=level/length;
             if (level==length) {
                 completed=1;
-                std::cout << "Completed " << completed << " pressed\n";
+                std::cout << "Completed ";
             }
         }
         else if (level >= length) {}
@@ -105,7 +107,7 @@ void Sequence::play() {
 
     if (end==0) {
         if (timer==0) {
-            std::cout<<"start-play";
+
             Renderer::set_sound_volume(plays[notes[current]], volumes[notes[current]]);
             Renderer::play_sound(plays[notes[current]]);
 
@@ -129,9 +131,9 @@ void Sequence::play() {
             current+=1;
 
 
-            std::cout<<current;
+
             if (current>=length) {
-                std::cout<<"end-play";
+
                 end=1;
             }
         }
