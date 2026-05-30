@@ -31,7 +31,11 @@ void MapDisplay::init() {
 void MapDisplay::tick() {
     if (camera) camera->begin_mode();
     std::cout << debug;
-    if (Renderer::is_mouse_button_pressed(0)) place_block(Renderer::get_mouse_pos().x, Renderer::get_mouse_pos().y, current_block);
+    if (Renderer::is_mouse_button_pressed(0)) {
+        Vector2 mousePos = Renderer::get_mouse_pos();
+        mousePos = Renderer::get_screen_to_world_2d(mousePos, camera->get_camera());
+        place_block(mousePos.x, mousePos.y, current_block);
+    }
     Renderer::draw_rectangle(0, 0, 1920, 1080, Renderer::white);
     collision_obj->tick(game.get_delta_time());
     bool collided = false;
@@ -62,16 +66,17 @@ void MapDisplay::tick() {
         if (camera) camera->set_target({player->get_x(), player->get_y()});
     }
 
-    if (camera) {
-        camera->update(static_cast<float>(game.get_delta_time()));
-        GameCamera::end_mode();
-    }
     for (int i = 0; i < height_in_tiles; i++) {
         for (int j = 0; j < width_in_tiles; j++) {
             if (map[i][j] != 0) {
                 Renderer::draw_rectangle(j * tile_size, i * tile_size, tile_size, tile_size, Renderer::red);
             }
         }
+    }
+
+    if (camera) {
+        camera->update(static_cast<float>(game.get_delta_time()));
+        GameCamera::end_mode();
     }
 }
 
