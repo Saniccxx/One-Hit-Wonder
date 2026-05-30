@@ -63,8 +63,7 @@ void StartDisplay::tick() {
     }
 
     if (settings_button && settings_button->IsClicked()) {
-        auto display = std::make_unique<SettingsDisplay>(game);
+        auto display = std::make_unique<SettingsDisplay>(game, SettingsReturn::StartMenu);
         game.request_display_change(std::move(display));
     }
 }
-

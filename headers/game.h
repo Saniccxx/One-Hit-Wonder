@@ -30,6 +30,8 @@ class Game {
     int width = 800;
     int height = 800;
 
+    std::unique_ptr<Display> paused_display;
+
     private:
     std::vector<LoadedTex> images;
     void set_display(std::unique_ptr<Display> new_display);

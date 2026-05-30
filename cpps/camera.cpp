@@ -33,6 +33,11 @@ void GameCamera::set_target(Vector2 new_target) {
     target_pos = new_target;
 }
 
+void GameCamera::reset_to_default() {
+    camera.target = {REFERENCE_WIDTH / 2.0f, REFERENCE_HEIGHT / 2.0f};
+    target_pos = camera.target;
+}
+
 const Camera2D& GameCamera::get_camera() const {
     return camera;
 }

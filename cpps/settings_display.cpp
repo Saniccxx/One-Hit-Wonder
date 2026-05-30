@@ -1,10 +1,12 @@
 #include "../headers/settings_display.h"
 #include "../headers/game.h"
 #include "../headers/start_display.h"
+#include "../headers/pause_display.h"
 #include "../headers/renderer.h"
 #include "../headers/Button.h"
 
-SettingsDisplay::SettingsDisplay(Game& game): game(game) {}
+SettingsDisplay::SettingsDisplay(Game& game, SettingsReturn return_target)
+    : game(game), return_target(return_target) {}
 
 SettingsDisplay::~SettingsDisplay() = default;
 
@@ -40,7 +42,12 @@ void SettingsDisplay::tick() {
     }
 
     if (back_button && back_button->IsClicked()) {
-        auto display = std::make_unique<StartDisplay>(game);
-        game.request_display_change(std::move(display));
+        if (return_target == SettingsReturn::PauseMenu) {
+            auto display = std::make_unique<PauseDisplay>(game);
+            game.request_display_change(std::move(display));
+        } else {
+            auto display = std::make_unique<StartDisplay>(game);
+            game.request_display_change(std::move(display));
+        }
     }
 }

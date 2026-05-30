@@ -36,7 +36,9 @@ add_executable(major_jam
         cpps/map_object.cpp
         headers/map_object.h
         headers/settings_display.h
-        cpps/settings_display.cpp)
+        cpps/settings_display.cpp
+        headers/pause_display.h
+        cpps/pause_display.cpp)
 
 # Dependencies
 set(RAYLIB_VERSION 6.0)
