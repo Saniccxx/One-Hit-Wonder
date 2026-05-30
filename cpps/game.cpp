@@ -1,7 +1,6 @@
 #include "../headers/game.h"
 #include <utility>
 #include "../headers/display.h"
-#include "../headers/camera.h"
 #include "../headers/start_display.h"
 #include "../headers/pause_display.h"
 #include "../headers/combat_display.h"
@@ -35,10 +34,6 @@ Display* Game::get_display() const {
     return display.get();
 }
 
-GameCamera* Game::get_camera() const {
-    return camera.get();
-}
-
 double Game::get_delta_time() const {
     return delta_time;
 }
@@ -53,10 +48,6 @@ Texture2D Game::get_texture(std::string_view name) const {
 }
 
 void Game::init() {
-    if (!camera) {
-        camera = std::make_unique<GameCamera>(width, height);
-    }
-
     if (!display) {
         set_display(std::make_unique<StartDisplay>(*this));
     }
@@ -69,8 +60,6 @@ void Game::init() {
     std::cout<<sequence->compleation_level<<std::endl;
 }
 
-double delta_time = 0.0f;
-
 
 void Game::tick(){
     // Sound D = Renderer::load_sound("Resources/D.wav");
@@ -79,8 +68,6 @@ void Game::tick(){
     //std::cout<<sequence->completed<<std::endl;
     //std::cout<<sequence->compleation_level<<std::endl;
     sequence->play();
-
-
 
     if (Renderer::is_key_pressed(KEY_ESCAPE)) {
         if (paused_display && dynamic_cast<PauseDisplay*>(display.get()) != nullptr) {
@@ -101,23 +88,13 @@ void Game::tick(){
     }
     delta_time = Renderer::get_delta_time() * 1000;
     Renderer::begin_drawing();
-    camera->begin_mode();
     Renderer::clear_background(Renderer::black);
 
     if (display) {
         display->tick();
     }
 
-    camera->update(delta_time);
-
-    Vector2 m= Renderer::get_mouse_pos();
-
-    std::array<int,3> clicks{};
-    clicks = Renderer::get_mouse_clicks();
-
     Renderer::draw_fps(10, 10);
-
-    GameCamera::end_mode();
 
 #ifndef NDEBUG
     Renderer::draw_text(typeid(*display).name(), 200, 10, 20, Renderer::white );

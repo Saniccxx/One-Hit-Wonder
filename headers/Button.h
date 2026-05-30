@@ -3,12 +3,11 @@
 #include "renderer.h"
 #include <string>
 
-class GameCamera;
-
 class Button {
 public:
     Button(float x, float y, float width, float height, const std::string_view text, int textSize, Color textColor, Color buttonColor, Color hoverColor, Color clickColor);
-    void Update(const GameCamera& camera);
+    // Accept optional Camera2D pointer; if null, use screen coordinates
+    void Update(const Camera2D* camera);
     void Draw() const;
     bool IsClicked() const;
     void SetText(const std::string_view newText);

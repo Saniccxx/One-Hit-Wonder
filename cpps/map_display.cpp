@@ -12,6 +12,9 @@ MapDisplay::MapDisplay(Game& game): game(game) {}
 MapDisplay::~MapDisplay() = default;
 
 void MapDisplay::init() {
+    if (!camera) {
+        camera = std::make_unique<GameCamera>(game.width, game.height);
+    }
     player = std::make_unique<MapPlayer>(
         500.0f,
         200.0f,
@@ -24,6 +27,7 @@ void MapDisplay::init() {
 }
 
 void MapDisplay::tick() {
+    if (camera) camera->begin_mode();
 
     Renderer::draw_rectangle(0, 0, 1920, 1080, Renderer::white);
     collision_obj->tick(game.get_delta_time());
@@ -52,6 +56,11 @@ void MapDisplay::tick() {
 
     if (player) {
         player->tick(static_cast<float>(game.get_delta_time()));
-        game.get_camera()->set_target({player->get_x(), player->get_y()});
+        if (camera) camera->set_target({player->get_x(), player->get_y()});
+    }
+
+    if (camera) {
+        camera->update(static_cast<float>(game.get_delta_time()));
+        GameCamera::end_mode();
     }
 }

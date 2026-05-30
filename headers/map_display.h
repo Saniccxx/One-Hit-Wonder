@@ -4,6 +4,7 @@
 #include "display.h"
 #include "interaction_object.h"
 #include "collision_object.h"
+#include "camera.h"
 
 class Game;
 class MapPlayer;
@@ -23,4 +24,5 @@ public:
 
 private:
     Game& game;
+    std::unique_ptr<GameCamera> camera;
 };
