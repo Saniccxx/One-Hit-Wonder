@@ -80,7 +80,7 @@ void MapPlayer::tick(float delta_time) {
 
 			const auto draw_size = static_cast<float>(size);
 			Rectangle dest = {x, y, draw_size, draw_size};
-			Vector2 origin = {draw_size / 2.0f, draw_size / 2.0f};
+			Vector2 origin = {0, 0};
 			Renderer::draw_texture_pro(*texture, source, dest, origin, 0.0f, Renderer::white);
 		}
 	}
