@@ -21,7 +21,7 @@ void MapPlayer::tick(float delta_time) {
 
 }
 
-void MapPlayer::upddate_archive() {
+void MapPlayer::update_archive() {
 	archive_x = x;
 	archive_y = y;
 }

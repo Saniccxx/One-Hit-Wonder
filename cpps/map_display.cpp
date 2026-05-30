@@ -32,13 +32,14 @@ void MapDisplay::tick() {
                 if (pos[1] > arch_pos[1]) player->collision_nudge(0, collision_obj -> get_parameters()[1]);
                 else player->collision_nudge(1, collision_obj -> get_parameters()[1] + collision_obj -> get_parameters()[3]);
             }
-            if (collision_obj -> collision(pos[0], arch_pos[1], pos[2])) { //horizontal
+            else if (collision_obj -> collision(pos[0], arch_pos[1], pos[2])) { //horizontal
                 if (pos[0] > arch_pos[0]) player->collision_nudge(2, collision_obj -> get_parameters()[0]);
                 else player->collision_nudge(3, collision_obj -> get_parameters()[0] + collision_obj -> get_parameters()[2]);
             }
+            else player -> rollback_archive();
         }
     }
-    if (!collided) player->upddate_archive();
+    if (!collided) player->update_archive();
     if (interact_obj && player) {
         interact_obj->tick(player->get_x(), player->get_y(), game.get_delta_time());
     }
