@@ -6,9 +6,12 @@
 Sequence::Sequence(std::vector<int> notes,std::vector<int> durations) {
     this->notes=notes;
     this->durations=durations;
-
+    for (i=0; i<notes.size(); i++) {
+        volumes[i]=0;
+    }
     current=0;
     end=0;
+    offset=20;
     C = Renderer::load_sound("../Resources/C.wav");
     D = Renderer::load_sound("../Resources/D.wav");
     E = Renderer::load_sound("../Resources/E.wav");
@@ -103,22 +106,36 @@ void Sequence::play() {
     if (end==0) {
         if (timer==0) {
             std::cout<<"start-play";
+            Renderer::set_sound_volume(plays[notes[current]], volumes[notes[current]]);
             Renderer::play_sound(plays[notes[current]]);
 
         }
-
-        timer++;
+        if (timer<=offset and timer>0) {
+            volumes[notes[current]]+=1.0f/offset;
+            //std::cout<<"change"<<std::endl;
+            Renderer::set_sound_volume(plays[notes[current]], volumes[notes[current]]);
+        }
+        if (timer<durations[current]+offset and timer>=durations[current]-offset) {
+            volumes[notes[current]]-=1.0f/offset;
+            Renderer::set_sound_volume(plays[notes[current]], volumes[notes[current]]);
+        }
+        //std::cout<<volumes[notes[current]]<<std::endl;
         if (timer==durations[current]) {
 
-            timer=0;
+            timer=-1;
+
             Renderer::stop_sound(plays[notes[current]]);
+
             current+=1;
+
+
             std::cout<<current;
             if (current>=length) {
                 std::cout<<"end-play";
                 end=1;
             }
         }
+        timer++;
     }
 
 

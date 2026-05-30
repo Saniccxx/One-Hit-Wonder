@@ -6,6 +6,8 @@
 
 class Sequence {
     public:
+    int i;
+    int offset;
     int timer;
     int length;
     int level;
@@ -23,6 +25,7 @@ class Sequence {
     Sound C2 ;
     std::unordered_map<int, int> keys={{KEY_T,0},{KEY_Y,1},{KEY_U,2},{KEY_I,3},{KEY_O,4},{KEY_P,5},{KEY_LEFT_BRACKET,6},{KEY_RIGHT_BRACKET,7}};
     std::unordered_map<int, Sound> plays ;
+    std::unordered_map<int, float> volumes;
     std::vector<int> notes;
     std::vector<int> durations;
     Sequence(std::vector<int> notes,std::vector<int> durations);

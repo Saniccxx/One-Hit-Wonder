@@ -62,7 +62,7 @@ void Game::init() {
     }
     display->init();
     images = load_all_images("Resources/Images");
-    sequence=std::make_unique<Sequence>(std::vector{1,2,3},std::vector{100,200,300});
+    sequence=std::make_unique<Sequence>(std::vector{1,2,3},std::vector{100,100,100});
 
 }
 
