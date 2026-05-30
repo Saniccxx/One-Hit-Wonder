@@ -12,7 +12,13 @@ JeffTheDisplay::JeffTheDisplay(Game& game): game(game) {}
 JeffTheDisplay::~JeffTheDisplay() = default;
 
 void JeffTheDisplay::init() {
-    player = std::make_unique<MapPlayer>(game, 500.0f, 200.0f);
+    player = std::make_unique<MapPlayer>(
+        500.0f,
+        200.0f,
+        game.get_texture("front.png"),
+        game.get_texture("back.png"),
+        game.get_texture("side.png")
+    );
     interact_obj = std::make_unique<MapObject>(600.0f, 300.0f, false, 100.0f, "GET OUT!!! IM 13 YOU PERVERT",  game.get_texture("Sigma_salto.png"));
 }
 
