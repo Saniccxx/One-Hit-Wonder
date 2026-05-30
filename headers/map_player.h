@@ -1,4 +1,5 @@
 #pragma once
+#include <vector>
 
 #include "renderer.h"
 class Game;
@@ -11,7 +12,13 @@ public:
 	[[nodiscard]] float get_x() const { return x; }
 	[[nodiscard]] float get_y() const { return y + static_cast<float>(size) / 4.0f; }
 
-	void upddate_archive();
+	void update_archive();
+	void collision_nudge(int type, int collided_edge_coord);
+	void rollback_archive(){x = archive_x; y = archive_y;};
+	std::vector<int> get_archive();
+	std::vector<int> get_pos();
+
+
 
 private:
 	float x;

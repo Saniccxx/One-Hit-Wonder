@@ -29,13 +29,16 @@ add_executable(major_jam
         headers/config.h
         headers/sequence.h
         cpps/sequence.cpp
-        cpps/jeff_the_display.cpp
-        headers/jeff_the_display.h
+        cpps/map_display.cpp
+        headers/map_display.h
         cpps/map_player.cpp
         headers/map_player.h
-        cpps/map_object.cpp
-        headers/map_object.h
+        cpps/interaction_object.cpp
+        headers/interaction_object.h
         headers/settings_display.h
+        cpps/settings_display.cpp
+        headers/collision_object.h
+        cpps/collision_object.cpp
         cpps/settings_display.cpp
         headers/pause_display.h
         cpps/pause_display.cpp)

@@ -8,7 +8,12 @@ MapPlayer::MapPlayer(float x, float y, Texture2D front_texture, Texture2D back_t
 	: x(x), y(y),
 	  front_texture(front_texture),
 	  back_texture(back_texture),
-	  side_texture(side_texture) {}
+	  side_texture(side_texture) {
+
+	float archive_x = x;
+	float archive_y = y;
+}
+
 
 void MapPlayer::tick(float delta_time) {
 	auto mv = Renderer::get_movement();
@@ -45,6 +50,11 @@ void MapPlayer::tick(float delta_time) {
 			break;
 	}
 
+}
+
+void MapPlayer::update_archive() {
+	archive_x = x;
+	archive_y = y;
 	mirror_x = (facing == Facing::Left);
 
 	if (texture && texture->id != 0) {
@@ -80,4 +90,18 @@ void MapPlayer::tick(float delta_time) {
 	}
 }
 
+std::vector<int> MapPlayer::get_archive() {
+	return {(int)archive_x, (int)archive_y, size};
+}
+std::vector<int> MapPlayer::get_pos() {
+	return {(int)x, (int)y, size};
+}
+
+// type 0 is up collision, type 1 is down collision, type 2 is left, type 3 is right
+void MapPlayer::collision_nudge(int type, int collided_edge_coord) {
+	if (type == 0) y = collided_edge_coord - size;
+	if (type == 1) y = collided_edge_coord;
+	if (type == 2) x = collided_edge_coord - size;
+	if (type == 3) x = collided_edge_coord;
+	};
 

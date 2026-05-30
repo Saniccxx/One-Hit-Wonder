@@ -1,14 +1,13 @@
-#include "../headers/map_object.h"
+#include "../headers/interaction_object.h"
 #include "../headers/renderer.h"
 #include "../headers/config.h"
 #include <cmath>
 
-
-MapObject::MapObject(float x, float y, bool has_collision, float radius, std::string_view text, Texture2D tex)
+InteractionObject::InteractionObject(float x, float y, bool has_collision, float radius, std::string_view text, Texture2D tex)
     : x(x), y(y), has_collision(has_collision), radius(radius), text(text), texture(tex) {}
 
-void MapObject::tick(float player_x, float player_y, double delta_time) {
-    // animation stuff,
+void InteractionObject::tick(float player_x, float player_y, double delta_time) {
+    // animation stuff, magic numbers specific for all my fellas (only one unfortunatelly), maybe fix later ig
     if (texture.id != 0) {
         const int frame_size = texture.width;
         const int frame_count = (frame_size > 0) ? (texture.height / frame_size) : 0;
