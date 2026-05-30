@@ -2,10 +2,11 @@
 #include "../headers/renderer.h"
 #include <iostream>
 
+#include "../headers/game.h"
 
-Sequence::Sequence(std::vector<int> notes,std::vector<int> durations) {
-    this->notes=notes;
-    this->durations=durations;
+
+Sequence::Sequence(Game& game,std::vector<int> notes,std::vector<int> durations): game(game),notes(notes),durations(durations)   {
+
     for (i=0; i<notes.size(); i++) {
         volumes[i]=0;
     }
@@ -36,6 +37,7 @@ Sequence::Sequence(std::vector<int> notes,std::vector<int> durations) {
     current_note=-1;
     completed=0;
     timer=0;
+
 
 
 
