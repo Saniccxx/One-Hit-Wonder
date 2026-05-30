@@ -22,7 +22,6 @@ class Game {
     std::unique_ptr<Sequence> sequence;
 
     void request_display_change(std::unique_ptr<Display> new_display);
-    void set_display(std::unique_ptr<Display> new_display);
     [[nodiscard]] Display* get_display() const;
     [[nodiscard]] GameCamera* get_camera() const;
     [[nodiscard]] double get_delta_time() const;
@@ -35,6 +34,7 @@ class Game {
 
     private:
     std::vector<LoadedTex> images;
+    void set_display(std::unique_ptr<Display> new_display);
     double delta_time = 0.0;
     std::unique_ptr<GameCamera> camera;
     std::unique_ptr<Display> display;
