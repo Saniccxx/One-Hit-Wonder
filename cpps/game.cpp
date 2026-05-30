@@ -63,8 +63,10 @@ void Game::init() {
     display->init();
     images = load_all_images("Resources/Images");
     int speed=1;
-    sequence=std::make_unique<Sequence>(std::vector{0,2,4,4,4,4,4,5,4,2,0,2,1,0,1,2},std::vector{100/speed,100/speed,50/speed,50/speed,50/speed,50/speed,100/speed,100/speed,100/speed,100/speed,100/speed,100/speed,200/speed,100/speed,100/speed,200/speed});
-
+    //sequence=std::make_unique<Sequence>(std::vector{0,2,4,4,4,4,4,5,4,2,0,2,1,0,1,2},std::vector{100/speed,100/speed,50/speed,50/speed,50/speed,50/speed,100/speed,100/speed,100/speed,100/speed,100/speed,100/speed,200/speed,100/speed,100/speed,200/speed});
+    sequence=std::make_unique<Sequence>(std::vector{0,1},std::vector{100,100});
+    std::cout<<sequence->completed<<std::endl;
+    std::cout<<sequence->compleation_level<<std::endl;
 }
 
 double delta_time = 0.0f;
@@ -74,6 +76,8 @@ void Game::tick(){
     // Sound D = Renderer::load_sound("Resources/D.wav");
     // PlaySound(D);
     sequence->check();
+    //std::cout<<sequence->completed<<std::endl;
+    //std::cout<<sequence->compleation_level<<std::endl;
     sequence->play();
 
 

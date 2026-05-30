@@ -81,7 +81,9 @@ void Sequence::progress() {
         if (level < length && notes[level]==current_note) {
 
             level++;
-            compleation_level=level/length;
+            flevel=level;
+            compleation_level=flevel/length;
+            std::cout<<"Upgrade, compleation_level"<<compleation_level<<std::endl;
             if (level==length) {
                 completed=1;
                 std::cout << "Completed ";
