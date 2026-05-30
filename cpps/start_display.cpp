@@ -12,8 +12,8 @@ StartDisplay::StartDisplay(Game& game): game(game) {}
 StartDisplay::~StartDisplay() = default;
 
 void StartDisplay::init() {
-    constexpr float button_width = 320.0f;
-    constexpr float button_height = 90.0f;
+    constexpr float button_width = 320.0f/2;
+    constexpr float button_height = 90.0f/2;
     const float x = (static_cast<float>(game.width) - button_width) / 2.0f;
     const float y = (static_cast<float>(game.height) - button_height) / 2.0f;
 

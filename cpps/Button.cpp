@@ -26,7 +26,7 @@ void Button::Draw() const {
     }
 
     Renderer::draw_rectangle_rec(rect, color);
-    int textWidth = Renderer::measure_text(text.c_str(), textSize);
+    int textWidth = Renderer::measure_text(text.c_str(), textSize)/2;
     float textX = rect.x + (rect.width - textWidth) / 2;
     float textY = rect.y + (rect.height - textSize) / 2;
     Renderer::draw_text(text, static_cast<int>(textX), static_cast<int>(textY), textSize, textColor);
