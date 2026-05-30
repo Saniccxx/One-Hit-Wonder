@@ -11,6 +11,7 @@ public:
 
     void update(float delta_time);
     void set_target(Vector2 new_target);
+    void reset_to_default();
 
     [[nodiscard]] const Camera2D& get_camera() const;
 

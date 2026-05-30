@@ -1,5 +1,6 @@
 #include "../headers/interaction_object.h"
 #include "../headers/renderer.h"
+#include "../headers/config.h"
 #include <cmath>
 
 InteractionObject::InteractionObject(float x, float y, bool has_collision, float radius, std::string_view text, Texture2D tex)
@@ -8,21 +9,27 @@ InteractionObject::InteractionObject(float x, float y, bool has_collision, float
 void InteractionObject::tick(float player_x, float player_y, double delta_time) {
     // animation stuff, magic numbers specific for all my fellas (only one unfortunatelly), maybe fix later ig
     if (texture.id != 0) {
-        frame_timer += delta_time;
-        if (frame_timer >= 64.0) {
-            current_frame++;
-            frame_timer = 0;
-            if (current_frame >= 16) {
-                current_frame = 0;
+        const int frame_size = texture.width;
+        const int frame_count = (frame_size > 0) ? (texture.height / frame_size) : 0;
+
+        if (frame_count > 0) {
+            frame_timer += delta_time;
+            if (frame_timer >= config::animation_frame_delay_ms) {
+                current_frame++;
+                frame_timer = 0;
+                if (current_frame >= frame_count) {
+                    current_frame = 0;
+                }
             }
+
+            const auto frame_size_f = static_cast<float>(frame_size);
+            Rectangle source = {0.0f, static_cast<float>(current_frame * frame_size), frame_size_f, frame_size_f};
+            float render_size = (radius > 0) ? radius * 2.0f : frame_size_f;
+            Rectangle dest = {x, y, render_size, render_size};
+            Vector2 origin = {render_size / 2.0f, render_size / 2.0f};
+
+            Renderer::draw_texture_pro(texture, source, dest, origin, 0.0f, Renderer::white);
         }
-
-        Rectangle source = {0, static_cast<float>(current_frame * 64), 64.0f, 64.0f};
-        float render_size = (radius > 0) ? radius * 2.0f : 64.0f;
-        Rectangle dest = {x, y, render_size, render_size};
-        Vector2 origin = {render_size / 2.0f, render_size / 2.0f};
-
-        Renderer::draw_texture_pro(texture, source, dest, origin, 0.0f, Renderer::white);
     } else {
         Renderer::draw_circle(static_cast<int>(x), static_cast<int>(y), 40, Renderer::black);
     }

@@ -3,7 +3,9 @@
 #include "../headers/display.h"
 #include "../headers/camera.h"
 #include "../headers/start_display.h"
+#include "../headers/pause_display.h"
 #include "../headers/combat_display.h"
+#include "../headers/jeff_the_display.h"
 #include "../headers/renderer.h"
 #include "../headers/assets.h"
 #include <iostream>
@@ -75,6 +77,18 @@ void Game::tick(){
 
 
 
+    if (Renderer::is_key_pressed(KEY_ESCAPE)) {
+        if (paused_display && dynamic_cast<PauseDisplay*>(display.get()) != nullptr) {
+            set_display(std::move(paused_display));
+        } else if (!paused_display && display &&
+                   (dynamic_cast<CombatDisplay*>(display.get()) != nullptr ||
+                    dynamic_cast<JeffTheDisplay*>(display.get()) != nullptr)) {
+            paused_display = std::move(display);
+            set_display(std::make_unique<PauseDisplay>(*this));
+            display->init();
+        }
+    }
+
     if (pending_display) {
         set_display(std::move(pending_display));
         display->init();
@@ -84,12 +98,6 @@ void Game::tick(){
     Renderer::begin_drawing();
     camera->begin_mode();
     Renderer::clear_background(Renderer::black);
-
-    if (!images.empty() && images[0].tex.id != 0) {
-        Renderer::DrawImage(images[0].tex, 100, 100);
-    } else {
-        Renderer::draw_text("No images loaded", 20, 20, 20, Renderer::red);
-    }
 
     if (display) {
         display->tick();

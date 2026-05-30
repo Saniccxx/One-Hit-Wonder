@@ -1,6 +1,7 @@
 #pragma once
 #include <memory>
 #include <vector>
+#include "config.h"
 #include "renderer.h"
 #include "sequence.h"
 
@@ -14,7 +15,7 @@ struct LoadedTex {
 
 class Game {
     public:
-    Game(int width, int height);
+    Game(int width = config::screenWidth, int height = config::screenHeight);
     ~Game();
 
     void init();
@@ -27,8 +28,10 @@ class Game {
     [[nodiscard]] double get_delta_time() const;
     [[nodiscard]] Texture2D get_texture(std::string_view name) const;
 
-    int width = 800;
-    int height = 800;
+    int width;
+    int height;
+
+    std::unique_ptr<Display> paused_display;
 
     private:
     std::vector<LoadedTex> images;

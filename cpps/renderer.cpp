@@ -11,6 +11,7 @@ Shader Renderer::bloom = {0};
 
 void Renderer::init_window(const int width, const int height, const char *title) {
     InitWindow(width, height, title);
+    SetExitKey(0);
     target = LoadRenderTexture(width, height);
     bloom = LoadShader(0, "Resources/shaders/bloom.fs");
 }
