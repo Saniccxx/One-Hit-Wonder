@@ -15,6 +15,7 @@ class Sequence {
     int completed;
     int current;
     int end;
+    float compleation_level;
     Sound C;
     Sound D;
     Sound E ;
