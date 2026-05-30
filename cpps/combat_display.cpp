@@ -7,7 +7,7 @@
 #include "../headers/game.h"
 #include "../headers/combat_player.h"
 #include "../headers/Button.h"
-#include "../headers/jeff_the_display.h"
+#include "../headers/map_display.h"
 #include "../headers/renderer.h"
 
 CombatDisplay::CombatDisplay(Game& game): game(game) {}
@@ -49,7 +49,7 @@ void CombatDisplay::tick() {
         }
         button->Draw();
         if (button->IsClicked()) {
-            game.request_display_change(std::make_unique<JeffTheDisplay>(game));
+            game.request_display_change(std::make_unique<MapDisplay>(game));
         }
     }
 }

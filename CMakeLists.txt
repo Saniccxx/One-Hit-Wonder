@@ -29,8 +29,8 @@ add_executable(major_jam
         headers/config.h
         headers/sequence.h
         cpps/sequence.cpp
-        cpps/jeff_the_display.cpp
-        headers/jeff_the_display.h
+        cpps/map_display.cpp
+        headers/map_display.h
         cpps/map_player.cpp
         headers/map_player.h
         cpps/interaction_object.cpp

@@ -1,20 +1,20 @@
 #pragma once
 
 #include <string>
-#include "jeff_the_display.h"
+#include "map_display.h"
 #include "game.h"
 #include "renderer.h"
 
-class JeffTheDisplay;
+class MapDisplay;
 class CollisionObject {
 public:
-    CollisionObject(int x, int y, int width, int height, JeffTheDisplay& display);
+    CollisionObject(int x, int y, int width, int height, MapDisplay& display);
     void tick(double delta_time);
     bool has_collision = true;
-    bool collision();
+    bool collision(std::vector<int> player_pos);
 
 private:
     int x, y, width, height;
-    Game& game;
+    MapDisplay& display;
 };
 

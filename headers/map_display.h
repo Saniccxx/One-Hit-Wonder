@@ -9,17 +9,18 @@ class Game;
 class MapPlayer;
 class CollisionObject;
 
-class JeffTheDisplay : public Display {
+class MapDisplay : public Display {
 public:
-    explicit JeffTheDisplay(Game& game);
-    ~JeffTheDisplay() override;
+    explicit MapDisplay(Game& game);
+    ~MapDisplay() override;
 
     void init() override;
     void tick() override;
 
-private:
-    Game& game;
     std::unique_ptr<MapPlayer> player;
     std::unique_ptr<InteractionObject> interact_obj;
     std::unique_ptr<CollisionObject> collision_obj;
+
+private:
+    Game& game;
 };

@@ -1,4 +1,5 @@
 #pragma once
+#include <vector>
 
 class Game;
 
@@ -11,6 +12,10 @@ public:
     [[nodiscard]] float get_y() const { return y + size/2; }
 
 	void upddate_archive();
+	void collision_nudge();
+	std::vector<int> get_archive();
+	std::vector<int> get_pos();
+
 
 private:
 	Game& game;
