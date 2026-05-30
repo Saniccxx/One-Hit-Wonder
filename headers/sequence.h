@@ -11,6 +11,7 @@ class Sequence {
     int timer;
     int length;
     int level;
+    float flevel;
     int current_note;
     int completed;
     int current;
