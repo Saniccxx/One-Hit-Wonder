@@ -25,8 +25,8 @@ private:
 	float y;
 	float archive_x;
 	float archive_y;
-	int size = 400;
-	float speed = 60.0f*0.01;
+	int size = 40;
+	float speed = 20.0f*0.01;
 	enum class Facing {
 		Down,
 		Up,
