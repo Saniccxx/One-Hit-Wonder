@@ -50,7 +50,8 @@ add_executable(major_jam
         cpps/particles/particle_generator.cpp
         headers/particles/particle_system.h
         cpps/particles/particle_system.cpp
-        cpps/config.cpp)
+        cpps/config.cpp
+        cpps/map_display_save_load.cpp)
 
 # Dependencies
 set(RAYLIB_VERSION 6.0)

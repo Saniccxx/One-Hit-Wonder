@@ -24,6 +24,8 @@ public:
 
     void init() override;
     void tick() override;
+    void saveMapToJson();
+    void loadMapFromJson();
     void place_block(int x, int y, int type);
 
 
@@ -37,11 +39,11 @@ private:
     Game& game;
     int current_block = 1;
     bool handle_collision(int i, int j);
-     static constexpr int tile_size = 50;
+    static constexpr int tile_size = 50;
     static constexpr int width = 2000;
     static constexpr int height = 1500;
-     static constexpr int width_in_tiles = width / tile_size;
-     static constexpr int height_in_tiles = height / tile_size;;
+    static constexpr int width_in_tiles = width / tile_size;
+    static constexpr int height_in_tiles = height / tile_size;
     std::unique_ptr<CollisionObject> coll_objects[height_in_tiles][width_in_tiles]{};
     std::unique_ptr<GameCamera> camera;
 };

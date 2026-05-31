@@ -142,3 +142,4 @@ bool MapDisplay::handle_collision(int i, int j) {
     else player -> rollback_archive();
     return true;
 }
+
