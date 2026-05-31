@@ -12,6 +12,12 @@ struct PianoKey {
 };
 
 int main() {
+#ifdef NDEBUG
+    std::cout << "Running in Release mode\n";
+#else
+    std::cout << "Running in Debug mode\n";
+#endif
+
     Renderer::init_audio_device();
     Renderer::init_window(config::screenWidth, config::screenHeight, "One hit wonder™");
 
