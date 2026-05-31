@@ -140,7 +140,8 @@ void Renderer::end_mode_2d() { EndMode2D(); }
 Vector2 Renderer::get_screen_to_world_2d(Vector2 position, Camera2D camera) { return GetScreenToWorld2D(position, camera); }
 void Renderer::draw_circle_lines(int centerX, int centerY, float radius, Color color) { DrawCircleLines(centerX, centerY, radius, color); }
 void Renderer::draw_texture_pro(Texture2D texture, Rectangle source, Rectangle dest, Vector2 origin, float rotation, Color tint) { DrawTexturePro(texture, source, dest, origin, rotation, tint); }
-bool Renderer::is_mouse_button_pressed(int button) { return IsMouseButtonPressed(button); }
+bool Renderer::is_mouse_button_clicked(int button) { return IsMouseButtonPressed(button); }
+bool Renderer::is_mouse_button_down(int button) { return IsMouseButtonDown(button); }
 
 std::pair<int, int> Renderer::get_movement() {
     int dx = 0;

@@ -3,10 +3,12 @@
 #include <vector>
 #include "renderer.h"
 #include <unordered_map>
+class Game;
 
 class Sequence {
     public:
     int i;
+    Game& game;
     int offset;
     int timer;
     int length;
@@ -30,7 +32,7 @@ class Sequence {
     std::unordered_map<int, float> volumes;
     std::vector<int> notes;
     std::vector<int> durations;
-    Sequence(std::vector<int> notes,std::vector<int> durations);
+    Sequence(Game& game,std::vector<int> notes,std::vector<int> durations);
     void test();
     void add_level();
     ~Sequence() = default;

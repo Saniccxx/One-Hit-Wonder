@@ -29,7 +29,6 @@ public:
 
     std::unique_ptr<MapPlayer> player;
     std::unique_ptr<InteractionObject> interact_obj;
-    std::unique_ptr<CollisionObject> collision_obj;
 
     ParticleSystem particle_system;
     std::unique_ptr<ParticleGenerator> player_particles;
@@ -37,11 +36,12 @@ public:
 private:
     Game& game;
     int current_block = 1;
-     static constexpr int tile_size = 20;
+    bool handle_collision(int i, int j);
+     static constexpr int tile_size = 50;
     static constexpr int width = 2000;
     static constexpr int height = 1500;
      static constexpr int width_in_tiles = width / tile_size;
      static constexpr int height_in_tiles = height / tile_size;;
-    int map[height_in_tiles][width_in_tiles]{};
+    std::unique_ptr<CollisionObject> coll_objects[height_in_tiles][width_in_tiles]{};
     std::unique_ptr<GameCamera> camera;
 };

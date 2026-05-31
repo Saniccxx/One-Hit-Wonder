@@ -2,7 +2,7 @@
 
 namespace config {
     inline constexpr bool enableBloom = false;
-    inline constexpr int screenWidth = 1280;
-    inline constexpr int screenHeight = 720;
+    inline constexpr int screenWidth = 2080;
+    inline constexpr int screenHeight = 1500;
     constexpr double animation_frame_delay_ms = 64.0;
 }
