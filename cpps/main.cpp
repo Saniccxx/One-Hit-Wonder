@@ -10,6 +10,7 @@ int main() {
 #else
     std::cout << "Running in Debug mode\n";
 #endif
+    Renderer::init_audio_device();
 
     Renderer::init_window(config::screenWidth, config::screenHeight, "One hit wonder™");
     Game game(config::screenWidth, config::screenHeight);

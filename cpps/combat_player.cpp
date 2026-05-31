@@ -14,7 +14,6 @@ struct PianoKey {
 
 
 CombatPlayer::CombatPlayer(Game& game): game(game) {
-    Renderer::init_audio_device();
 
     Sound C = Renderer::load_sound("Resources/C.wav");
     Sound D = Renderer::load_sound("Resources/D.wav");
