@@ -13,7 +13,7 @@
 #include <array>
 #include "../headers/sequence.h"
 
-Game::Game(int width, int height): width(width), height(height) {}
+Game::Game(const Config& config) : width(config.get_screen_width()), height(config.get_screen_height()), config(config) {}
 
 Game::~Game()
 {
