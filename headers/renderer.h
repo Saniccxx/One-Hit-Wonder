@@ -56,7 +56,8 @@ public:
     static Vector2 get_screen_to_world_2d(Vector2 position, Camera2D camera);
     static void draw_circle_lines(int centerX, int centerY, float radius, Color color);
     static void draw_texture_pro(Texture2D texture, Rectangle source, Rectangle dest, Vector2 origin, float rotation, Color tint);
-    static bool is_mouse_button_pressed(int button);
+    static bool is_mouse_button_clicked(int button);
+    static bool is_mouse_button_down(int button);
 
     static constexpr auto black = BLACK;
     static constexpr auto white = WHITE;

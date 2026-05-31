@@ -13,7 +13,7 @@ void Button::Update(const Camera2D* camera) {
     }
 
     isHovered = Renderer::check_collision_point_rec(worldMousePos, rect);
-    isClicked = isHovered && Renderer::is_mouse_button_pressed(MOUSE_BUTTON_LEFT);
+    isClicked = isHovered && Renderer::is_mouse_button_clicked(MOUSE_BUTTON_LEFT);
 }
 
 void Button::Draw() const {
