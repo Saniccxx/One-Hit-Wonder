@@ -7,18 +7,35 @@ class Game;
 
 class Sequence {
     public:
-    int i;
+    int completed;
+    float compleation_level;
+    int level;
+    void progress();
+
+    void play();
+    void draw_progress_bar();
+    void check();
     Game& game;
+    std::unordered_map<int, Sound> plays ;
+    std::unordered_map<int, float> volumes;
+    std::vector<int> notes;
+    std::vector<int> durations;
+    Sequence(Game& game,std::vector<int> notes,std::vector<int> durations);
+    ~Sequence() = default;
+    private:
+
+    int i;
+
     int offset;
     int timer;
     int length;
-    int level;
+
     float flevel;
     int current_note;
-    int completed;
+
     int current;
     int end;
-    float compleation_level;
+
     Sound C;
     Sound D;
     Sound E ;
@@ -28,18 +45,22 @@ class Sequence {
     Sound B ;
     Sound C2 ;
     std::unordered_map<int, int> keys={{KEY_T,0},{KEY_Y,1},{KEY_U,2},{KEY_I,3},{KEY_O,4},{KEY_P,5},{KEY_LEFT_BRACKET,6},{KEY_RIGHT_BRACKET,7}};
-    std::unordered_map<int, Sound> plays ;
-    std::unordered_map<int, float> volumes;
-    std::vector<int> notes;
-    std::vector<int> durations;
-    Sequence(Game& game,std::vector<int> notes,std::vector<int> durations);
+    float bar_progress;
+    int bar_changing=0;
+    float d_bar=0.0f;
+    float bar_change_speed=10;
+    int bar_width=200;
+    int bar_height=30;
+    Color bar_color=GREEN;
+
+
     void test();
     void add_level();
-    ~Sequence() = default;
     void get_key();
-    void progress();
-    void check();
-    void play();
+
+
+
+
 
 };
 

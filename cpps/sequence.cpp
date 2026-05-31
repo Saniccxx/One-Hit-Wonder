@@ -1,9 +1,9 @@
 #include "../headers/sequence.h"
 #include "../headers/renderer.h"
 #include <iostream>
-
+#include "raylib.h"
 #include "../headers/game.h"
-
+#include <cmath>
 
 Sequence::Sequence(Game& game,std::vector<int> notes,std::vector<int> durations): game(game),notes(notes),durations(durations)   {
 
@@ -58,14 +58,20 @@ void Sequence::get_key() {
             a=1;
             current_note=index;
         }
-        if (Renderer::is_key_pressed(KEY_BACKSPACE)) {
-            a=1;
-            current_note=-2;
-        }
+    if (Renderer::is_key_pressed(KEY_BACKSPACE)) {
+        a=1;
+        current_note=-2;
+    }
+
+
+
+
+
     }
     if (a==0) {
         current_note=-1;
     }
+
 }
 void Sequence::progress() {
 
@@ -79,7 +85,7 @@ void Sequence::progress() {
             level++;
             flevel=level;
             compleation_level=flevel/length;
-            std::cout<<"Upgrade, completion_level"<<compleation_level<<std::endl;
+            std::cout<<"Upgrade, compleation_level"<<compleation_level<<std::endl;
             if (level==length) {
                 completed=1;
                 std::cout << "Completed ";
@@ -89,11 +95,13 @@ void Sequence::progress() {
         else {
             std::cout << "Wrong note, reset";
             level=0;
+            compleation_level=0;
         }
     }
     else if (current_note==-2) {
         std::cout << "Reset";
         level=0;
+        compleation_level=0;
     }
 };
 void Sequence::check() {
@@ -139,5 +147,36 @@ void Sequence::play() {
     }
 
 
+
+}
+
+void Sequence::draw_progress_bar() {
+
+    if (std::abs(bar_progress-compleation_level)>0.01 and bar_changing==0) {
+        bar_changing=1;
+        d_bar=(compleation_level-bar_progress)/bar_change_speed;
+        if (compleation_level==0) {
+            bar_color=RED;
+        }
+
+    }
+    if (bar_changing>0) {
+        bar_progress+=d_bar;
+        bar_changing++;
+        if (bar_changing>=bar_change_speed+1) {
+            bar_changing=0;
+            if (compleation_level==1) {
+                bar_progress=1;
+            }
+            else if (compleation_level==0) {
+                bar_progress=0;
+                bar_color=GREEN;
+            }
+
+        }
+    }
+    std::cout<<bar_progress<<" "<<bar_changing<<std::endl;
+    DrawRectangle(100,100,bar_width,bar_height,LIGHTGRAY);
+    DrawRectangle(100,100,bar_width*bar_progress,bar_height,bar_color);
 
 }
