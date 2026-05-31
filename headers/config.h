@@ -1,4 +1,17 @@
 #pragma once
+#include <nlohmann/json.hpp>
+
+class Config {
+    int screenWidth;
+    int screenHeight;
+    const std::string file_name;
+    void parseConfig();
+    public:
+    explicit Config(std::string_view file_name);
+    [[nodiscard]] int get_screen_width() const { return screenWidth; }
+    [[nodiscard]] int get_screen_height() const { return screenHeight; }
+};
+
 
 namespace config {
     inline constexpr bool enableBloom = false;
