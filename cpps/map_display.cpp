@@ -118,8 +118,9 @@ void MapDisplay::place_block(int x, int y, int type) {
         if (type == 0) {
             coll_objects[tile_y][tile_x].reset();
         } else {
+            Texture2D tilesheet = game.get_texture("tekstury.png");
             coll_objects[tile_y][tile_x] = std::make_unique<CollisionObject>(
-                tile_x * tile_size, tile_y * tile_size, tile_size, tile_size, *this);
+                tile_x * tile_size, tile_y * tile_size, tile_size, tile_size, tile_x, tilesheet, *this);
         }
     }
 
