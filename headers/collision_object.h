@@ -1,14 +1,12 @@
 #pragma once
 
 #include <string>
-#include "map_display.h"
-#include "game.h"
 #include "renderer.h"
 
 class MapDisplay;
 class CollisionObject {
 public:
-    CollisionObject(int x, int y, int width, int height, MapDisplay& display);
+    CollisionObject(int x, int y, int width, int height, int id, Texture2D tilesheet, MapDisplay& display);
     void tick(double delta_time);
     bool has_collision = true;
     bool collision(int px, int py, int size);
@@ -18,6 +16,8 @@ public:
 
 private:
     int x, y, width, height;
+    int id = 0;
+    Texture2D tilesheet{0};
     MapDisplay& display;
 };
 
