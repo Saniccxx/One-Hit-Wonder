@@ -6,6 +6,7 @@
 #include "interaction_object.h"
 #include "collision_object.h"
 #include "camera.h"
+#include "particles/particle_system.h"
 
 class Game;
 class MapPlayer;
@@ -29,6 +30,9 @@ public:
     std::unique_ptr<MapPlayer> player;
     std::unique_ptr<InteractionObject> interact_obj;
     std::unique_ptr<CollisionObject> collision_obj;
+
+    ParticleSystem particle_system;
+    std::unique_ptr<ParticleGenerator> player_particles;
 
 private:
     Game& game;

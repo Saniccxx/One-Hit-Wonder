@@ -26,6 +26,19 @@ void MapDisplay::init() {
 
     interact_obj = std::make_unique<InteractionObject>(600.0f, 300.0f, false, 100.0f, "GET OUT!!! IM 13 YOU PERVERT",  game.get_texture("Sigma_salto.png"));
     collision_obj = std::make_unique<CollisionObject>(200,200, 200,200, *this);
+
+    player_particles = std::make_unique<ParticleGenerator>(
+        &particle_system,
+        player->get_x(), player->get_y(),
+        0.0f, 0.0f, // vx, vy
+        0.0f,       // angle
+        20.0f,      // speed
+        60.0f,      // lifespan
+        4,          // size
+        GREEN,      // color
+        60.0f       // rate
+    );
+    particle_system.add_generator(player_particles.get());
 }
 
 void MapDisplay::tick() {
@@ -36,7 +49,7 @@ void MapDisplay::tick() {
         mousePos = Renderer::get_screen_to_world_2d(mousePos, camera->get_camera());
         place_block(mousePos.x, mousePos.y, current_block);
     }
-    Renderer::draw_rectangle(0, 0, 1920, 1080, Renderer::white);
+    // Renderer::draw_rectangle(0, 0, 1920, 1080, Renderer::white);
     collision_obj->tick(game.get_delta_time());
     bool collided = false;
     if (collision_obj -> has_collision) {
@@ -64,7 +77,17 @@ void MapDisplay::tick() {
     if (player) {
         player->tick(static_cast<float>(game.get_delta_time()));
         if (camera) camera->set_target({player->get_x(), player->get_y()});
+
+        auto mv = Renderer::get_movement();
+        if (mv.first != 0 || mv.second != 0) {
+            player_particles->start();
+            player_particles->edit(player->get_x() + player->size/2, player->get_y() + player->size/2, 0, 0);
+        } else {
+            player_particles->stop();
+        }
     }
+
+    particle_system.update(static_cast<float>(game.get_delta_time()));
 
     for (int i = 0; i < height_in_tiles; i++) {
         for (int j = 0; j < width_in_tiles; j++) {
@@ -72,6 +95,10 @@ void MapDisplay::tick() {
                 Renderer::draw_rectangle(j * tile_size, i * tile_size, tile_size, tile_size, Renderer::red);
             }
         }
+    }
+
+    if (player) {
+        particle_system.draw();
     }
 
     if (camera) {

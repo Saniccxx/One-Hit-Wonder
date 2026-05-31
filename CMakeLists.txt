@@ -41,7 +41,13 @@ add_executable(major_jam
         cpps/collision_object.cpp
         cpps/settings_display.cpp
         headers/pause_display.h
-        cpps/pause_display.cpp)
+        cpps/pause_display.cpp
+        headers/particles/particle.h
+        cpps/particles/particle.cpp
+        headers/particles/particle_generator.h
+        cpps/particles/particle_generator.cpp
+        headers/particles/particle_system.h
+        cpps/particles/particle_system.cpp)
 
 # Dependencies
 set(RAYLIB_VERSION 6.0)

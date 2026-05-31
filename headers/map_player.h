@@ -18,6 +18,8 @@ public:
 	std::vector<int> get_archive();
 	std::vector<int> get_pos();
 
+	int size = 40;
+
 
 
 private:
@@ -25,7 +27,7 @@ private:
 	float y;
 	float archive_x;
 	float archive_y;
-	int size = 40;
+
 	float speed = 20.0f*0.01;
 	enum class Facing {
 		Down,
