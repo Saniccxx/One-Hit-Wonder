@@ -84,6 +84,10 @@ void MapPlayer::tick(float delta_time) {
 			Renderer::draw_texture_pro(*texture, source, dest, origin, 0.0f, Renderer::white);
 		}
 	}
+
+#ifndef NDEBUG
+	Renderer::draw_rectangle_lines(static_cast<int>(x), static_cast<int>(y), size, size, Renderer::red);
+#endif
 }
 
 void MapPlayer::update_archive()
