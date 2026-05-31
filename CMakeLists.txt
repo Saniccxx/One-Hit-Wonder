@@ -49,7 +49,8 @@ add_executable(major_jam
         headers/particles/particle_generator.h
         cpps/particles/particle_generator.cpp
         headers/particles/particle_system.h
-        cpps/particles/particle_system.cpp)
+        cpps/particles/particle_system.cpp
+        cpps/config.cpp)
 
 # Dependencies
 set(RAYLIB_VERSION 6.0)
@@ -62,6 +63,9 @@ if (EMSCRIPTEN)
 endif()
 
 find_package(raylib ${RAYLIB_VERSION} QUIET) # QUIET or REQUIRED
+include(FetchContent)
+FetchContent_Declare(json URL https://github.com/nlohmann/json/releases/download/v3.12.0/json.tar.xz)
+FetchContent_MakeAvailable(json)
 if (NOT raylib_FOUND) # If there's none, fetch and build raylib
     include(FetchContent)
     FetchContent_Declare(
@@ -69,6 +73,7 @@ if (NOT raylib_FOUND) # If there's none, fetch and build raylib
             DOWNLOAD_EXTRACT_TIMESTAMP OFF
             URL https://github.com/raysan5/raylib/archive/refs/tags/${RAYLIB_VERSION}.tar.gz
     )
+
     FetchContent_GetProperties(raylib)
     if (NOT raylib_POPULATED) # Have we downloaded raylib yet?
         set(FETCHCONTENT_QUIET NO)
@@ -78,8 +83,7 @@ if (NOT raylib_FOUND) # If there's none, fetch and build raylib
 endif()
 
 
-target_link_libraries(${PROJECT_NAME} raylib)
-
+target_link_libraries(${PROJECT_NAME} raylib nlohmann_json::nlohmann_json)
 # Copy assets for native builds
 if (NOT EMSCRIPTEN)
     add_custom_command(

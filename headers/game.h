@@ -14,7 +14,7 @@ struct LoadedTex {
 
 class Game {
     public:
-    Game(int width = config::screenWidth, int height = config::screenHeight);
+    Game(const Config& config);
     ~Game();
 
     void init();
@@ -28,7 +28,7 @@ class Game {
 
     int width;
     int height;
-
+    const Config& config;
     std::unique_ptr<Display> paused_display;
 
     private:
