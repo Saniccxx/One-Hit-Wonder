@@ -13,10 +13,7 @@
 #include <array>
 #include "../headers/sequence.h"
 
-Game::Game(int width, int height): width(width), height(height)
-{
-    images = load_all_images("Resources/Images");
-}
+Game::Game(int width, int height): width(width), height(height) {}
 
 Game::~Game()
 {
