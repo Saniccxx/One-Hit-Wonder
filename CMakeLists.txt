@@ -42,6 +42,8 @@ add_executable(major_jam
         cpps/settings_display.cpp
         headers/pause_display.h
         cpps/pause_display.cpp
+        headers/dialog.h
+        cpps/dialog.cpp
         headers/particles/particle.h
         cpps/particles/particle.cpp
         headers/particles/particle_generator.h

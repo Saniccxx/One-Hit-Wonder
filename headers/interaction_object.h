@@ -1,7 +1,9 @@
 #pragma once
 
 #include <string>
+#include <memory>
 #include "renderer.h"
+#include "dialog.h"
 
 class InteractionObject {
 public:
@@ -9,7 +11,7 @@ public:
 
     InteractionObject(float x, float y, bool has_collision, float radius, std::string_view text, Texture2D tex);
 
-    void tick(float player_x, float player_y, double delta_time);
+    DialogResult tick(float player_x, float player_y, double delta_time, const Camera2D* camera = nullptr);
     bool has_collision;
     bool collision(float dx, float dy);
 
@@ -21,5 +23,7 @@ private:
     Texture2D texture;
     int current_frame = 0;
     double frame_timer = 0;
+    std::unique_ptr<Dialog> dialog;
+    bool near_player = false;
 };
 

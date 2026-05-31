@@ -156,3 +156,8 @@ std::pair<int, int> Renderer::get_movement() {
 void Renderer::draw_rectangle(int x, int y, int width, int height, Color color) {
     DrawRectangle(x, y, width, height, color);
 }
+
+void Renderer::draw_rectangle_lines(int x, int y, int width, int height, Color color)
+{
+    DrawRectangleLines(x, y, width, height, color);
+}

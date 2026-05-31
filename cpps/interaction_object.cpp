@@ -4,9 +4,11 @@
 #include <cmath>
 
 InteractionObject::InteractionObject(float x, float y, bool has_collision, float radius, std::string_view text, Texture2D tex)
-    : x(x), y(y), has_collision(has_collision), radius(radius), text(text), texture(tex) {}
+    : x(x), y(y), has_collision(has_collision), radius(radius), text(text), texture(tex) {
+    dialog = std::make_unique<Dialog>(text, x, y - 80);
+}
 
-void InteractionObject::tick(float player_x, float player_y, double delta_time) {
+DialogResult InteractionObject::tick(float player_x, float player_y, double delta_time, const Camera2D* camera) {
     // animation stuff, magic numbers specific for all my fellas (only one unfortunatelly), maybe fix later ig
     if (texture.id != 0) {
         const int frame_size = texture.width;
@@ -38,14 +40,20 @@ void InteractionObject::tick(float player_x, float player_y, double delta_time) 
     float dy = player_y - y;
     float dist = std::hypot(dx, dy);
 
+    DialogResult result = DialogResult::None;
+
     if (dist <= radius) {
-        Renderer::draw_rectangle(static_cast<int>(x) - 100, static_cast<int>(y) - 120, 670, 60, Renderer::red);
-        Renderer::draw_text(text, static_cast<int>(x) - 90, static_cast<int>(y) - 110, 40, Renderer::green);
+        if (dialog) {
+            dialog->Update(camera);
+            dialog->Draw();
+            result = dialog->GetResult();
+        }
     }
 
 #ifndef NDEBUG
     Renderer::draw_circle_lines(static_cast<int>(x), static_cast<int>(y), radius, Renderer::red);
 #endif
+    return result;
 }
     bool has_collision(float dx, float dy) {
     return false; //dokoncze to pozniej

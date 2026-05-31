@@ -28,6 +28,7 @@ public:
     static std::pair<int,int> get_movement();
 
     static void draw_rectangle(int x, int y, int width, int height, Color color);
+    static void draw_rectangle_lines(int x, int y, int width, int height, Color color);
 
     static void set_target_fps(int fps);
     static double get_delta_time();

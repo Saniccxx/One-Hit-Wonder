@@ -6,6 +6,7 @@
 #include "../headers/game.h"
 #include "../headers/map_player.h"
 #include "../headers/renderer.h"
+#include "../headers/combat_display.h"
 
 MapDisplay::MapDisplay(Game& game): game(game) {}
 
@@ -74,7 +75,14 @@ void MapDisplay::tick() {
 
 
     if (interact_obj && player) {
-        interact_obj->tick(player->get_x(), player->get_y(), game.get_delta_time());
+        DialogResult res = interact_obj->tick(player->get_x(), player->get_y(), game.get_delta_time(), camera ? &camera->get_camera() : nullptr);
+        if (res == DialogResult::No) {
+            auto display = std::make_unique<CombatDisplay>(game);
+            game.request_display_change(std::move(display));
+        }
+        else if (res == DialogResult::Yes) {
+            player->collision_nudge(0, 1000);
+        }
     }
 
     if (player) {
