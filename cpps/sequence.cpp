@@ -58,20 +58,14 @@ void Sequence::get_key() {
             a=1;
             current_note=index;
         }
-    if (Renderer::is_key_pressed(KEY_BACKSPACE)) {
-        a=1;
-        current_note=-2;
-    }
-
-
-
-
-
+        if (Renderer::is_key_pressed(KEY_BACKSPACE)) {
+            a=1;
+            current_note=-2;
+        }
     }
     if (a==0) {
         current_note=-1;
     }
-
 }
 void Sequence::progress() {
 
@@ -85,7 +79,7 @@ void Sequence::progress() {
             level++;
             flevel=level;
             compleation_level=flevel/length;
-            std::cout<<"Upgrade, compleation_level"<<compleation_level<<std::endl;
+            std::cout<<"Upgrade, completion_level"<<compleation_level<<std::endl;
             if (level==length) {
                 completed=1;
                 std::cout << "Completed ";

@@ -127,8 +127,8 @@ void MapDisplay::place_block(int x, int y, int type) {
 }
 
 bool MapDisplay::handle_collision(int i, int j) {
-    std::vector<int> pos = player -> get_pos();
-    std::vector<int> arch_pos = player -> get_archive();
+    const std::array<int, 3> pos = player -> get_pos();
+    const std::array<int, 3> arch_pos = player -> get_archive();
     if (!coll_objects[i][j] -> collision(pos[0], pos[1], pos[2])) return false;
 
     if (coll_objects[i][j] -> collision(arch_pos[0], pos[1], arch_pos[2])) { //verical

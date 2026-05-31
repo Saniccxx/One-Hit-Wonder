@@ -15,8 +15,8 @@ public:
 	void update_archive();
 	void collision_nudge(int type, int collided_edge_coord);
 	void rollback_archive(){x = archive_x; y = archive_y;};
-	std::vector<int> get_archive();
-	std::vector<int> get_pos();
+	std::array<int, 3> get_archive() const;
+	std::array<int, 3> get_pos() const;
 
 	int size = 40;
 

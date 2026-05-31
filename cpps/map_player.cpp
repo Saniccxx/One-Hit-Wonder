@@ -92,11 +92,17 @@ void MapPlayer::update_archive()
 	archive_y = y;
 }
 
-std::vector<int> MapPlayer::get_archive() {
-	return {(int)archive_x, (int)archive_y, size};
+// std::vector<int> MapPlayer::get_archive() {
+// 	return {(int)archive_x, (int)archive_y, size};
+// }
+// std::vector<int> MapPlayer::get_pos() {
+// 	return {(int)x, (int)y, size};
+// }
+std::array<int, 3> MapPlayer::get_archive() const{
+	return {static_cast<int>(archive_x), static_cast<int>(archive_y), size};
 }
-std::vector<int> MapPlayer::get_pos() {
-	return {(int)x, (int)y, size};
+std::array<int, 3> MapPlayer::get_pos() const{
+	return {static_cast<int>(x), static_cast<int>(y), size};
 }
 
 // type 0 is up collision, type 1 is down collision, type 2 is left, type 3 is right
