@@ -46,7 +46,7 @@ void MapDisplay::tick() {
     if (camera) camera->begin_mode();
     if (debug) {
 
-        if (Renderer::is_mouse_button_down(0)) {
+        if (Renderer::is_key_down(340) ){
             Vector2 mousePos = Renderer::get_mouse_pos();
             mousePos = Renderer::get_screen_to_world_2d(mousePos, camera->get_camera());
             place_block(mousePos.x, mousePos.y, current_block);
