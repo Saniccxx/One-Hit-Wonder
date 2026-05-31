@@ -14,7 +14,7 @@ CombatDisplay::CombatDisplay(Game& game): game(game) {}
 CombatDisplay::~CombatDisplay() = default;
 
 void CombatDisplay::init() {
-    player = std::make_unique<CombatPlayer>(500, 200, game);
+    player = std::make_unique<CombatPlayer>(game);
     button = std::make_unique<Button>(600.0f, 550.0f, 220.0f/2, 60.0f/2, "Enable Jeff Mode", 24, BLACK, SKYBLUE, LIGHTGRAY, DARKBLUE);
 }
 
