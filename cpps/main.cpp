@@ -40,14 +40,14 @@ int main() {
     Sound retry = Renderer::load_sound("Resources/retry2.wav");
 
     PianoKey pianoKeys[] = {
-        { KEY_T, C },
-        { KEY_Y, D },
-        { KEY_U, E },
-        { KEY_I, F },
-        { KEY_O, G },
-        { KEY_P, A },
-        { KEY_LEFT_BRACKET, B },
-        { KEY_RIGHT_BRACKET, C2 }
+        { KEY_A, C },
+        { KEY_S, D },
+        { KEY_D, E },
+        { KEY_F, F },
+        { KEY_J, G },
+        { KEY_K, A },
+        { KEY_L, B },
+        { KEY_SEMICOLON, C2 }
     };
 
     int hz = Renderer::get_monitor_refresh_rate();
