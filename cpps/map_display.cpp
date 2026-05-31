@@ -25,7 +25,7 @@ void MapDisplay::init() {
     );
 
     interact_obj = std::make_unique<InteractionObject>(600.0f, 300.0f, false, 100.0f, "GET OUT!!! IM 13 YOU PERVERT",  game.get_texture("Sigma_salto.png"));
-    collision_obj = std::make_unique<CollisionObject>(200,200, 200,200, *this);
+
 
     player_particles = std::make_unique<ParticleGenerator>(
         &particle_system,
@@ -57,7 +57,6 @@ void MapDisplay::tick() {
         }
     }
     // Renderer::draw_rectangle(0, 0, 1920, 1080, Renderer::white);
-    collision_obj->tick(game.get_delta_time());
     bool collided = false;
 
     for (int i = 0; i < height_in_tiles; i++) {
