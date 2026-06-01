@@ -42,6 +42,19 @@ void StartDisplay::init() {
         BLUE,
         SKYBLUE
     );
+
+    quit_button = std::make_unique<Button>(
+        x,
+        y + button_height + 30,
+        button_width,
+        button_height,
+        "Quit",
+        36,
+        WHITE,
+        DARKGRAY,
+        GRAY,
+        RED
+    );
 }
 
 void StartDisplay::tick() {
@@ -57,6 +70,11 @@ void StartDisplay::tick() {
         settings_button->Draw();
     }
 
+    if (quit_button) {
+        quit_button->Update(nullptr);
+        quit_button->Draw();
+    }
+
     if (start_button && start_button->IsClicked()) {
         auto display = std::make_unique<MapDisplay>(game);
         game.request_display_change(std::move(display));
@@ -65,5 +83,9 @@ void StartDisplay::tick() {
     if (settings_button && settings_button->IsClicked()) {
         auto display = std::make_unique<SettingsDisplay>(game, SettingsReturn::StartMenu);
         game.request_display_change(std::move(display));
+    }
+
+    if (quit_button && quit_button->IsClicked()) {
+        CloseWindow();
     }
 }

@@ -19,5 +19,6 @@ private:
     std::unique_ptr<Button> resume_button;
     std::unique_ptr<Button> settings_button;
     std::unique_ptr<Button> main_menu_button;
+    std::unique_ptr<Button> quit_button;
 };
 

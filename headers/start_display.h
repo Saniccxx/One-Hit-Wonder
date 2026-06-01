@@ -19,4 +19,5 @@ private:
     Game& game;
     std::unique_ptr<Button> start_button;
     std::unique_ptr<Button> settings_button;
+    std::unique_ptr<Button> quit_button;
 };

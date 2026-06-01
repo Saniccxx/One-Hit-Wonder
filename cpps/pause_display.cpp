@@ -54,6 +54,19 @@ void PauseDisplay::init() {
         BLUE,
         SKYBLUE
     );
+
+    quit_button = std::make_unique<Button>(
+        x,
+        y + (button_height + 20.0f) * 2.0f,
+        button_width,
+        button_height,
+        "Quit",
+        36,
+        WHITE,
+        DARKGRAY,
+        GRAY,
+        RED
+    );
 }
 
 void PauseDisplay::tick() {
@@ -74,6 +87,11 @@ void PauseDisplay::tick() {
         main_menu_button->Draw();
     }
 
+    if (quit_button) {
+        quit_button->Update(nullptr);
+        quit_button->Draw();
+    }
+
     if (resume_button && resume_button->IsClicked()) {
         if (game.paused_display) {
             game.request_display_change(std::move(game.paused_display));
@@ -89,5 +107,9 @@ void PauseDisplay::tick() {
         game.paused_display.reset();
         auto display = std::make_unique<StartDisplay>(game);
         game.request_display_change(std::move(display));
+    }
+
+    if (quit_button && quit_button->IsClicked()) {
+        CloseWindow();
     }
 }
