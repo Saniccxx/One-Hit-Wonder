@@ -60,6 +60,12 @@ public:
     static bool is_mouse_button_clicked(int button);
     static bool is_mouse_button_down(int button);
 
+    static void init_lighting_shader(const char* fragmentShaderPath);
+    static void close_lighting_shader();
+    static void set_lighting_uniforms(const Vector3* lights, const Vector4* lightColors, int numLights, float ambient);
+    static void begin_lighting_mode();
+    static void end_lighting_mode();
+
     static constexpr auto black = BLACK;
     static constexpr auto white = WHITE;
     static constexpr auto red = RED;
@@ -69,4 +75,9 @@ public:
 private:
     static RenderTexture2D target;
     static Shader bloom;
+    static Shader lighting;
+    static int lighting_lights_loc;
+    static int lighting_light_colors_loc;
+    static int lighting_num_lights_loc;
+    static int lighting_ambient_loc;
 };

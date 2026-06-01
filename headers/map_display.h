@@ -3,6 +3,7 @@
 #include <memory>
 #include <iostream>
 #include "display.h"
+#include <raylib.h>
 #include "interaction_object.h"
 #include "collision_object.h"
 #include "camera.h"
@@ -36,6 +37,11 @@ public:
     std::unique_ptr<ParticleGenerator> player_particles;
 
 private:
+    struct LightObject {
+        Vector3 position_radius{0.0f, 0.0f, 300.0f};
+        Color color{WHITE};
+    };
+
     Game& game;
     int current_block = 1;
     bool handle_collision(int i, int j);
@@ -46,4 +52,5 @@ private:
     static constexpr int height_in_tiles = height / tile_size;
     std::unique_ptr<CollisionObject> coll_objects[height_in_tiles][width_in_tiles]{};
     std::unique_ptr<GameCamera> camera;
+    LightObject light;
 };

@@ -8,6 +8,11 @@
 
 RenderTexture2D Renderer::target = {0};
 Shader Renderer::bloom = {0};
+Shader Renderer::lighting = {0};
+int Renderer::lighting_lights_loc = -1;
+int Renderer::lighting_light_colors_loc = -1;
+int Renderer::lighting_num_lights_loc = -1;
+int Renderer::lighting_ambient_loc = -1;
 
 void Renderer::init_window(const int width, const int height, const char *title) {
     InitWindow(width, height, title);
@@ -16,7 +21,41 @@ void Renderer::init_window(const int width, const int height, const char *title)
     bloom = LoadShader(0, "Resources/shaders/bloom.fs");
 }
 
+void Renderer::init_lighting_shader(const char* fragmentShaderPath) {
+    if (lighting.id != 0) return;
+    lighting = LoadShader(nullptr, fragmentShaderPath);
+    lighting_lights_loc = GetShaderLocation(lighting, "lights");
+    lighting_light_colors_loc = GetShaderLocation(lighting, "light_colors");
+    lighting_num_lights_loc = GetShaderLocation(lighting, "num_lights");
+    lighting_ambient_loc = GetShaderLocation(lighting, "ambient");
+}
+
+void Renderer::close_lighting_shader() {
+    if (lighting.id != 0) {
+        UnloadShader(lighting);
+        lighting = {0};
+        lighting_lights_loc = lighting_light_colors_loc = lighting_num_lights_loc = lighting_ambient_loc = -1;
+    }
+}
+
+void Renderer::set_lighting_uniforms(const Vector3* lights, const Vector4* lightColors, int numLights, float ambient) {
+    if (lighting.id == 0) return;
+    SetShaderValue(lighting, lighting_num_lights_loc, &numLights, SHADER_UNIFORM_INT);
+    SetShaderValueV(lighting, lighting_lights_loc, lights, SHADER_UNIFORM_VEC3, numLights);
+    SetShaderValueV(lighting, lighting_light_colors_loc, lightColors, SHADER_UNIFORM_VEC4, numLights);
+    SetShaderValue(lighting, lighting_ambient_loc, &ambient, SHADER_UNIFORM_FLOAT);
+}
+
+void Renderer::begin_lighting_mode() {
+    if (lighting.id != 0) BeginShaderMode(lighting);
+}
+
+void Renderer::end_lighting_mode() {
+    if (lighting.id != 0) EndShaderMode();
+}
+
 void Renderer::close_window() {
+    close_lighting_shader();
     UnloadShader(bloom);
     UnloadRenderTexture(target);
     CloseWindow();
@@ -139,7 +178,11 @@ void Renderer::begin_mode_2d(Camera2D camera) { BeginMode2D(camera); }
 void Renderer::end_mode_2d() { EndMode2D(); }
 Vector2 Renderer::get_screen_to_world_2d(Vector2 position, Camera2D camera) { return GetScreenToWorld2D(position, camera); }
 void Renderer::draw_circle_lines(int centerX, int centerY, float radius, Color color) { DrawCircleLines(centerX, centerY, radius, color); }
-void Renderer::draw_texture_pro(Texture2D texture, Rectangle source, Rectangle dest, Vector2 origin, float rotation, Color tint) { DrawTexturePro(texture, source, dest, origin, rotation, tint); }
+void Renderer::draw_texture_pro(Texture2D texture, Rectangle source, Rectangle dest, Vector2 origin, float rotation, Color tint) {
+    if (lighting.id != 0) BeginShaderMode(lighting);
+    DrawTexturePro(texture, source, dest, origin, rotation, tint);
+    if (lighting.id != 0) EndShaderMode();
+}
 bool Renderer::is_mouse_button_clicked(int button) { return IsMouseButtonPressed(button); }
 bool Renderer::is_mouse_button_down(int button) { return IsMouseButtonDown(button); }
 

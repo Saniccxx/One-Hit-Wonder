@@ -16,6 +16,7 @@ void MapDisplay::init() {
     if (!camera) {
         camera = std::make_unique<GameCamera>(game.width, game.height);
     }
+    Renderer::init_lighting_shader("Resources/shaders/lights.fs");
     player = std::make_unique<MapPlayer>(
         500.0f,
         200.0f,
@@ -26,6 +27,13 @@ void MapDisplay::init() {
     );
 
     interact_obj = std::make_unique<InteractionObject>(600.0f, 300.0f, false, 100.0f, "GET OUT!!! IM 13 YOU PERVERT",  game.get_texture("Sigma_salto.png"));
+
+    light.color = Renderer::blue;
+    light.position_radius = {
+        player->get_x() + static_cast<float>(player->size) * 0.5f,
+        player->get_y() + static_cast<float>(player->size) * 0.5f,
+        500.0f
+    };
 
 
     player_particles = std::make_unique<ParticleGenerator>(
@@ -58,6 +66,24 @@ void MapDisplay::tick() {
         }
     }
     // Renderer::draw_rectangle(0, 0, 1920, 1080, Renderer::white);
+
+    /////////////////////////////////////////////// light stuff
+    Vector2 light_world_pos{light.position_radius.x, light.position_radius.y};
+    light_world_pos = {
+            player->get_x() + static_cast<float>(player->size) * 0.5f,
+            player->get_y() + static_cast<float>(player->size) * 0.5f
+        };
+    const Vector2 light_screen_pos = GetWorldToScreen2D(light_world_pos, camera->get_camera());
+    light.position_radius = {light_screen_pos.x, light_screen_pos.y, light.position_radius.z};
+
+
+    const Vector3 light_positions[1] = {light.position_radius};
+    const Vector4 light_colours[1] = {ColorNormalize(light.color)};
+    const int num_lights = 1;
+    const float ambient = 0.0f; //how much stuff is visible when not in tadius of light
+    Renderer::set_lighting_uniforms(light_positions, light_colours, num_lights, ambient);
+    /////////////////////////////////////////////
+
     bool collided = false;
 
     for (int i = 0; i < height_in_tiles; i++) {
@@ -104,6 +130,14 @@ void MapDisplay::tick() {
     if (player) {
         particle_system.draw();
     }
+
+#ifndef NDEBUG
+    const int light_center_x = light_world_pos.x;
+    const int light_center_y = light_world_pos.y;
+    const float light_radius = light.position_radius.z/2;
+
+    Renderer::draw_circle_lines(light_center_x, light_center_y, light_radius, ColorAlpha(YELLOW, 0.9f));
+#endif
 
     if (camera) {
         camera->update(static_cast<float>(game.get_delta_time()));
