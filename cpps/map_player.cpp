@@ -109,6 +109,12 @@ std::array<int, 3> MapPlayer::get_pos() const{
 	return {static_cast<int>(x), static_cast<int>(y), size};
 }
 
+std::array<int, 2> MapPlayer::get_tile(int tile_size) const{
+	int tile_x = (x + size/2) / tile_size;
+	int tile_y = (y + size/2) / tile_size;;
+	return {tile_x, tile_y};
+}
+
 // type 0 is up collision, type 1 is down collision, type 2 is left, type 3 is right
 void MapPlayer::collision_nudge(int type, int collided_edge_coord) {
 	if (type == 0) y = collided_edge_coord - size;
@@ -116,4 +122,5 @@ void MapPlayer::collision_nudge(int type, int collided_edge_coord) {
 	if (type == 2) x = collided_edge_coord - size;
 	if (type == 3) x = collided_edge_coord;
 	};
+
 

@@ -35,6 +35,9 @@ public:
 
     ParticleSystem particle_system;
     std::unique_ptr<ParticleGenerator> player_particles;
+    static constexpr int tile_size = 50;
+
+
 
 private:
     struct LightObject {
@@ -45,7 +48,6 @@ private:
     Game& game;
     int current_block = 1;
     bool handle_collision(int i, int j);
-    static constexpr int tile_size = 50;
     static constexpr int width = 2000;
     static constexpr int height = 1500;
     static constexpr int width_in_tiles = width / tile_size;

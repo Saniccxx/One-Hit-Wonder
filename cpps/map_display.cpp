@@ -85,13 +85,16 @@ void MapDisplay::tick() {
     /////////////////////////////////////////////
 
     bool collided = false;
-
+    const std::array<int, 2> tile_pos = player -> get_tile(tile_size);
     for (int i = 0; i < height_in_tiles; i++) {
         for (int j = 0; j < width_in_tiles; j++) {
             if (!coll_objects[i][j]) continue;
 
             coll_objects[i][j]->tick(game.get_delta_time());
             if (!coll_objects[i][j] -> has_collision) continue;
+            if (tile_pos[0] -1 > j || j > tile_pos[0] +1) continue; //only check collision if player is close to the tile
+            if (tile_pos[1] -1 > i || i > tile_pos[1] +1) continue;
+            Renderer::draw_rectangle(j*tile_size, i*tile_size, tile_size, tile_size, ColorAlpha(BLUE, 0.5f));
 
             if (handle_collision(i, j)) collided = true;
         }
@@ -163,6 +166,9 @@ void MapDisplay::place_block(int x, int y, int type) {
 bool MapDisplay::handle_collision(int i, int j) {
     const std::array<int, 3> pos = player -> get_pos();
     const std::array<int, 3> arch_pos = player -> get_archive();
+    const std::array<int, 2> tile_pos = player -> get_tile(tile_size);
+    Renderer::draw_rectangle(tile_pos[0]*tile_size, tile_pos[1]*tile_size, tile_size, tile_size, ColorAlpha(RED, 0.5f));
+
     if (!coll_objects[i][j] -> collision(pos[0], pos[1], pos[2])) return false;
 
     if (coll_objects[i][j] -> collision(arch_pos[0], pos[1], arch_pos[2])) { //verical
