@@ -40,11 +40,14 @@ public:
     static void play_sound(Sound sound);
     static void set_sound_volume(Sound sound, float volume);
     static void stop_sound(Sound sound);
+    static void unload_sound(Sound sound);
     static float get_frame_time();
     static bool is_key_down(int key);
     static bool is_key_pressed(int key);
 
-    static Texture2D load_texture(const char *fileName);
+    static Font load_font(const char* fileName);
+    static Font load_font_ex(const char* fileName, int fontSize, int* fontChars, int glyphCount);
+    static Texture2D load_texture(const char* fileName);
     static void unload_texture(Texture2D texture);
     static FilePathList load_directory_files_ex(const char *basePath, const char *filter, bool scanSubdirs);
     static void unload_directory_files(FilePathList files);

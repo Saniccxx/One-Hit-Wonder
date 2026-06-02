@@ -14,16 +14,16 @@ Sequence::Sequence(Game& game,std::vector<int> notes,std::vector<int> durations)
     end=0;
     offset=20;
     compleation_level=0.0f;
-    C = Renderer::load_sound("../Resources/C.wav");
-    D = Renderer::load_sound("../Resources/D.wav");
-    E = Renderer::load_sound("../Resources/E.wav");
-    F = Renderer::load_sound("../Resources/F.wav");
-    G = Renderer::load_sound("../Resources/G.wav");
-    A = Renderer::load_sound("../Resources/A.wav");
-    B = Renderer::load_sound("../Resources/B.wav");
-    C2 = Renderer::load_sound("../Resources/C2.wav");
+    C = game.get_sound("C.wav");
+    D = game.get_sound("D.wav");
+    E = game.get_sound("E.wav");
+    F = game.get_sound("F.wav");
+    G = game.get_sound("G.wav");
+    A = game.get_sound("A.wav");
+    B = game.get_sound("B.wav");
+    C2 = game.get_sound("C2.wav");
     plays = {
-        {0, Renderer::load_sound("../Resources/C.wav")},
+        {0, C},
         {1, D},
         {2, E},
         {3, F},

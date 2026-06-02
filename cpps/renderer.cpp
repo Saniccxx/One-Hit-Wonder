@@ -159,6 +159,7 @@ void Renderer::DrawImage(const Texture2D& texture, int x, int y, Color tint) {
 
 void Renderer::init_audio_device() { InitAudioDevice(); }
 Sound Renderer::load_sound(const char *fileName) { return LoadSound(fileName); }
+void Renderer::unload_sound(Sound sound) { UnloadSound(sound); }
 void Renderer::play_sound(Sound sound) { PlaySound(sound); }
 void Renderer::set_sound_volume(Sound sound, float volume) { SetSoundVolume(sound, volume); }
 void Renderer::stop_sound(Sound sound) { StopSound(sound); }

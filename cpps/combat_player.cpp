@@ -15,15 +15,15 @@ struct PianoKey {
 
 CombatPlayer::CombatPlayer(Game& game): game(game) {
 
-    Sound C = Renderer::load_sound("Resources/C.wav");
-    Sound D = Renderer::load_sound("Resources/D.wav");
-    Sound E = Renderer::load_sound("Resources/E.wav");
-    Sound F = Renderer::load_sound("Resources/F.wav");
-    Sound G = Renderer::load_sound("Resources/G.wav");
-    Sound A = Renderer::load_sound("Resources/A.wav");
-    Sound B = Renderer::load_sound("Resources/B.wav");
-    Sound C2 = Renderer::load_sound("Resources/C2.wav");
-    Sound retry = Renderer::load_sound("Resources/retry2.wav");
+    C = game.get_sound("C.wav");
+    D = game.get_sound("D.wav");
+    E = game.get_sound("E.wav");
+    F = game.get_sound("F.wav");
+    G = game.get_sound("G.wav");
+    A = game.get_sound("A.wav");
+    B = game.get_sound("B.wav");
+    C2 = game.get_sound("C2.wav");
+    retry = game.get_sound("retry2.wav");
 
     pianoKeys[0] = { KEY_A, C };
     pianoKeys[1] = { KEY_S, D };

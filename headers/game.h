@@ -12,6 +12,11 @@ struct LoadedTex {
     Texture2D tex;
 };
 
+struct LoadedSound {
+    std::string path;
+    Sound sound;
+};
+
 class Game {
     public:
     Game(const Config& config);
@@ -25,6 +30,7 @@ class Game {
     [[nodiscard]] Display* get_display() const;
     [[nodiscard]] double get_delta_time() const;
     [[nodiscard]] Texture2D get_texture(std::string_view name) const;
+    [[nodiscard]] Sound get_sound(std::string_view name) const;
 
     int width;
     int height;
@@ -33,6 +39,7 @@ class Game {
 
     private:
     std::vector<LoadedTex> images;
+    std::vector<LoadedSound> sounds;
     void set_display(std::unique_ptr<Display> new_display);
     double delta_time = 0.0;
     std::unique_ptr<Display> display;

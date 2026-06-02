@@ -17,6 +17,7 @@ Game::Game(const Config& config) : width(config.get_screen_width()), height(conf
 Game::~Game()
 {
     unload_all_images(images);
+    unload_all_sounds(sounds);
 };
 
 void Game::set_display(std::unique_ptr<Display> new_display) {
@@ -44,12 +45,22 @@ Texture2D Game::get_texture(std::string_view name) const {
     return {0};
 }
 
+Sound Game::get_sound(std::string_view name) const {
+    for (const auto& s : sounds) {
+        if (s.path.find(name) != std::string::npos) {
+            return s.sound;
+        }
+    }
+    return {0};
+}
+
 void Game::init() {
     if (!display) {
         set_display(std::make_unique<StartDisplay>(*this));
     }
     display->init();
     images = load_all_images("Resources/Images");
+    sounds = load_all_sounds("Resources");
     int speed=1;
     // disclaimer - sequence still operates on old key T Y U...
     //sequence=std::make_unique<Sequence>(std::vector{0,2,4,4,4,4,4,5,4,2,0,2,1,0,1,2},std::vector{100/speed,100/speed,50/speed,50/speed,50/speed,50/speed,100/speed,100/speed,100/speed,100/speed,100/speed,100/speed,200/speed,100/speed,100/speed,200/speed});
