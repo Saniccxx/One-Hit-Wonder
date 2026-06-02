@@ -25,7 +25,7 @@ void CombatDisplay::tick() {
     if (sequence) {
         sequence->check();
         sequence->play();
-        sequence->draw_progress_bar();
+        sequence->draw_progress_bar_chords(100,100,200,30);
         sequence->draw_falling_keys();
     }
 

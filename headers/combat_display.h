@@ -21,5 +21,6 @@ private:
     std::unique_ptr<CombatPlayer> player;
     std::unique_ptr<Button> button;
     std::unique_ptr<Sequence> sequence;
+
 };
 

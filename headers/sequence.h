@@ -1,5 +1,6 @@
 #pragma once
 #include <array>
+#include <memory>
 #include <vector>
 #include "renderer.h"
 #include <unordered_map>
@@ -14,6 +15,7 @@ class Sequence {
 
     void play();
     void draw_progress_bar();
+    void draw_progress_bar_chords(int x,int y,int w,int h);
     void check();
     Game& game;
     std::unordered_map<int, Sound> plays ;
@@ -25,6 +27,7 @@ class Sequence {
 
     Sequence(Game& game,std::vector<int> notes,std::vector<int> durations);
     ~Sequence() = default;
+    Sequence()=default;
     private:
 
     int global_timer;
@@ -70,4 +73,13 @@ class Sequence {
 
 };
 
+class Queue {
+    public:
+    Game& game;
+    std::vector<std::vector<std::vector<int>>> songs;
+    Sequence currrent_sequence;
+    int completed=0;
+
+    Queue(Game& game,std::vector<std::vector<std::vector<int>>>songs);
+};
 
