@@ -28,7 +28,7 @@ void MapDisplay::init() {
 
     interact_obj = std::make_unique<InteractionObject>(600.0f, 300.0f, false, 100.0f, "GET OUT!!! IM 13 YOU PERVERT",  game.get_texture("Sigma_salto.png"));
 
-    light.color = Renderer::blue;
+    light.color = Renderer::white;
     light.position_radius = {
         player->get_x() + static_cast<float>(player->size) * 0.5f,
         player->get_y() + static_cast<float>(player->size) * 0.5f,
@@ -44,10 +44,25 @@ void MapDisplay::init() {
         20.0f,      // speed
         60.0f,      // lifespan
         4,          // size
-        GREEN,      // color
-        60.0f       // rate
+        WHITE,      // color
+        60.0f,       // rate
+        30.0f, //variance of x
+        20.0f, //variance of y
+        1.0f, //variance of vx
+        1.0f //variance of vy
     );
     particle_system.add_generator(player_particles.get());
+
+    for (int i = 1; i <= 6; i++) {
+        std::string name = "note_" + std::to_string(i) + ".png";
+        Texture2D tex = game.get_texture(name);
+        if (tex.id != 0) {
+            player_particles->owned_textures.push_back(tex);
+        }
+    }
+    for (auto& t : player_particles->owned_textures) {
+        player_particles->textures.push_back(&t);
+    }
 }
 
 void MapDisplay::tick() {
@@ -65,7 +80,7 @@ void MapDisplay::tick() {
             place_block(mousePos.x, mousePos.y, 0);
         }
     }
-    // Renderer::draw_rectangle(0, 0, 1920, 1080, Renderer::white);
+    Renderer::draw_rectangle(0, 0, 1920, 1080, Renderer::blue);
 
     /////////////////////////////////////////////// light stuff
     Vector2 light_world_pos{light.position_radius.x, light.position_radius.y};

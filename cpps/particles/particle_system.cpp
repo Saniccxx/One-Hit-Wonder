@@ -1,8 +1,8 @@
 #include "../../headers/particles/particle_system.h"
 #include <algorithm>
 
-void ParticleSystem::add_particle(float x, float y, float vx, float vy, float angle, float speed, float lifespan, int size, Color color) {
-    particles.emplace_back(x, y, vx, vy, angle, speed, lifespan, size, color);
+void ParticleSystem::add_particle(float x, float y, float vx, float vy, float angle, float speed, float lifespan, int size, Color color, Texture2D* texture) {
+    particles.emplace_back(x, y, vx, vy, angle, speed, lifespan, size, color, texture);
 }
 
 void ParticleSystem::add_generator(ParticleGenerator* generator) {

@@ -1,8 +1,8 @@
 #include "../../headers/particles/particle.h"
 #include <algorithm>
 
-Particle::Particle(float x, float y, float vx, float vy, float angle, float speed, float lifespan, int size, Color color)
-    : x(x), y(y), vx(vx), vy(vy), angle(angle), speed(speed), lifespan(lifespan), size(size), color(color) {}
+Particle::Particle(float x, float y, float vx, float vy, float angle, float speed, float lifespan, int size, Color color, Texture2D* texture)
+    : x(x), y(y), vx(vx), vy(vy), angle(angle), speed(speed), lifespan(lifespan), size(size), color(color), texture(texture) {}
 
 void Particle::apply_force(float fx, float fy) {
     vx += fx;
@@ -22,7 +22,14 @@ void Particle::update(float offset_x, float offset_y, float delta_time) {
 }
 
 void Particle::draw() const {
-    Rectangle rec = { x, y, (float)size * 2, (float)size * 2 };
-    Vector2 origin = { (float)size, (float)size };
-    DrawRectanglePro(rec, origin, angle, color);
+    if (texture) {
+        Rectangle source = { 0, 0, (float)texture->width, (float)texture->height };
+        Rectangle dest = { x, y, (float)size * 2, (float)size * 2 };
+        Vector2 origin = { (float)size, (float)size };
+        DrawTexturePro(*texture, source, dest, origin, angle, color);
+    } else {
+        Rectangle rec = { x, y, (float)size * 2, (float)size * 2 };
+        Vector2 origin = { (float)size, (float)size };
+        DrawRectanglePro(rec, origin, angle, color);
+    }
 }
