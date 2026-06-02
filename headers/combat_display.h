@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "display.h"
+#include "sequence.h"
 
 class Game;
 class CombatPlayer;
@@ -19,5 +20,6 @@ private:
     Game& game;
     std::unique_ptr<CombatPlayer> player;
     std::unique_ptr<Button> button;
+    std::unique_ptr<Sequence> sequence;
 };
 

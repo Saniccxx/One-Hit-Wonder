@@ -20,9 +20,15 @@ class Sequence {
     std::unordered_map<int, float> volumes;
     std::vector<int> notes;
     std::vector<int> durations;
+
+    void draw_falling_keys();
+
     Sequence(Game& game,std::vector<int> notes,std::vector<int> durations);
     ~Sequence() = default;
     private:
+
+    int global_timer;
+    std::vector<int> target_times;
 
     int i;
 

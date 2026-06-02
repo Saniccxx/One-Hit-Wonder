@@ -39,7 +39,12 @@ Sequence::Sequence(Game& game,std::vector<int> notes,std::vector<int> durations)
     timer=0;
 
 
-
+    global_timer = 0;
+    int acc = 0;
+    for (int d : durations) {
+        target_times.push_back(acc);
+        acc += d;
+    }
 
 }
 void Sequence::test() {
@@ -112,6 +117,8 @@ void Sequence::play() {
 
 
     if (end==0) {
+        global_timer++;
+
         if (timer==0) {
 
             Renderer::set_sound_volume(plays[notes[current]], volumes[notes[current]]);
@@ -179,4 +186,28 @@ void Sequence::draw_progress_bar() {
     DrawRectangle(100,100,bar_width,bar_height,LIGHTGRAY);
     DrawRectangle(100,100,bar_width*bar_progress,bar_height,bar_color);
 
+}
+void Sequence::draw_falling_keys() {
+    const int hit_y = 500;
+    const int start_x = 250;
+    const int key_width = 40;
+    const float speed = 3.0f;
+
+    DrawRectangle(start_x, hit_y, 8 * key_width, 5, RAYWHITE);
+
+    for (size_t j = 0; j < notes.size(); j++) {
+        int time_diff = target_times[j] - global_timer;
+
+        float key_height = durations[j] * speed;
+
+        if (time_diff > -durations[j] - 30 && time_diff < 200) {
+            int x = start_x + (notes[j] * key_width);
+
+            float bottom_y = hit_y - (time_diff * speed);
+
+            float top_y = bottom_y - key_height;
+
+            DrawRectangle(x, static_cast<int>(top_y), key_width, static_cast<int>(key_height), SKYBLUE);
+        }
+    }
 }

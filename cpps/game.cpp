@@ -11,7 +11,6 @@
 #include <iostream>
 #include <typeinfo>
 #include <array>
-#include "../headers/sequence.h"
 
 Game::Game(const Config& config) : width(config.get_screen_width()), height(config.get_screen_height()), config(config) {}
 
@@ -54,14 +53,14 @@ void Game::init() {
     int speed=1;
     // disclaimer - sequence still operates on old key T Y U...
     //sequence=std::make_unique<Sequence>(std::vector{0,2,4,4,4,4,4,5,4,2,0,2,1,0,1,2},std::vector{100/speed,100/speed,50/speed,50/speed,50/speed,50/speed,100/speed,100/speed,100/speed,100/speed,100/speed,100/speed,200/speed,100/speed,100/speed,200/speed});
-    sequence=std::make_unique<Sequence>(*this,std::vector{0,1,2},std::vector{100,100,100});
+    // sequence=std::make_unique<Sequence>(*this,std::vector{0,1,2},std::vector{100,100,100});
     //sequence=std::make_unique<Sequence>(std::vector{0,4,3,2,1,7,4,3,2,1,7,4,3,2,3,1},std::vector{50,50,10,10,10,50,50,10,10,10,50,50,15,15,15,100});
     //sequence=std::make_unique<Sequence>(*this,std::vector{0,1,2,1,2,3,2,1,0,0,4,0,0,0,0},std::vector{30,10,30,30,10,25,20,20,20,20,40,15,15,15,50});
     //sequence=std::make_unique<Sequence>(std::vector{0,0,4,4,5,5,4},std::vector{30,30,30,30,30,30,100});
     //sequence=std::make_unique<Sequence>(std::vector{2,2,2,4,3,2,2,2,4,3},std::vector{30,30,30,20,20,30,30,30,20,20});
 
-    std::cout<<sequence->completed<<std::endl;
-    std::cout<<sequence->compleation_level<<std::endl;
+    // std::cout<<sequence->completed<<std::endl;
+    // std::cout<<sequence->compleation_level<<std::endl;
 }
 
 
@@ -90,11 +89,11 @@ void Game::tick(){
     Renderer::clear_background(Renderer::black);
     // Sound D = Renderer::load_sound("Resources/D.wav");
     // PlaySound(D);
-    sequence->check();
+    // sequence->check();
     //std::cout<<sequence->completed<<std::endl;
     //std::cout<<sequence->compleation_level<<std::endl;
-    sequence->play();
-    sequence->draw_progress_bar();
+    // sequence->play();
+    // sequence->draw_progress_bar();
 
     if (display) {
         display->tick();
