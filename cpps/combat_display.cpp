@@ -18,10 +18,10 @@ void CombatDisplay::init() {
     button = std::make_unique<Button>(100.0f, 730.0f, 450.0f, 50.0f, "Return to Map", 24, BLACK, SKYBLUE, LIGHTGRAY, DARKBLUE);
     
     std::vector<int> notes = {
-        3, 5, 3, 7
+        0,4,3, 2,1,7,4, 3, 2,1,7, 4, 3, 2,3, 1
     };
     std::vector<int> durations = {
-        30, 30, 30, 30
+        70, 60, 20, 20, 20, 60, 40, 20, 20, 20, 60, 40, 20, 20, 20, 60
     };
     sequence = std::make_unique<Sequence>(game, notes, durations);
 }
