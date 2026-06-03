@@ -11,8 +11,8 @@ public:
     bool has_collision = true;
     int overlapArea(int px, int py, int size);
     bool collision(int px, int py, int size);
-    std::vector<int> get_parameters() {
-        return {x, y, width, height};
+    [[nodiscard]] std::array<int, 5> get_parameters() const {
+        return {x, y, width, height, id};
     }
 
 private:

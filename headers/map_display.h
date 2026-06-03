@@ -27,8 +27,7 @@ public:
     void tick() override;
     void saveMapToJson();
     void loadMapFromJson();
-    void place_block(int x, int y, int type);
-
+    void place_block(int x, int y, int type, std::optional<int> id = std::nullopt);
 
     std::unique_ptr<MapPlayer> player;
     std::unique_ptr<InteractionObject> interact_obj;

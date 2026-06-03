@@ -16,7 +16,8 @@ void MapDisplay::saveMapToJson() {
                 {"x", params[0]},
                 {"y", params[1]},
                 {"width", params[2]},
-                {"height", params[3]}
+                {"height", params[3]},
+                {"id", params[4]}
             });
         }
     }
@@ -38,6 +39,7 @@ void MapDisplay::loadMapFromJson() {
     for (const auto& obj : json["coll_objects"]) {
         int x = obj["x"];
         int y = obj["y"];
-        place_block(x, y, 1);
+        int id = obj["id"];
+        place_block(x, y, 1, id);
     }
 }

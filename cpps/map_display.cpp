@@ -193,7 +193,7 @@ void MapDisplay::tick() {
     }
 }
 
-void MapDisplay::place_block(int x, int y, int type) {
+void MapDisplay::place_block(int x, int y, int type, const std::optional<int> id) {
     int tile_x = x / tile_size;
     int tile_y = y / tile_size;
     if (tile_x >= 0 && tile_x < width_in_tiles && tile_y >= 0 && tile_y < height_in_tiles) {
@@ -202,10 +202,9 @@ void MapDisplay::place_block(int x, int y, int type) {
         } else {
             Texture2D tilesheet = game.get_texture("tekstury.png");
             coll_objects[tile_y][tile_x] = std::make_unique<CollisionObject>(
-                tile_x * tile_size, tile_y * tile_size, tile_size, tile_size, current_block, tilesheet, *this);
+                tile_x * tile_size, tile_y * tile_size, tile_size, tile_size, id.value_or(current_block), tilesheet, *this);
         }
     }
-
 }
 
 void MapDisplay::handle_collision(int i, int j)
