@@ -26,7 +26,7 @@ void MapDisplay::init() {
 
     );
 
-    interact_obj = std::make_unique<InteractionObject>(870.0f, 550.0f, false, 100.0f, "GET OUT!!! IM 13 YOU PERVERT",  game.get_texture("Sigma_salto.png"));
+    interact_obj = std::make_unique<InteractionObject>(940.0f, 550.0f, false, 100.0f, "GET OUT!!! IM 13 YOU PERVERT",  game.get_texture("Sigma_salto.png"));
 
     light.color = Renderer::white;
     light.position_radius = {
