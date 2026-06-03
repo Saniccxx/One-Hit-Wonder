@@ -36,3 +36,19 @@ bool CollisionObject::collision(int px, int py, int size) {
     if (py > y2 || py + size<y) return false;
     return true;
 }
+
+int CollisionObject::overlapArea(int px, int py, int size) {
+
+    int left   = std::max(px, x);
+    int right  = std::min(px + size, x + width);
+    int top    = std::max(py, y);
+    int bottom = std::min(py + size, y + height);
+
+    int overlapWidth = right - left;
+    int overlapHeight = bottom - top;
+
+    if (overlapWidth <= 0 || overlapHeight <= 0)
+        return 0;
+
+    return overlapWidth * overlapHeight;
+}

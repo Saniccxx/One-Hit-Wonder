@@ -47,7 +47,7 @@ private:
 
     Game& game;
     int current_block = 1;
-    bool handle_collision(int i, int j);
+    void handle_collision(int i, int j);
     static constexpr int width = 2000;
     static constexpr int height = 1500;
     static constexpr int width_in_tiles = width / tile_size;
