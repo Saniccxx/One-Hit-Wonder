@@ -37,6 +37,8 @@ add_executable(major_jam
         headers/interaction_object.h
         headers/settings_display.h
         cpps/settings_display.cpp
+        headers/credits_display.h
+        cpps/credits_display.cpp
         headers/collision_object.h
         cpps/collision_object.cpp
         cpps/settings_display.cpp

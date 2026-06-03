@@ -5,23 +5,19 @@
 #include <memory>
 
 class Game;
-class CombatDisplay;
 class Button;
 
-class StartDisplay : public Display {
+class CreditsDisplay : public Display {
 public:
-    explicit StartDisplay(Game& game);
-    ~StartDisplay() override;
+    explicit CreditsDisplay(Game& game);
+    ~CreditsDisplay() override;
 
     void init() override;
     void tick() override;
 
 private:
     Game& game;
-    std::unique_ptr<Button> start_button;
-    std::unique_ptr<Button> settings_button;
-    std::unique_ptr<Button> credits_button;
-    std::unique_ptr<Button> quit_button;
+    std::unique_ptr<Button> back_button;
 
     ParticleSystem particle_system;
     std::unique_ptr<ParticleGenerator> note_generator;

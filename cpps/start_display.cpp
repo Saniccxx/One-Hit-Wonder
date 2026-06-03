@@ -6,6 +6,7 @@
 #include "../headers/renderer.h"
 #include "../headers/Button.h"
 #include "../headers/settings_display.h"
+#include "../headers/credits_display.h"
 
 StartDisplay::StartDisplay(Game& game): game(game) {}
 
@@ -43,9 +44,22 @@ void StartDisplay::init() {
         SKYBLUE
     );
 
-    quit_button = std::make_unique<Button>(
+    credits_button = std::make_unique<Button>(
         x,
         y + button_height + 20,
+        button_width,
+        button_height,
+        "Credits",
+        36,
+        WHITE,
+        DARKBLUE,
+        BLUE,
+        SKYBLUE
+    );
+
+    quit_button = std::make_unique<Button>(
+        x,
+        y + (button_height + 20) * 2,
         button_width,
         button_height,
         "Quit",
@@ -126,6 +140,11 @@ void StartDisplay::tick() {
         settings_button->Draw();
     }
 
+    if (credits_button) {
+        credits_button->Update(nullptr);
+        credits_button->Draw();
+    }
+
     if (quit_button) {
         quit_button->Update(nullptr);
         quit_button->Draw();
@@ -138,6 +157,11 @@ void StartDisplay::tick() {
 
     if (settings_button && settings_button->IsClicked()) {
         auto display = std::make_unique<SettingsDisplay>(game, SettingsReturn::StartMenu);
+        game.request_display_change(std::move(display));
+    }
+
+    if (credits_button && credits_button->IsClicked()) {
+        auto display = std::make_unique<CreditsDisplay>(game);
         game.request_display_change(std::move(display));
     }
 
