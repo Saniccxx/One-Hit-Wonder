@@ -67,10 +67,60 @@ void PauseDisplay::init() {
         GRAY,
         RED
     );
+
+    note_generator = std::make_unique<ParticleGenerator>(
+        &particle_system,
+        static_cast<float>(game.width) / 2.0f,
+        static_cast<float>(game.height) + 50.0f,
+        0.0f, -1.2f,
+        0.0f,
+        50.0f,
+        9000.0f,
+        12,
+        Color{ 255, 255, 255, 180 },
+        60.0f,
+        static_cast<float>(game.width) / 2.0f,
+        20.0f,
+        0.4f,
+        10.0f
+    );
+    particle_system.add_generator(note_generator.get());
+
+    for (int i = 1; i <= 6; i++) {
+        std::string name = "note_" + std::to_string(i) + ".png";
+        Texture2D tex = game.get_texture(name);
+        if (tex.id != 0) {
+            // Convert note texture pixels to white
+            Image img = LoadImageFromTexture(tex);
+            Color* pixels = LoadImageColors(img);
+            if (pixels != nullptr) {
+                for (int p = 0; p < img.width * img.height; p++) {
+                    if (pixels[p].a > 0) {
+                        pixels[p].r = 255;
+                        pixels[p].g = 255;
+                        pixels[p].b = 255;
+                    }
+                }
+                UpdateTexture(tex, pixels);
+                UnloadImageColors(pixels);
+            }
+            UnloadImage(img);
+
+            note_generator->owned_textures.push_back(tex);
+        }
+    }
+    for (auto& t : note_generator->owned_textures) {
+        note_generator->textures.push_back(&t);
+    }
+    note_generator->start();
 }
 
 void PauseDisplay::tick() {
+    DrawRectangleGradientV(0, 0, game.width, game.height, Color{ 15, 12, 36, 255 }, Color{ 5, 4, 12, 255 });
     Renderer::draw_text("Paused", game.width / 2 - 90, game.height / 2 - 200, 50, Renderer::white);
+
+    particle_system.update(static_cast<float>(game.get_delta_time()));
+    particle_system.draw();
 
     if (resume_button) {
         resume_button->Update(nullptr);
