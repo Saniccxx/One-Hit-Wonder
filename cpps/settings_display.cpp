@@ -11,6 +11,10 @@ SettingsDisplay::SettingsDisplay(Game& game, SettingsReturn return_target)
 SettingsDisplay::~SettingsDisplay() = default;
 
 void SettingsDisplay::setup_resolutions() {
+    int monitor = GetCurrentMonitor();
+    int mon_w = GetMonitorWidth(monitor);
+    int mon_h = GetMonitorHeight(monitor);
+
     resolutions = {
         { 1280, 720, "1280x720 (16:9)" },
         { 1600, 900, "1600x900 (16:9)" },
@@ -18,6 +22,18 @@ void SettingsDisplay::setup_resolutions() {
         { 2000, 1020, "2000x1020" },
         { 2560, 1440, "2560x1440 (16:9)" }
     };
+
+    bool already_listed = false;
+    for (const auto& r : resolutions) {
+        if (r.width == mon_w && r.height == mon_h) {
+            already_listed = true;
+            break;
+        }
+    }
+    if (!already_listed) {
+        resolutions.push_back({ mon_w, mon_h,
+            std::to_string(mon_w) + "x" + std::to_string(mon_h) + " (Native)" });
+    }
 
     bool found = false;
     for (size_t i = 0; i < resolutions.size(); i++) {
@@ -28,7 +44,8 @@ void SettingsDisplay::setup_resolutions() {
         }
     }
     if (!found) {
-        resolutions.push_back({ game.width, game.height, std::to_string(game.width) + "x" + std::to_string(game.height) + " (Current)" });
+        resolutions.push_back({ game.width, game.height,
+            std::to_string(game.width) + "x" + std::to_string(game.height) + " (Current)" });
         current_res_idx = static_cast<int>(resolutions.size() - 1);
     }
 }
