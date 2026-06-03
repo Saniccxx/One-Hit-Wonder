@@ -21,7 +21,7 @@ void MapDisplay::saveMapToJson() {
         }
     }
 
-    std::ofstream file("map_data.json");
+    std::ofstream file("../map_data.json");
     file << json.dump(4);
     std::cout << "Saved map data.json" << std::endl;
 }
