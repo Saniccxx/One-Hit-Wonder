@@ -77,7 +77,14 @@ void MapDisplay::tick() {
         if (Renderer::is_mouse_button_down(1)) {
             Vector2 mousePos = Renderer::get_mouse_pos();
             mousePos = Renderer::get_screen_to_world_2d(mousePos, camera->get_camera());
-            place_block(mousePos.x, mousePos.y, 0);
+            place_block(mousePos.x, mousePos.y, -1);
+        }
+
+        for (int i = 48; i <= 57; i++) {
+            if (Renderer::is_key_down(i)) {
+                current_block = i - 48;
+                break;
+            }
         }
     }
     Renderer::draw_rectangle(0, 0, 1920, 1080, Renderer::blue);
@@ -179,12 +186,12 @@ void MapDisplay::place_block(int x, int y, int type) {
     int tile_x = x / tile_size;
     int tile_y = y / tile_size;
     if (tile_x >= 0 && tile_x < width_in_tiles && tile_y >= 0 && tile_y < height_in_tiles) {
-        if (type == 0) {
+        if (type == -1) {
             coll_objects[tile_y][tile_x].reset();
         } else {
             Texture2D tilesheet = game.get_texture("tekstury.png");
             coll_objects[tile_y][tile_x] = std::make_unique<CollisionObject>(
-                tile_x * tile_size, tile_y * tile_size, tile_size, tile_size, tile_x, tilesheet, *this);
+                tile_x * tile_size, tile_y * tile_size, tile_size, tile_size, current_block, tilesheet, *this);
         }
     }
 
