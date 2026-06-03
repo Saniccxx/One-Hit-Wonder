@@ -63,6 +63,8 @@ void MapDisplay::init() {
     for (auto& t : player_particles->owned_textures) {
         player_particles->textures.push_back(&t);
     }
+    loadMapFromJson();
+
 }
 
 void MapDisplay::tick() {
@@ -85,6 +87,15 @@ void MapDisplay::tick() {
                 current_block = i - 48;
                 break;
             }
+        }
+
+        if (Renderer::is_key_pressed(KEY_ENTER)) {
+            saveMapToJson();
+            std::cout << "clicked enter";
+        }
+        if (Renderer::is_key_pressed(KEY_BACKSPACE)) {
+            loadMapFromJson();
+            std::cout << "clicked backspace";
         }
     }
     Renderer::draw_rectangle(0, 0, 1920, 1080, Renderer::blue);
