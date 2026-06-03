@@ -19,7 +19,7 @@ struct LoadedSound {
 
 class Game {
     public:
-    Game(const Config& config);
+    Game(Config& config);
     ~Game();
 
     void init();
@@ -34,7 +34,7 @@ class Game {
 
     int width;
     int height;
-    const Config& config;
+    Config& config;
     std::unique_ptr<Display> paused_display;
 
     private:

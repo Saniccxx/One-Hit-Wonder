@@ -11,7 +11,7 @@ int main() {
 #else
     std::cout << "Running in Debug mode\n";
 #endif
-    const Config config;
+    Config config;
     Renderer::init_audio_device();
     Renderer::init_window(config.get_screen_width(), config.get_screen_height(), "One hit wonder™");
     int text_x = 10;

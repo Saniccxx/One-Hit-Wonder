@@ -21,6 +21,13 @@ void Renderer::init_window(const int width, const int height, const char *title)
     bloom = LoadShader(0, "Resources/shaders/bloom.fs");
 }
 
+void Renderer::resize_target(const int width, const int height) {
+    if (target.id != 0) {
+        UnloadRenderTexture(target);
+    }
+    target = LoadRenderTexture(width, height);
+}
+
 void Renderer::init_lighting_shader(const char* fragmentShaderPath) {
     if (lighting.id != 0) return;
     lighting = LoadShader(nullptr, fragmentShaderPath);
