@@ -15,8 +15,15 @@ CombatDisplay::~CombatDisplay() = default;
 
 void CombatDisplay::init() {
     player = std::make_unique<CombatPlayer>(game);
-    button = std::make_unique<Button>(600.0f, 550.0f, 220.0f/2, 60.0f/2, "Enable Jeff Mode", 24, BLACK, SKYBLUE, LIGHTGRAY, DARKBLUE);
-    sequence = std::make_unique<Sequence>(game, std::vector<int>{0,1,2,3,4,5,6,7}, std::vector<int>{100,100,200,67,1,100,100,100});
+    button = std::make_unique<Button>(100.0f, 730.0f, 450.0f, 50.0f, "Return to Map", 24, BLACK, SKYBLUE, LIGHTGRAY, DARKBLUE);
+    
+    std::vector<int> notes = {
+        3, 5, 3, 7
+    };
+    std::vector<int> durations = {
+        30, 30, 30, 30
+    };
+    sequence = std::make_unique<Sequence>(game, notes, durations);
 }
 
 void CombatDisplay::tick() {
@@ -25,7 +32,7 @@ void CombatDisplay::tick() {
     if (sequence) {
         sequence->check();
         sequence->play();
-        sequence->draw_progress_bar_chords(100,100,200,30);
+        sequence->draw_progress_bar_chords(100, 100, 450, 40);
         sequence->draw_falling_keys();
     }
 
