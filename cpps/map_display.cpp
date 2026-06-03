@@ -18,15 +18,15 @@ void MapDisplay::init() {
     }
     Renderer::init_lighting_shader("Resources/shaders/lights.fs");
     player = std::make_unique<MapPlayer>(
-        500.0f,
-        200.0f,
+        1300.0f,
+        550.0f,
         game.get_texture("front.png"),
         game.get_texture("back.png"),
         game.get_texture("side.png")
 
     );
 
-    interact_obj = std::make_unique<InteractionObject>(600.0f, 300.0f, false, 100.0f, "GET OUT!!! IM 13 YOU PERVERT",  game.get_texture("Sigma_salto.png"));
+    interact_obj = std::make_unique<InteractionObject>(870.0f, 550.0f, false, 100.0f, "GET OUT!!! IM 13 YOU PERVERT",  game.get_texture("Sigma_salto.png"));
 
     light.color = Renderer::white;
     light.position_radius = {
