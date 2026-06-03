@@ -28,9 +28,21 @@ void MapDisplay::saveMapToJson() {
 }
 
 void MapDisplay::loadMapFromJson() {
-    std::ifstream file("map_data.json");
+    std::ifstream file("../map_data.json");
+    if (!file.is_open()) {
+        return;
+    }
+
     nlohmann::ordered_json json;
-    file >> json;
+    try {
+        file >> json;
+    } catch (const nlohmann::json::parse_error&) {
+        return;
+    }
+
+    if (!json.contains("coll_objects") || !json["coll_objects"].is_array()) {
+        return;
+    }
 
     // int width_in_tiles = json["width_in_tiles"];
     // int height_in_tiles = json["height_in_tiles"];

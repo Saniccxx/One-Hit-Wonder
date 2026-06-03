@@ -37,7 +37,6 @@ CombatPlayer::CombatPlayer(Game& game): game(game) {
 }
 
 void CombatPlayer::tick(float delta_time) {
-    std::cout << "tick tick";
     for (auto& pk : pianoKeys) {
         bool isHeld = Renderer::is_key_down(pk.key);
 
