@@ -187,6 +187,34 @@ void Sequence::draw_progress_bar() {
     DrawRectangle(100,100,bar_width*bar_progress,bar_height,bar_color);
 
 }
+void Sequence::draw_progress_bar_chords(int x,int y,int w,int h) {
+    if (std::abs(bar_progress-compleation_level)>0.01 and bar_changing==0) {
+        bar_changing=1;
+        d_bar=(compleation_level-bar_progress)/bar_change_speed;
+        if (compleation_level==0) {
+            bar_color=RED;
+        }
+
+    }
+    if (bar_changing>0) {
+        bar_progress+=d_bar;
+        bar_changing++;
+        if (bar_changing>=bar_change_speed+1) {
+            bar_changing=0;
+            if (compleation_level==1) {
+                bar_progress=1;
+            }
+            else if (compleation_level==0) {
+                bar_progress=0;
+                bar_color=GREEN;
+            }
+
+        }
+    }
+    std::cout<<bar_progress<<" "<<bar_changing<<std::endl;
+    DrawRectangle(x,y,w,h,LIGHTGRAY);
+    DrawRectangle(x,y,w*bar_progress,h,bar_color);
+}
 void Sequence::draw_falling_keys() {
     const int hit_y = 500;
     const int start_x = 250;
@@ -210,4 +238,8 @@ void Sequence::draw_falling_keys() {
             DrawRectangle(x, static_cast<int>(top_y), key_width, static_cast<int>(key_height), SKYBLUE);
         }
     }
+}
+
+Queue::Queue(Game &game, std::vector<std::vector<std::vector<int> > > songs):game(game) ,songs(songs),currrent_sequence(game,songs[0][0],songs[0][1]){
+
 }
