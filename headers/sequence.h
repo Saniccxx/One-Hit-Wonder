@@ -50,7 +50,7 @@ class Sequence {
     Sound A ;
     Sound B ;
     Sound C2 ;
-    std::unordered_map<int, int> keys={{KEY_T,0},{KEY_Y,1},{KEY_U,2},{KEY_I,3},{KEY_O,4},{KEY_P,5},{KEY_LEFT_BRACKET,6},{KEY_RIGHT_BRACKET,7}};
+    std::unordered_map<int, int> keys={{KEY_A,0},{KEY_S,1},{KEY_D,2},{KEY_F,3},{KEY_J,4},{KEY_K,5},{KEY_L,6},{KEY_SEMICOLON,7}};
     float bar_progress;
     int bar_changing=0;
     float d_bar=0.0f;
