@@ -88,6 +88,8 @@ void Sequence::progress() {
         if (level < length && notes[level]==current_note) {
 
             level++;
+            combo++;
+            score += combo;
             flevel=level;
             compleation_level=flevel/length;
             std::cout<<"Upgrade, compleation_level"<<compleation_level<<std::endl;
@@ -100,12 +102,14 @@ void Sequence::progress() {
         else {
             std::cout << "Wrong note, reset";
             level=0;
+            combo=0;
             compleation_level=0;
         }
     }
     else if (current_note==-2) {
         std::cout << "Reset";
         level=0;
+        combo=0;
         compleation_level=0;
     }
 };
@@ -119,6 +123,7 @@ void Sequence::play() {
     if (end==0) {
         global_timer++;
 
+        /*
         if (timer==0) {
 
             Renderer::set_sound_volume(plays[notes[current]], volumes[notes[current]]);
@@ -135,11 +140,12 @@ void Sequence::play() {
             Renderer::set_sound_volume(plays[notes[current]], volumes[notes[current]]);
         }
         //std::cout<<volumes[notes[current]]<<std::endl;
+        */
         if (timer==durations[current]) {
 
             timer=-1;
 
-            Renderer::stop_sound(plays[notes[current]]);
+            //Renderer::stop_sound(plays[notes[current]]);
 
             current+=1;
 
@@ -214,6 +220,8 @@ void Sequence::draw_progress_bar_chords(int x,int y,int w,int h) {
     std::cout<<bar_progress<<" "<<bar_changing<<std::endl;
     DrawRectangle(x,y,w,h,LIGHTGRAY);
     DrawRectangle(x,y,w*bar_progress,h,bar_color);
+    DrawText(TextFormat("Combo: %d", combo), x, y + h + 5, 20, WHITE);
+    DrawText(TextFormat("Score: %d", score), x, y + h + 25, 20, WHITE);
 }
 void Sequence::draw_falling_keys() {
     const int hit_y = 500;

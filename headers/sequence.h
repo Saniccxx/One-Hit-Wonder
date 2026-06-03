@@ -11,6 +11,8 @@ class Sequence {
     int completed;
     float compleation_level;
     int level;
+    int combo = 0;
+    int score = 0;
     void progress();
 
     void play();
