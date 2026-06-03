@@ -12,7 +12,7 @@
 #include <typeinfo>
 #include <array>
 
-Game::Game(const Config& config) : width(config.get_screen_width()), height(config.get_screen_height()), config(config) {}
+Game::Game(Config& config) : width(config.get_screen_width()), height(config.get_screen_height()), config(config) {}
 
 Game::~Game()
 {

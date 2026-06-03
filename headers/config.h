@@ -9,6 +9,7 @@ class Config {
     Config();
     [[nodiscard]] int get_screen_width() const { return screenWidth; }
     [[nodiscard]] int get_screen_height() const { return screenHeight; }
+    void set_resolution(int width, int height);
 };
 
 

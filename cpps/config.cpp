@@ -32,3 +32,20 @@ void Config::parseConfig() {
 Config::Config() {
     parseConfig();
 }
+
+void Config::set_resolution(int width, int height) {
+    screenWidth = width;
+    screenHeight = height;
+
+    const std::string full_path = std::string(config::configFilePath) + std::string(config::configFileName) + ".json";
+    try {
+        nlohmann::ordered_json config_json;
+        config_json["screenWidth"] = screenWidth;
+        config_json["screenHeight"] = screenHeight;
+
+        std::ofstream out(full_path);
+        if (out.is_open()) {
+            out << config_json.dump(4);
+        }
+    } catch (...) {}
+}
