@@ -1,6 +1,7 @@
 #pragma once
 
 #include "display.h"
+#include "particles/particle_system.h"
 #include <memory>
 
 class Game;
@@ -20,4 +21,7 @@ private:
     std::unique_ptr<Button> start_button;
     std::unique_ptr<Button> settings_button;
     std::unique_ptr<Button> quit_button;
+
+    ParticleSystem particle_system;
+    std::unique_ptr<ParticleGenerator> note_generator;
 };

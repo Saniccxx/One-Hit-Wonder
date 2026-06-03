@@ -55,12 +55,12 @@ Sound Game::get_sound(std::string_view name) const {
 }
 
 void Game::init() {
+    images = load_all_images("Resources/Images");
+    sounds = load_all_sounds("Resources");
     if (!display) {
         set_display(std::make_unique<StartDisplay>(*this));
     }
     display->init();
-    images = load_all_images("Resources/Images");
-    sounds = load_all_sounds("Resources");
     int speed=1;
     // disclaimer - sequence still operates on old key T Y U...
     //sequence=std::make_unique<Sequence>(std::vector{0,2,4,4,4,4,4,5,4,2,0,2,1,0,1,2},std::vector{100/speed,100/speed,50/speed,50/speed,50/speed,50/speed,100/speed,100/speed,100/speed,100/speed,100/speed,100/speed,200/speed,100/speed,100/speed,200/speed});
