@@ -63,7 +63,7 @@ void MapDisplay::init() {
     for (auto& t : player_particles->owned_textures) {
         player_particles->textures.push_back(&t);
     }
-    // loadMapFromJson();
+    loadMapFromJson();
 
 }
 
