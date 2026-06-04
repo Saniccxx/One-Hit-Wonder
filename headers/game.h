@@ -40,11 +40,11 @@ class Game {
 
     int width;
     int height;
+    bool reverting = false;
     Config& config;
     std::unique_ptr<Display> paused_display;
 
     private:
-    bool reverting = false;
     std::vector<LoadedTex> images;
     std::vector<LoadedSound> sounds;
     void set_display(std::unique_ptr<Display> new_display);
