@@ -153,7 +153,6 @@ void MapDisplay::tick() {
     int max_tile[2] ={};
     const std::array<int, 3> pos = player -> get_pos();
 
-    if (max_overlap == 0) player->update_archive();
     for (int k = 0; k < tile_index; k++) {
         int i = viable_tiles[k][0];
         int j = viable_tiles[k][1];
@@ -164,7 +163,7 @@ void MapDisplay::tick() {
 
     for (const auto& interact_obj : game.interaction_objects) {
         if (interact_obj && player) {
-            DialogResult res = interact_obj->tick(player->get_x(), player->get_y(), game.get_delta_time(), camera ? &camera->get_camera() : nullptr);
+            DialogResult res = interact_obj->tick(&*player, game.get_delta_time(), camera ? &camera->get_camera() : nullptr);
             if (res == DialogResult::No) {
                 auto display = std::make_unique<CombatDisplay>(game, interact_obj.get());
                 game.request_display_change(std::move(display));

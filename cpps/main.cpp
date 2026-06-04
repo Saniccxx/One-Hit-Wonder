@@ -18,7 +18,6 @@ int main() {
     int text_y = 10;
     Renderer::begin_drawing();
     Renderer::clear_background(Renderer::black);
-    Renderer::draw_text("making sure the blob is exactly 13 years old", text_x, text_y, 24, Renderer::white);
     Renderer::end_drawing();
     Game game(config);
     game.init();
