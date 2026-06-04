@@ -17,6 +17,16 @@ int Renderer::lighting_ambient_loc = -1;
 void Renderer::init_window(const int width, const int height, const char *title) {
     InitWindow(width, height, title);
     SetExitKey(0);
+
+    // Set window icon
+    Image icon = LoadImage("Resources/Images/logo.png"); // Assuming logo.png is in Resources/Images
+    if (icon.data) {
+        SetWindowIcon(icon);
+        UnloadImage(icon);
+    } else {
+        std::cerr << "Warning: Could not load logo.png for window icon. Check file path and existence." << std::endl;
+    }
+
     target = LoadRenderTexture(width, height);
     bloom = LoadShader(0, "Resources/shaders/bloom.fs");
 }
