@@ -128,7 +128,7 @@ void StartDisplay::tick() {
     const int title_x = (game.width - title_width) / 2;
     const int title_y = game.height / 2 - 240;
 
-    Renderer::draw_text("Horny pianista molestuje rosyjskie bloby", title_x, title_y, title_size, WHITE);
+    Renderer::draw_text("One Hit Wonder", title_x, title_y, title_size, WHITE);
 
     if (start_button) {
         start_button->Update(nullptr);
