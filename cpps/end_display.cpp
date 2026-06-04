@@ -17,10 +17,10 @@ void EndDisplay::init() {
 
     end_button = std::make_unique<Button>(
         x,
-        y - button_height - 20,
+        y - (button_height / 2) + 35,
         button_width,
         button_height,
-        "Return To Main Menu",
+        "Main Menu",
         36,
         WHITE,
         DARKBLUE,
