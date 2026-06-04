@@ -17,40 +17,6 @@ public:
 
     DialogResult tick(float player_x, float player_y, double delta_time, const Camera2D* camera = nullptr);
 
-    std::vector<int> notes = {
-        // Mary had a little lamb
-        2, 1, 0, 1, 2, 2, 2,
-        1, 1, 1,
-        2, 4, 4,
-
-        // Little lamb, little lamb
-        2, 1, 0, 1, 2, 2, 2, 2,
-        1, 1, 2, 1, 0,
-
-        // Its fleece was white as snow
-        4, 4, 2, 1, 0, 1, 2,
-        4, 4, 4,
-        4, 2, 1, 0
-    };
-
-    std::vector<int> durations = {
-        // Mary had a little lamb
-        50, 50, 50, 50, 50, 50, 100,
-        50, 50, 100,
-        50, 50, 100,
-
-        // Little lamb, little lamb
-        50, 50, 50, 50, 50, 50, 50, 50,
-        50, 50, 50, 50, 100,
-
-        // Its fleece was white as snow
-        50, 50, 50, 50, 50, 50, 50,
-        50, 50, 100,
-        50, 50, 50, 100
-    };
-
-    std::vector<int> get_notes() const { return notes; }
-    std::vector<int> get_durations() const { return durations; }
     // std::vector<int> notes = {
     //     0,4,3, 2,1,7,4, 3, 2,1,7, 4, 3, 2,3, 1
     // };
