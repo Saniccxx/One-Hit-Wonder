@@ -39,6 +39,21 @@ void Dialog::randomize_text() {
             "Stay put!",
             "Move no further or prepare to die!",
             "You shall not pass, surrender!",
+            "Hippity Hoppity get out of this property!",
+            "Your tomfooling shall end today!",
+            "Stop right there, criminal scum!",
+            "No soup for you, next!",
+            "Take a walk, friend. Before things get ugly.",
+            "You've got five seconds to vanish, or I'll make you vanish.",
+            "I don’t get paid enough to deal with you. Exit is that way.",
+            "This is a no go zone! Do you understand the words that are coming out of my mouth?",
+            "Turn back, traveler. Only death awaits beyond this gate.",
+            "Look, man, my shift ends in two minutes. Just go away so I can go home.",
+            "Hey! You! No... wait, what was the password again? Ah, whatever, just get out!",
+            "I promised my mom I wouldn't get into fights today. Please move along.",
+            "My therapist told me to avoid stressful confrontations. You are a confrontation. Go away.",
+            "My orders are to kill on sight. Luckily for you, I forgot my glasses today. Now walk away while I'm blinking.",
+
         };
         int random_index = randomizer::get_random_int(0, possible_texts.size() - 1);
         text = possible_texts[random_index];

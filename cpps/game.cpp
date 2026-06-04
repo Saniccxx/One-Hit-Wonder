@@ -65,28 +65,7 @@ void Game::init() {
     images = load_all_images("Resources/Images");
     sounds = load_all_sounds("Resources");
     notes = {
-        {
-            // "Never gonna give you up, never gonna let you down"
-            4,4,5,4,3,2, 4,4,5,4,3,1,
-            // "Never gonna run around and desert you"
-            4,4,5,4,3,2,3, 2,1,0,
-            // "Never gonna make you cry, never gonna say goodbye"
-            4,4,5,4,3,2, 4,4,5,4,3,1,
-            // "Never gonna tell a lie and hurt you"
-            4,4,5,4,3,2,3, 2,1,0,
 
-            // --- repeat ---
-            4,4,5,4,3,2, 4,4,5,4,3,1,
-            4,4,5,4,3,2,3, 2,1,0,
-            4,4,5,4,3,2, 4,4,5,4,3,1,
-            4,4,5,4,3,2,3, 2,1,0,
-
-            // --- bridge ---
-            5,4,3,4,5,4,3,2,
-            5,4,3,4,5,4,3,2,
-            3,4,5,4,3,2,1,0,
-            2,3,4,3,2,1,0
-        },
         // 0. Mary Had a Little Lamb
         {2,1,0,1,2,2,2,1,1,1,2,4,4},
         {   // Line 1: "Twinkle, twinkle, little star"
@@ -177,32 +156,33 @@ void Game::init() {
         1, 2, 3, 2, 3, 4,
         // Line 3: "London Bridge is falling down, my fair lady"
         4, 5, 4, 3, 2, 4, 2, 0
-    }
+    },
+{
+    // "Never gonna give you up, never gonna let you down"
+    4,4,5,4,3,2, 4,4,5,4,3,1,
+    // "Never gonna run around and desert you"
+    4,4,5,4,3,2,3, 2,1,0,
+    // "Never gonna make you cry, never gonna say goodbye"
+    4,4,5,4,3,2, 4,4,5,4,3,1,
+    // "Never gonna tell a lie and hurt you"
+    4,4,5,4,3,2,3, 2,1,0,
+
+    // --- repeat ---
+    4,4,5,4,3,2, 4,4,5,4,3,1,
+    4,4,5,4,3,2,3, 2,1,0,
+    4,4,5,4,3,2, 4,4,5,4,3,1,
+    4,4,5,4,3,2,3, 2,1,0,
+
+    // --- bridge ---
+    5,4,3,4,5,4,3,2,
+    5,4,3,4,5,4,3,2,
+    3,4,5,4,3,2,1,0,
+    2,3,4,3,2,1,0
+}
     };
 
     durations = {
-        {
-            // "Never gonna give you up, never gonna let you down"
-            20,20,20,20,20,50, 20,20,20,20,20,60,
-            // "Never gonna run around and desert you"
-            20,20,20,20,20,20,20, 30,30,60,
-            // "Never gonna make you cry, never gonna say goodbye"
-            20,20,20,20,20,50, 20,20,20,20,20,60,
-            // "Never gonna tell a lie and hurt you"
-            20,20,20,20,20,20,20, 30,30,60,
 
-            // --- repeat ---
-            20,20,20,20,20,50, 20,20,20,20,20,60,
-            20,20,20,20,20,20,20, 30,30,60,
-            20,20,20,20,20,50, 20,20,20,20,20,60,
-            20,20,20,20,20,20,20, 30,30,80,
-
-            // --- bridge ---
-            30,30,30,30,30,30,30,60,
-            30,30,30,30,30,30,30,60,
-            30,30,30,30,30,30,30,60,
-            30,30,30,30,30,30,200
-        },
         // 0
         {50,50,50,50,50,50,100,50,50,100,50,50,100},
         {   // Line 1
@@ -292,7 +272,30 @@ void Game::init() {
         50, 50, 100, 50, 50, 100,
         // Line 3
         50, 50, 50, 50, 100, 50, 50, 200
-    }
+    },
+
+{
+    // "Never gonna give you up, never gonna let you down"
+    20,20,20,20,20,50, 20,20,20,20,20,60,
+    // "Never gonna run around and desert you"
+    20,20,20,20,20,20,20, 30,30,60,
+    // "Never gonna make you cry, never gonna say goodbye"
+    20,20,20,20,20,50, 20,20,20,20,20,60,
+    // "Never gonna tell a lie and hurt you"
+    20,20,20,20,20,20,20, 30,30,60,
+
+    // --- repeat ---
+    20,20,20,20,20,50, 20,20,20,20,20,60,
+    20,20,20,20,20,20,20, 30,30,60,
+    20,20,20,20,20,50, 20,20,20,20,20,60,
+    20,20,20,20,20,20,20, 30,30,80,
+
+    // --- bridge ---
+    30,30,30,30,30,30,30,60,
+    30,30,30,30,30,30,30,60,
+    30,30,30,30,30,30,30,60,
+    30,30,30,30,30,30,200
+}
 };
 
 
