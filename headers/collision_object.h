@@ -6,7 +6,7 @@
 class MapDisplay;
 class CollisionObject {
 public:
-    CollisionObject(int x, int y, int width, int height, int id, Texture2D tilesheet, MapDisplay& display);
+    CollisionObject(int x, int y, int width, int height, int id, Texture2D tilesheet, std::string filename, MapDisplay& display);
     void tick(double delta_time);
     bool has_collision = true;
     int overlapArea(int px, int py, int size);
@@ -14,10 +14,12 @@ public:
     [[nodiscard]] std::array<int, 5> get_parameters() const {
         return {x, y, width, height, id};
     }
+    [[nodiscard]] const std::string& get_filename() const { return filename; }
 
 private:
     int x, y, width, height;
     int id = 0;
+    std::string filename;
     Texture2D tilesheet{0};
     MapDisplay& display;
 };

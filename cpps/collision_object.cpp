@@ -6,8 +6,8 @@
 
 #include "../headers/map_player.h"
 
-CollisionObject::CollisionObject(int x, int y, int width, int height, int id, Texture2D tilesheet, MapDisplay& display)
-    : x(x), y(y), height(height), width(width), id(id), tilesheet(tilesheet), display(display) {}
+CollisionObject::CollisionObject(int x, int y, int width, int height, int id, Texture2D tilesheet, std::string filename, MapDisplay& display)
+    : x(x), y(y), height(height), width(width), id(id), filename(std::move(filename)), tilesheet(tilesheet), display(display) {}
 
 void CollisionObject::tick(double delta_time) {
     if (tilesheet.id != 0) {
