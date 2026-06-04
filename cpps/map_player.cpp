@@ -10,8 +10,6 @@ MapPlayer::MapPlayer(float x, float y, Texture2D front_texture, Texture2D back_t
 	  back_texture(back_texture),
 	  side_texture(side_texture) {
 
-	float archive_x = x;
-	float archive_y = y;
 }
 
 
@@ -90,11 +88,6 @@ void MapPlayer::tick(float delta_time) {
 #endif
 }
 
-void MapPlayer::update_archive()
-{
-	archive_x = x;
-	archive_y = y;
-}
 
 // std::vector<int> MapPlayer::get_archive() {
 // 	return {(int)archive_x, (int)archive_y, size};
@@ -102,9 +95,6 @@ void MapPlayer::update_archive()
 // std::vector<int> MapPlayer::get_pos() {
 // 	return {(int)x, (int)y, size};
 // }
-std::array<int, 3> MapPlayer::get_archive() const{
-	return {static_cast<int>(archive_x), static_cast<int>(archive_y), size};
-}
 std::array<int, 3> MapPlayer::get_pos() const{
 	return {static_cast<int>(x), static_cast<int>(y), size};
 }

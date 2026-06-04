@@ -1,6 +1,8 @@
 #include "../headers/interaction_object.h"
 #include "../headers/renderer.h"
 #include "../headers/config.h"
+#include "../headers/map_player.h"
+
 #include <cmath>
 
 InteractionObject::InteractionObject(float x, float y, float radius, std::string_view text, Texture2D tex, const std::vector<int> notes, const std::vector<int> durations)
@@ -8,7 +10,7 @@ InteractionObject::InteractionObject(float x, float y, float radius, std::string
     dialog = std::make_unique<Dialog>(text, x, y - 80);
 }
 
-DialogResult InteractionObject::tick(float player_x, float player_y, double delta_time, const Camera2D* camera) {
+DialogResult InteractionObject::tick(MapPlayer* player, double delta_time, const Camera2D* camera) {
     // animation stuff, magic numbers specific for all my fellas (only one unfortunatelly), maybe fix later ig
     if (texture.id != 0) {
         const int frame_size = texture.width;
@@ -36,19 +38,22 @@ DialogResult InteractionObject::tick(float player_x, float player_y, double delt
         Renderer::draw_circle(static_cast<int>(x), static_cast<int>(y), 40, Renderer::black);
     }
 
-    float dx = player_x - x;
-    float dy = player_y - y;
+    float dx = player->get_x() - x;
+    float dy = player->get_y() - y;
     float dist = std::hypot(dx, dy);
 
     DialogResult result = DialogResult::None;
 
     if (dist <= radius) {
         if (dialog) {
+            player->speed = 0;
             dialog->Update(camera);
             dialog->Draw();
             result = dialog->GetResult();
         }
+
     }
+    else player->speed = 20.0f*0.01;
 
 #ifndef NDEBUG
     Renderer::draw_circle_lines(static_cast<int>(x), static_cast<int>(y), radius, Renderer::red);

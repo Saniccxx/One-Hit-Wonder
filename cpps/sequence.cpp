@@ -91,10 +91,6 @@ void Sequence::get_key() {
     }
 
 
-
-
-
-
     if (a==0) {
         current_note=-1;
     }

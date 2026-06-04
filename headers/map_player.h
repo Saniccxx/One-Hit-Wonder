@@ -14,11 +14,10 @@ public:
 
 	void update_archive();
 	void collision_nudge(int type, int collided_edge_coord);
-	void rollback_archive(){x = archive_x; y = archive_y;};
+	float speed = 20.0f*0.01;
 	std::array<int, 3> get_archive() const;
 	std::array<int, 3> get_pos() const;
 	std::array<int, 2> get_tile(int tile_size) const;
-
 	int size = 40;
 
 
@@ -26,10 +25,6 @@ public:
 private:
 	float x;
 	float y;
-	float archive_x;
-	float archive_y;
-
-	float speed = 20.0f*0.01;
 	enum class Facing {
 		Down,
 		Up,
