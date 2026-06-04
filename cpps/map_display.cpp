@@ -177,7 +177,7 @@ void MapDisplay::tick() {
                 game.request_display_change(std::move(display));
             }
             else if (res == DialogResult::Yes) {
-                player->collision_nudge(2, 1200);
+                player-> x -= 10;
             }
         }
     }
