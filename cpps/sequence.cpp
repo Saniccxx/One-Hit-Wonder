@@ -100,7 +100,7 @@ void Sequence::get_key() {
 
 }
 void Sequence::progress() {
-    static const std::array<int,8> kc = { KEY_A, KEY_S, KEY_D, KEY_F, KEY_J, KEY_K, KEY_L, KEY_SEMICOLON };
+    static const std::array<int,8> kc = { KEY_S, KEY_D, KEY_F, KEY_G, KEY_H, KEY_J, KEY_K, KEY_L };
 
     while (next_note_to_hit < target_times.size() && global_timer > target_times[next_note_to_hit] + 18) {
         int nv = notes[next_note_to_hit];
@@ -369,8 +369,8 @@ void Sequence::draw_falling_keys() {
     }
 
     std::array<std::pair<int, std::string>, 8> key_bindings = {{
-        { KEY_A, "A" }, { KEY_S, "S" }, { KEY_D, "D" }, { KEY_F, "F" },
-        { KEY_J, "J" }, { KEY_K, "K" }, { KEY_L, "L" }, { KEY_SEMICOLON, ";" }
+        { KEY_S, "S" }, { KEY_D, "D" }, { KEY_F, "F" }, { KEY_G, "G" },
+        { KEY_H, "H" }, { KEY_J, "J" }, { KEY_K, "K" }, { KEY_L, "L" }
     }};
 
     for (int col = 0; col < 8; col++) {
@@ -438,7 +438,7 @@ void Sequence::draw_falling_keys() {
 
         if (j < next_note_to_hit) {
             bool was_hit = (j < note_results.size() && note_results[j] == 1);
-            static const std::array<int,8> hkc = { KEY_A, KEY_S, KEY_D, KEY_F, KEY_J, KEY_K, KEY_L, KEY_SEMICOLON };
+            static const std::array<int,8> hkc = { KEY_S, KEY_D, KEY_F, KEY_G, KEY_H, KEY_J, KEY_K, KEY_L };
             int h_nk = (notes[j] >= 0 && notes[j] < 8) ? hkc[notes[j]] : -1;
             bool still_holding = was_hit && (h_nk >= 0) && Renderer::is_key_down(h_nk);
 
@@ -447,7 +447,7 @@ void Sequence::draw_falling_keys() {
             draw_glow = still_holding;
 
         } else if (j == next_note_to_hit) {
-            std::array<int,8> key_codes = { KEY_A, KEY_S, KEY_D, KEY_F, KEY_J, KEY_K, KEY_L, KEY_SEMICOLON };
+            std::array<int,8> key_codes = {  KEY_S, KEY_D, KEY_F, KEY_G, KEY_H, KEY_J, KEY_K, KEY_L  };
             int note_key = (notes[j] >= 0 && notes[j] < 8) ? key_codes[notes[j]] : -1;
             bool holding = (note_key >= 0) && Renderer::is_key_down(note_key);
 
