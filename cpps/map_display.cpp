@@ -76,8 +76,8 @@ void MapDisplay::tick() {
             game.interaction_objects.pop_back();
         }
         game.interaction_objects.push_back(std::move(std::make_unique<InteractionObject>(
-        940.0f, 550.0f, 100.0f,
-        "GET OUT!!! IM 13 YOU PERVERT",game.get_texture("Sigma_salto.png"), game.notes[1], game.durations[1])));
+        500.0f, 550.0f, 100.0f,
+        "GET OUT!!! IM 13 YOU PERVERT",game.get_texture("Sigma_salto.png"), game.notes[game.level-1], game.durations[game.level-1])));
 
 
 
