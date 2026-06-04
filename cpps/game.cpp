@@ -57,6 +57,11 @@ Sound Game::get_sound(std::string_view name) const {
 void Game::init() {
     images = load_all_images("Resources/Images");
     sounds = load_all_sounds("Resources");
+    interaction_object = std::make_unique<InteractionObject>(
+    940.0f, 550.0f, 100.0f,
+    "GET OUT!!! IM 13 YOU PERVERT",get_texture("Sigma_salto.png")
+);
+
     if (!display) {
         set_display(std::make_unique<StartDisplay>(*this));
     }

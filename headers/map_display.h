@@ -30,8 +30,7 @@ public:
     void place_block(int x, int y, int type, std::optional<int> id = std::nullopt);
 
     std::unique_ptr<MapPlayer> player;
-    std::unique_ptr<InteractionObject> interact_obj;
-
+    InteractionObject* interact_obj = nullptr;
     ParticleSystem particle_system;
     std::unique_ptr<ParticleGenerator> player_particles;
     static constexpr int tile_size = 50;

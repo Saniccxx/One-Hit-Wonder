@@ -11,7 +11,7 @@ class Button;
 
 class CombatDisplay : public Display {
 public:
-    explicit CombatDisplay(Game& game, InteractionObject& interaction_object);
+    explicit CombatDisplay(Game& game, InteractionObject* interaction_object);
     ~CombatDisplay() override;
 
     void init() override;
@@ -19,7 +19,7 @@ public:
 
 private:
     Game& game;
-    InteractionObject& interaction_object;
+    InteractionObject* interaction_object = nullptr;
     std::unique_ptr<CombatPlayer> player;
     std::unique_ptr<Button> button;
     std::unique_ptr<Sequence> sequence;

@@ -5,7 +5,10 @@
 #include "../headers/game.h"
 #include <cmath>
 
-Sequence::Sequence(Game& game,std::vector<int> notes,std::vector<int> durations): game(game),notes(notes),durations(durations)   {
+Sequence::Sequence(Game& game, InteractionObject* interaction_object): game(game), interaction_object(interaction_object) {
+    notes = interaction_object -> get_notes();
+    durations = interaction_object -> get_durations();
+    std::cout << "post notes";
 
     for (i=0; i<notes.size(); i++) {
         volumes[i]=0;
@@ -164,6 +167,7 @@ void Sequence::progress() {
 
                     if (next_note_to_hit == length) {
                         completed = 1;
+
                         std::cout << "Completed! Score: " << score << std::endl;
                     }
                 } else if (diff < -18 && diff >= -45) {
@@ -450,9 +454,5 @@ void Sequence::draw_falling_keys() {
             ++it;
         }
     }
-
-}
-
-Queue::Queue(Game &game, std::vector<std::vector<std::vector<int> > > songs):game(game) ,songs(songs),currrent_sequence(game,songs[0][0],songs[0][1]){
 
 }

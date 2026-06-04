@@ -3,6 +3,7 @@
 #include <memory>
 #include <vector>
 #include "renderer.h"
+#include "interaction_object.h"
 #include <unordered_map>
 class Game;
 
@@ -39,6 +40,7 @@ class Sequence {
     void draw_progress_bar_chords(int x,int y,int w,int h);
     void check();
     Game& game;
+    InteractionObject* interaction_object = nullptr;
     std::unordered_map<int, Sound> plays ;
     std::unordered_map<int, float> volumes;
     std::vector<int> notes;
@@ -46,7 +48,7 @@ class Sequence {
 
     void draw_falling_keys();
 
-    Sequence(Game& game,std::vector<int> notes,std::vector<int> durations);
+    Sequence(Game& game, InteractionObject* interaction_object);
     ~Sequence() = default;
     Sequence()=default;
     private:
@@ -92,15 +94,5 @@ class Sequence {
 
 
 
-};
-
-class Queue {
-    public:
-    Game& game;
-    std::vector<std::vector<std::vector<int>>> songs;
-    Sequence currrent_sequence;
-    int completed=0;
-
-    Queue(Game& game,std::vector<std::vector<std::vector<int>>>songs);
 };
 
