@@ -8,6 +8,9 @@ class Game;
 class MapPlayer {
 public:
 	MapPlayer(float x, float y, Texture2D front_texture, Texture2D back_texture, Texture2D side_texture, Game* game);
+	float x;
+	float y;
+	MapPlayer(float x, float y, Texture2D front_texture, Texture2D back_texture, Texture2D side_texture);
 	void tick(float delta_time);
 
 	[[nodiscard]] float get_x() const { return x; }
@@ -20,13 +23,10 @@ public:
 	std::array<int, 2> get_tile(int tile_size) const;
 
 	int size = 40;
-
-
-	float x;
-	float y;
 	Game* game;
 
 private:
+
 	enum class Facing {
 		Down,
 		Up,
