@@ -360,8 +360,13 @@ void Sequence::draw_progress_bar_chords(int x,int y,int w,int h) {
     DrawLine(panel_x + 30, panel_y + 480, panel_x + panel_w - 30, panel_y + 480, Color{ 80, 80, 100, 100 });
 
     if (completed) {
-        DrawText("SONG COMPLETE!", panel_x + 30, panel_y + 510, 24, GREEN);
-        DrawText("Press backspace or exit button.", panel_x + 30, panel_y + 545, 16, LIGHTGRAY);
+        if (!interaction_object->beaten) {
+            DrawText("YOU FAILED!", panel_x + 740, panel_y + 310, 50, RED);
+            DrawText("Press backspace to restart", panel_x + 720, panel_y + 370, 25, WHITE);
+        }
+        else DrawText("SONG COMPLETE!", panel_x + 30, panel_y + 510, 24, GREEN);
+
+
     } else {
         DrawText("Reset song: BACKSPACE", panel_x + 30, panel_y + 510, 16, GRAY);
         DrawText("Press keys as they cross the line!", panel_x + 30, panel_y + 540, 16, GRAY);
