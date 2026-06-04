@@ -3,6 +3,7 @@
 
 #include "game.h"
 #include "map_display.h"
+#include "tutorial_display.h"
 #include "renderer.h"
 #include "Button.h"
 #include "settings_display.h"
@@ -151,7 +152,7 @@ void StartDisplay::tick() {
     }
 
     if (start_button && start_button->IsClicked()) {
-        auto display = std::make_unique<MapDisplay>(game);
+        auto display = std::make_unique<TutorialDisplay>(game);
         game.request_display_change(std::move(display));
     }
 

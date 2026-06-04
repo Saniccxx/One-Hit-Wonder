@@ -247,7 +247,7 @@ void MapDisplay::tick() {
         DrawRectangleRoundedLines(Rectangle{static_cast<float>(bar_x - 20), static_cast<float>(bar_y - 25), static_cast<float>(bar_w + 40), 65.0f}, 0.2f, 4, Color{ 80, 80, 100, 100 });
 
         // Draw text
-        std::string progress_text = "SONGS BEATEN: " + std::to_string(beaten_songs) + " / " + std::to_string(max_songs);
+        std::string progress_text = "SONGS BEATEN: " + std::to_string(beaten_songs) + " / " + std::to_string(max_songs+1);
         int text_w = MeasureText(progress_text.c_str(), 18);
         DrawText(progress_text.c_str(), bar_x + (bar_w - text_w) / 2, bar_y - 18, 18, GOLD);
 
