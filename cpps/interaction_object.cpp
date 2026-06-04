@@ -39,8 +39,6 @@ DialogResult InteractionObject::tick(MapPlayer* player, double delta_time, const
 
             Renderer::draw_texture_pro(texture, source, dest, origin, 0.0f, Renderer::white);
         }
-    } else {
-        Renderer::draw_circle(static_cast<int>(x), static_cast<int>(y), 40, Renderer::black);
     }
 
     float dx = player->get_x() - x;
@@ -50,7 +48,6 @@ DialogResult InteractionObject::tick(MapPlayer* player, double delta_time, const
     DialogResult result = DialogResult::None;
 
     if (dist <= radius and !beaten) {
-        std::cout << "not beaten" << std::endl;
         if (dialog) {
             player->game->player_speed = 0;
             dialog->Update(camera);
@@ -61,8 +58,6 @@ DialogResult InteractionObject::tick(MapPlayer* player, double delta_time, const
     }
     else player->game->player_speed = 20.0f*0.01;
 
-#ifndef NDEBUG
-    Renderer::draw_circle_lines(static_cast<int>(x), static_cast<int>(y), radius, Renderer::red);
-#endif
+
     return result;
 }

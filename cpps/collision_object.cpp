@@ -22,8 +22,8 @@ void CollisionObject::tick(double delta_time) {
         Rectangle dest{static_cast<float>(x), static_cast<float>(y), static_cast<float>(width), static_cast<float>(height)};
         Vector2 origin{0.0f, 0.0f};
         Renderer::draw_texture_pro(tilesheet, source, dest, origin, 0.0f, Renderer::white);
-    } else {
-        Renderer::draw_rectangle(x,  y, width, height, Renderer::red);
+    // } else {
+    //     Renderer::draw_rectangle(x,  y, width, height, Renderer::red);
     }
 
 }

@@ -89,7 +89,7 @@ void MapPlayer::tick(float delta_time) {
 	}
 
 #ifndef NDEBUG
-	Renderer::draw_rectangle_lines(static_cast<int>(x), static_cast<int>(y), size, size, Renderer::red);
+	// Renderer::draw_rectangle_lines(static_cast<int>(x), static_cast<int>(y), size, size, Renderer::red);
 #endif
 }
 

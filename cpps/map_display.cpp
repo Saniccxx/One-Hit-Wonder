@@ -213,7 +213,6 @@ void MapDisplay::tick() {
     const int light_center_y = light_world_pos.y;
     const float light_radius = light.position_radius.z/2;
 
-    Renderer::draw_circle_lines(light_center_x, light_center_y, light_radius, ColorAlpha(YELLOW, 0.9f));
 #endif
 
     if (camera) {
