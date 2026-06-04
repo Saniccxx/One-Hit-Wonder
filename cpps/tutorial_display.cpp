@@ -81,18 +81,18 @@ void TutorialDisplay::tick() {
         struct LoreLine { const char* text; Color col; float size; };
         LoreLine lines[] = {
             { "You are trapped.",                          Color{200,255,210,255}, 50 },
-            { "",                                         WHITE,                   12 },
+            { "",                                          WHITE,                   12 },
             { "Locked in a deadly dungeon,",              Color{180,220,190,255}, 50 },
             { "You were locked in for playing the flute", Color{180,220,190,255}, 50 },
             { "EVERYWHERE.",                              Color{0,255,100,255},   50 },
-            { "",                                         WHITE,                   12 },
+            { "",                                          WHITE,                   12 },
             { "10 guardians stand between you",           Color{180,220,190,255}, 50 },
             { "and freedom.",                             Color{180,220,190,255}, 50 },
-            { "",                                         WHITE,                   12 },
+            { "",                                          WHITE,                   12 },
             { "Each one must be defeated through",        Color{200,200,220,255}, 50 },
             { "MUSIC - the kryptonite of the guardians.", Color{120,180,255,255}, 50 },
-            { "",                                         WHITE,                   12 },
-            { "Beat all 10 bosses to ESCAPE.",            Color{255,230,80,255},  50 },
+            { "",                                          WHITE,                   12 },
+            { "Beat all 10 bosses to ESCAPE.",             Color{255,230,80,255},  50 },
         };
 
         int line_y = S(185);
@@ -186,22 +186,28 @@ void TutorialDisplay::tick() {
                      Color{base.r, base.g, base.b, 200});
         }
 
-        // Info rows
+        // Info rows (Removed trailing spaces since centering handles spacing)
         struct InfoRow { const char* icon; const char* text; Color col; };
         InfoRow infos[] = {
-            { "[BACKSPACE]  ", "Reset the current song if you mess up", Color{200,200,255,255} },
-            { "[ESC]  ",       "Pause the game at any time",            Color{200,200,255,255} },
-            { "TIP:  ",        "Hit notes on time for PERFECT rating",  Color{255,220,80,255}  },
-            { "TIP:  ",        "Build combos for a score multiplier",   Color{255,220,80,255}  },
+            { "[BACKSPACE] ", "Reset the current song if you mess up", Color{200,200,255,255} },
+            { "[ESC] ",       "Pause the game at any time",            Color{200,200,255,255} },
+            { "TIP: ",        "Hit notes on time for PERFECT rating",  Color{255,220,80,255}  },
+            { "TIP: ",        "Build combos for a score multiplier",   Color{255,220,80,255}  },
         };
 
         int infoSz = S(50);
         int info_y = row_y + key_h + S(55);
-        int info_x = (game.width - S(860)) / 2;
+
         for (auto& r : infos) {
             int iw = MeasureText(r.icon, infoSz);
-            DrawText(r.icon, info_x, info_y, infoSz, GOLD);
-            DrawText(r.text, info_x + iw, info_y, infoSz, r.col);
+            int tw = MeasureText(r.text, infoSz);
+            int total_line_w = iw + tw;
+
+            // Calculate starting X so that the combination of icon + text is centered
+            int line_start_x = (game.width - total_line_w) / 2;
+
+            DrawText(r.icon, line_start_x, info_y, infoSz, GOLD);
+            DrawText(r.text, line_start_x + iw, info_y, infoSz, r.col);
             info_y += S(100);
         }
 
