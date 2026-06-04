@@ -23,6 +23,7 @@ class Game {
     Game(Config& config);
     ~Game();
     std::unique_ptr<InteractionObject> interaction_object;
+    std::vector<std::unique_ptr<InteractionObject>> interaction_objects;
 
 
     void init();

@@ -13,18 +13,20 @@ enum class PATROLLING_DIRECTION {
 
 class InteractionObject {
 public:
-    InteractionObject(float x, float y, float radius, std::string_view text, Texture2D tex);
+    InteractionObject(float x, float y, float radius, std::string_view text, Texture2D tex, std::vector<int> notes, std::vector<int> durations);
 
     DialogResult tick(float player_x, float player_y, double delta_time, const Camera2D* camera = nullptr);
 
-    std::vector<int> notes = {
-        0,4,3, 2,1,7,4, 3, 2,1,7, 4, 3, 2,3, 1
-    };
-    std::vector<int> durations = {
-        70, 60, 20, 20, 20, 60, 40, 20, 20, 20, 60, 40, 20, 20, 20, 60
-    };
-    std::vector<int> get_notes() const { return notes; }
-    std::vector<int> get_durations() const { return durations; }
+    // std::vector<int> notes = {
+    //     0,4,3, 2,1,7,4, 3, 2,1,7, 4, 3, 2,3, 1
+    // };
+    // std::vector<int> durations = {
+    //     70, 60, 20, 20, 20, 60, 40, 20, 20, 20, 60, 40, 20, 20, 20, 60
+    // };
+    std::vector<int> notes;
+    std::vector<int> durations;
+    [[nodiscard]] std::vector<int> get_notes() const { return notes; }
+    [[nodiscard]] std::vector<int> get_durations() const { return durations; }
     int minimum_score = 100;
 private:
     float x;

@@ -26,7 +26,6 @@ void MapDisplay::init() {
 
     );
 
-    interact_obj = game.interaction_object.get();
     light.color = Renderer::white;
     light.position_radius = {
         player->get_x() + static_cast<float>(player->size) * 0.5f,
@@ -146,16 +145,16 @@ void MapDisplay::tick() {
     }
 
 
-
-    if (
-        interact_obj && player) {
-        DialogResult res = interact_obj->tick(player->get_x(), player->get_y(), game.get_delta_time(), camera ? &camera->get_camera() : nullptr);
-        if (res == DialogResult::No) {
-            auto display = std::make_unique<CombatDisplay>(game, interact_obj);
-            game.request_display_change(std::move(display));
-        }
-        else if (res == DialogResult::Yes) {
-            player->collision_nudge(2, 1200);
+    for (const auto& interact_obj : game.interaction_objects) {
+        if (interact_obj && player) {
+            DialogResult res = interact_obj->tick(player->get_x(), player->get_y(), game.get_delta_time(), camera ? &camera->get_camera() : nullptr);
+            if (res == DialogResult::No) {
+                auto display = std::make_unique<CombatDisplay>(game, interact_obj.get());
+                game.request_display_change(std::move(display));
+            }
+            else if (res == DialogResult::Yes) {
+                player->collision_nudge(2, 1200);
+            }
         }
     }
 

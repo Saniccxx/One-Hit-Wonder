@@ -64,10 +64,16 @@ Sound Game::get_sound(std::string_view name) const {
 void Game::init() {
     images = load_all_images("Resources/Images");
     sounds = load_all_sounds("Resources");
-    interaction_object = std::make_unique<InteractionObject>(
-    940.0f, 550.0f, 100.0f,
-    "GET OUT!!! IM 13 YOU PERVERT",get_texture("Sigma_salto.png")
-);
+    std::vector<int> notes = {
+        0,4,3, 2,1,7,4, 3, 2,1,7, 4, 3, 2,3, 1
+    };
+    std::vector<int> durations = {
+        70, 60, 20, 20, 20, 60, 40, 20, 20, 20, 60, 40, 20, 20, 20, 60
+    };
+
+    interaction_objects.push_back(std::move(std::make_unique<InteractionObject>(
+        940.0f, 550.0f, 100.0f,
+        "GET OUT!!! IM 13 YOU PERVERT",get_texture("Sigma_salto.png"), notes, durations)));
 
     if (!display) {
         set_display(std::make_unique<StartDisplay>(*this));
