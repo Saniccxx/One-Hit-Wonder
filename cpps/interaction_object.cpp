@@ -4,6 +4,7 @@
 #include "../headers/map_player.h"
 
 #include <cmath>
+#include <iostream>
 
 InteractionObject::InteractionObject(float x, float y, float radius, std::string_view text, Texture2D tex, const std::vector<int> notes, const std::vector<int> durations)
     : x(x), y(y), radius(radius), text(text), texture(tex), notes(notes), durations(durations)  {
@@ -44,16 +45,17 @@ DialogResult InteractionObject::tick(MapPlayer* player, double delta_time, const
 
     DialogResult result = DialogResult::None;
 
-    if (dist <= radius) {
+    if (dist <= radius and !beaten) {
+        std::cout << "not beaten" << std::endl;
         if (dialog) {
-            player->speed = 0;
+            player->game->player_speed = 0;
             dialog->Update(camera);
             dialog->Draw();
             result = dialog->GetResult();
         }
 
     }
-    else player->speed = 20.0f*0.01;
+    else player->game->player_speed = 20.0f*0.01;
 
 #ifndef NDEBUG
     Renderer::draw_circle_lines(static_cast<int>(x), static_cast<int>(y), radius, Renderer::red);

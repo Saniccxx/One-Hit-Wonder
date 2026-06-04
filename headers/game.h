@@ -5,9 +5,9 @@
 #include "config.h"
 #include "renderer.h"
 #include "sequence.h"
-
+class Sequence;
 class Display;
-
+class InteractionObject;
 struct LoadedTex {
     std::string path;
     Texture2D tex;
@@ -37,6 +37,7 @@ class Game {
     [[nodiscard]] double get_delta_time() const;
     [[nodiscard]] Texture2D get_texture(std::string_view name) const;
     [[nodiscard]] Sound get_sound(std::string_view name) const;
+    float player_speed = 20.0f*0.01;
 
     int width;
     int height;

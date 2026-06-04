@@ -3,12 +3,15 @@
 #include "../headers/map_player.h"
 #include "../headers/renderer.h"
 #include "../headers/config.h"
+#include "../headers/game.h"
 
-MapPlayer::MapPlayer(float x, float y, Texture2D front_texture, Texture2D back_texture, Texture2D side_texture)
+MapPlayer::MapPlayer(float x, float y, Texture2D front_texture, Texture2D back_texture, Texture2D side_texture, Game*game)
 	: x(x), y(y),
 	  front_texture(front_texture),
 	  back_texture(back_texture),
-	  side_texture(side_texture) {
+	  side_texture(side_texture),
+game(game)
+{
 
 }
 
@@ -29,8 +32,8 @@ void MapPlayer::tick(float delta_time) {
 		facing = Facing::Left;
 	}
 
-	x += dx * speed * delta_time;
-	y += dy * speed * delta_time;
+	x += dx * game->player_speed * delta_time;
+	y += dy * game->player_speed * delta_time;;
 
 
 

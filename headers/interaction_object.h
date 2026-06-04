@@ -11,11 +11,10 @@ enum class PATROLLING_DIRECTION {
     HORIZONTAL,
     VERTICAL
 };
-
+class MapPlayer;
 class InteractionObject {
 public:
     InteractionObject(float x, float y, float radius, std::string_view text, Texture2D tex, std::vector<int> notes, std::vector<int> durations);
-
     DialogResult tick(MapPlayer* player, double delta_time, const Camera2D* camera = nullptr);
 
     // std::vector<int> notes = {
@@ -29,6 +28,7 @@ public:
     [[nodiscard]] std::vector<int> get_notes() const { return notes; }
     [[nodiscard]] std::vector<int> get_durations() const { return durations; }
     int minimum_score = 100;
+    bool beaten = false;
 private:
     float x;
     float y;

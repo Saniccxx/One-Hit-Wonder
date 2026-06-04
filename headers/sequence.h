@@ -6,6 +6,7 @@
 #include "interaction_object.h"
 #include <unordered_map>
 class Game;
+class InteractionObject;
 
 class Sequence {
     public:

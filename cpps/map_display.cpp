@@ -22,7 +22,8 @@ void MapDisplay::init() {
         550.0f,
         game.get_texture("front.png"),
         game.get_texture("back.png"),
-        game.get_texture("side.png")
+        game.get_texture("side.png"),
+        &game
 
     );
 
@@ -67,7 +68,6 @@ void MapDisplay::init() {
 }
 
 void MapDisplay::tick() {
-    std::cout<<player->x<<std::endl;
     if (player->x>1000) {
         player->x=0;
         game.level+=1;

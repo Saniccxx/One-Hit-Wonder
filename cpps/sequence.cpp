@@ -115,6 +115,9 @@ void Sequence::progress() {
 
         if (next_note_to_hit == length) {
             completed = 1;
+
+            game.player_speed = 20.0f*0.01;
+            interaction_object->beaten = true;
             std::cout << "Completed (by miss progression)\n";
         }
     }
@@ -150,40 +153,46 @@ void Sequence::progress() {
     const int hit_y = 800;
 
     if (current_note == target_note) {
-            int abs_diff = std::abs(diff);
-            if (abs_diff <= 18) { // 18 frames
-                std::string rating_str = "GOOD";
-                Color rating_color = ORANGE;
-                int points = 100;
+        int abs_diff = std::abs(diff);
+        if (abs_diff <= 18) { // 18 frames
+            std::string rating_str = "GOOD";
+            Color rating_color = ORANGE;
+            int points = 100;
 
-                if (abs_diff <= 5) { // 5 frames
-                    rating_str = "PERFECT";
-                    rating_color = GOLD;
-                    points = 300;
-                    perfect_count++;
-                } else if (abs_diff <= 11) { // 11 frames
-                    rating_str = "GREAT";
-                    rating_color = SKYBLUE;
-                    points = 200;
-                    great_count++;
+            if (abs_diff <= 5) { // 5 frames
+                rating_str = "PERFECT";
+                rating_color = GOLD;
+                points = 300;
+                perfect_count++;
+            } else if (abs_diff <= 11) { // 11 frames
+                rating_str = "GREAT";
+                rating_color = SKYBLUE;
+                points = 200;
+                great_count++;
+            } else {
+                good_count++;
+            }
+
+            combo++;
+            score += points * (1 + combo / 10);
+
+            spawn_rating(rating_str, rating_color, note_center_x, hit_y - 40);
+
+            next_note_to_hit++;
+            level = next_note_to_hit;
+            flevel = level;
+            compleation_level = flevel / length;
+
+            if (next_note_to_hit == length) {
+                completed = 1;
+
+                game.player_speed = 20.0f*0.01;
+                interaction_object->beaten = true;
+                if (score >= interaction_object->minimum_score) {
+                    game.get_display();
                 } else {
-                    good_count++;
-                }
 
-                combo++;
-                score += points * (1 + combo / 10);
-
-                spawn_rating(rating_str, rating_color, note_center_x, hit_y - 40);
-
-                next_note_to_hit++;
-                level = next_note_to_hit;
-                flevel = level;
-                compleation_level = flevel / length;
-
-                if (next_note_to_hit == length) {
-                    completed = 1;
-
-                    std::cout << "Completed! Score: " << score << std::endl;
+                    // std::cout << "Completed! Score: " << score << std::endl;
                 }
             } else if (diff < -18 && diff >= -45) {
                 spawn_rating("MISS", RED, note_center_x, hit_y - 40);
@@ -199,7 +208,7 @@ void Sequence::progress() {
                 }
             }
         }
-    else {
+        else {
             if (std::abs(diff) > 18) return;
             float wrong_note_center_x = start_x + (current_note * key_width) + key_width / 2.0f;
             spawn_rating("MISS", RED, wrong_note_center_x, hit_y - 40);
@@ -213,7 +222,7 @@ void Sequence::progress() {
             if (next_note_to_hit == length) completed = 1;
         }
     }
-
+}
 
 void Sequence::check() {
     get_key();
