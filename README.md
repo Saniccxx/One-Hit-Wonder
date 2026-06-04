@@ -1,13 +1,12 @@
-<!-- Centering logo and header using HTML -->
 <div align="center">
-<img src="Resources/title/title scr.png">
+
   # One Hit Wonder 🎵
   **A rhythm game made for Major Game Jam.**
 
   <!-- [![GitHub license](https://img.shields.io/github/license/USER/REPO?style=flat-square)](LICENSE)
   [![GitHub release](https://img.shields.io/github/v/release/USER/REPO?style=flat-square)](https://github.com/USER/REPO/releases) -->
   [![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20Windows-blue?style=flat-square)](https://github.com/USER/REPO)
-
+  <img src="Resources/title/title scr.png">
 
 </div>
 
@@ -24,7 +23,6 @@ You got trapped in a dungeon because you were too good at playing the flute. Now
 ### Screenshots
 
 <div align="center">
-  <!-- HTML allows controlling the image width so they look nice next to each other -->
   <img src="Resources/Images/scr1.png" width="45%" alt="Combat gameplay"/>
   <img src="Resources/Images/scr2.png" width="45%" alt="Map gameplay"/>
 </div>
@@ -35,12 +33,16 @@ You got trapped in a dungeon because you were too good at playing the flute. Now
 
 ### System Requirements
 * **OS:** Linux / Windows 10/11
-* **Dependencies:** G++ compiler (C++20 support), CMake (Only for Linux)
+* **Dependencies(only for compilation):** G++ compiler (C++20 support), CMake 4.2.2+ (Only for Linux)
 ### Run (Windows)
 
 - Download the release
 - Open folder
 - Run **OneHitWonder.exe**
+### Run (Linux)
+- Download the release
+- Open terminal in the folder
+- Run `./OneHitWonder`
 
 ### Compilation and execution (Linux)
 
