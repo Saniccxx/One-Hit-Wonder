@@ -6,6 +6,8 @@ class Game;
 
 class MapPlayer {
 public:
+	float x;
+	float y;
 	MapPlayer(float x, float y, Texture2D front_texture, Texture2D back_texture, Texture2D side_texture);
 	void tick(float delta_time);
 
@@ -22,8 +24,7 @@ public:
 	int size = 40;
 
 private:
-	float x;
-	float y;
+
 	enum class Facing {
 		Down,
 		Up,
