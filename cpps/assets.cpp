@@ -1,4 +1,4 @@
-#include "../headers/renderer.h"
+#include "renderer.h"
 #include <vector>
 #include <string>
 #include <iostream>

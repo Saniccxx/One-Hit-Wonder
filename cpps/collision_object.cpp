@@ -1,10 +1,10 @@
-#include "../headers/renderer.h"
+#include "renderer.h"
 #include <cmath>
-#include "../headers/map_display.h"
-#include "../headers/collision_object.h"
+#include "map_display.h"
+#include "collision_object.h"
 #include <iostream>
 
-#include "../headers/map_player.h"
+#include "map_player.h"
 
 CollisionObject::CollisionObject(int x, int y, int width, int height, int id, Texture2D tilesheet, std::string filename, MapDisplay& display)
     : x(x), y(y), height(height), width(width), id(id), filename(std::move(filename)), tilesheet(tilesheet), display(display) {}

@@ -1,8 +1,8 @@
-#include "../headers/credits_display.h"
-#include "../headers/game.h"
-#include "../headers/start_display.h"
-#include "../headers/renderer.h"
-#include "../headers/Button.h"
+#include "credits_display.h"
+#include "game.h"
+#include "start_display.h"
+#include "renderer.h"
+#include "Button.h"
 
 CreditsDisplay::CreditsDisplay(Game& game) : game(game) {}
 

@@ -1,9 +1,7 @@
-
-
-#include "../headers/map_player.h"
-#include "../headers/renderer.h"
-#include "../headers/config.h"
-#include "../headers/game.h"
+#include "map_player.h"
+#include "renderer.h"
+#include "config.h"
+#include "game.h"
 
 MapPlayer::MapPlayer(float x, float y, Texture2D front_texture, Texture2D back_texture, Texture2D side_texture, Game*game)
 	: x(x), y(y),

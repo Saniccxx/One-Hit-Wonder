@@ -1,14 +1,13 @@
-#include "../headers/combat_display.h"
+#include "combat_display.h"
 
 #include <format>
 #include <iostream>
 
-#include "../headers/game.h"
-#include "../headers/combat_player.h"
-#include "../headers/Button.h"
-#include "../headers/map_display.h"
-#include "../headers/interaction_object.h"
-#include "../headers/renderer.h"
+#include "game.h"
+#include "combat_player.h"
+#include "Button.h"
+#include "map_display.h"
+#include "interaction_object.h"
 
 CombatDisplay::CombatDisplay(Game& game, InteractionObject* interaction_object): game(game), interaction_object(interaction_object) {}
 

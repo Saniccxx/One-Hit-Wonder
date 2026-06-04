@@ -37,6 +37,8 @@ public:
 
 
 private:
+    std::string mapDataFullPath;
+    void resolveMapDataPath();
     struct LightObject {
         Vector3 position_radius{0.0f, 0.0f, 300.0f};
         Color color{WHITE};

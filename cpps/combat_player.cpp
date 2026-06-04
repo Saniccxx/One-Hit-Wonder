@@ -1,6 +1,6 @@
-#include "../headers/combat_player.h"
-#include "../headers/game.h"
-#include "../headers/renderer.h"
+#include "combat_player.h"
+#include "game.h"
+#include "renderer.h"
 #include <iostream>
 
 

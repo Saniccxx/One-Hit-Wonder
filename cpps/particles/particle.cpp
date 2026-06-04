@@ -1,4 +1,4 @@
-#include "../../headers/particles/particle.h"
+#include "particles/particle.h"
 #include <algorithm>
 
 Particle::Particle(float x, float y, float vx, float vy, float angle, float speed, float lifespan, int size, Color color, Texture2D* texture)

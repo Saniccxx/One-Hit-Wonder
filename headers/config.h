@@ -2,6 +2,7 @@
 #include <nlohmann/json.hpp>
 
 class Config {
+    std::string configFullPath;
     int screenWidth;
     int screenHeight;
     void parseConfig();
@@ -18,6 +19,5 @@ namespace config {
     inline constexpr int defaultScreenWidth = 1800;
     inline constexpr int defaultScreenHeight = 1000;
     inline constexpr std::string_view configFileName = "config";
-    inline constexpr std::string_view configFilePath = "../";
     inline constexpr double animation_frame_delay_ms = 64.0;
 }

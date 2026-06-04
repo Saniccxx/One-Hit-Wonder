@@ -1,12 +1,12 @@
-#include "../headers/start_display.h"
+#include "start_display.h"
 
 
-#include "../headers/game.h"
-#include "../headers/map_display.h"
-#include "../headers/renderer.h"
-#include "../headers/Button.h"
-#include "../headers/settings_display.h"
-#include "../headers/credits_display.h"
+#include "game.h"
+#include "map_display.h"
+#include "renderer.h"
+#include "Button.h"
+#include "settings_display.h"
+#include "credits_display.h"
 
 StartDisplay::StartDisplay(Game& game): game(game) {}
 

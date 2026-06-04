@@ -1,4 +1,4 @@
-#include "../../headers/particles/particle_system.h"
+#include "particles/particle_system.h"
 #include <algorithm>
 
 void ParticleSystem::add_particle(float x, float y, float vx, float vy, float angle, float speed, float lifespan, int size, Color color, Texture2D* texture) {

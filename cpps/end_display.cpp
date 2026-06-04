@@ -1,9 +1,9 @@
-#include "../headers/game.h"
-#include "../headers/map_display.h"
-#include "../headers/renderer.h"
-#include "../headers/Button.h"
-#include "../headers/credits_display.h"
-#include "../headers/end_display.h"
+#include "game.h"
+#include "map_display.h"
+#include "renderer.h"
+#include "Button.h"
+#include "credits_display.h"
+#include "end_display.h"
 
 EndDisplay::EndDisplay(Game& game): game(game) {}
 
