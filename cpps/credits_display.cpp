@@ -97,9 +97,9 @@ void CreditsDisplay::tick() {
     //     { "metsej the gathering",   "Proffesional asset stealer"          },
     // };
     constexpr Participant participants[] = {
-        { "Artur + Copillo",    "Proffesional vibe coder"   },
-        { "Kummer + Gepetto",    "Semiproffesional vibe coder and level viber"           },
-        { "Ruter + Klaudia",      "Explaining basic vibing to brainded collegues from Erasmus+"       },
+        { "Artur + Copillo",    "Professional vibe coder"   },
+        { "Kummer + Gepetto",    "Semiprofessional vibe coder and level viber"           },
+        { "Ruter + Klaudia",      "Explaining basic vibing to braindead colleagues from Erasmus+"       },
         { "Rutra + Gemi",     "Sequentially vibing sequences" },
     };
 
