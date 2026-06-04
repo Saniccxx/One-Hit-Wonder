@@ -12,7 +12,7 @@ CollisionObject::CollisionObject(int x, int y, int width, int height, int id, Te
 void CollisionObject::tick(double delta_time) {
     if (tilesheet.id != 0) {
         const float tileW = 16.0f;
-        const float tileH = 16.0f;
+        const float tileH = 12.0f;
 
         int cols = tilesheet.width / static_cast<int>(tileW);
         int srcX = (id % cols) * static_cast<int>(tileW);
@@ -21,7 +21,7 @@ void CollisionObject::tick(double delta_time) {
         Rectangle source{static_cast<float>(srcX), static_cast<float>(srcY), tileW, tileH};
         Rectangle dest{static_cast<float>(x), static_cast<float>(y), static_cast<float>(width), static_cast<float>(height)};
         Vector2 origin{0.0f, 0.0f};
-        Renderer::draw_texture_pro(tilesheet, {100.0f,100.0f,tileW, tileH}, dest, origin, 0.0f, Renderer::white);
+        Renderer::draw_texture_pro(tilesheet, source, dest, origin, 0.0f, Renderer::white);
     } else {
         Renderer::draw_rectangle(x,  y, width, height, Renderer::red);
     }
