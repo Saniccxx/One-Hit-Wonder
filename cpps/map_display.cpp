@@ -75,7 +75,7 @@ void MapDisplay::tick() {
         if (game.interaction_objects.size()==1) {
             game.interaction_objects.pop_back();
         }
-        if (game.level<=game.notes.size()) {
+        if (game.level < game.notes.size()) {
             game.interaction_objects.push_back(std::move(std::make_unique<InteractionObject>(
         700.0f, 550.0f, 100.0f,
         game.get_texture("enemy.png"), game.notes[game.level], game.durations[game.level])));
@@ -218,6 +218,44 @@ void MapDisplay::tick() {
     if (camera) {
         camera->update(static_cast<float>(game.get_delta_time()));
         GameCamera::end_mode();
+    }
+
+    // Progress bar UI for beaten songs
+    {
+        const int bar_w = 400;
+        const int bar_h = 16;
+        const int bar_x = (game.width - bar_w) / 2;
+        const int bar_y = 40;
+
+        int max_songs = game.notes.size() - 1; // excluding skipped/dummy notes
+        if (max_songs < 1) max_songs = 1;
+
+        int beaten_songs = game.level - 1;
+        if (!game.interaction_objects.empty() && game.interaction_objects[0]->beaten) {
+            beaten_songs += 1;
+        }
+        if (beaten_songs > max_songs) beaten_songs = max_songs;
+
+        float progress = static_cast<float>(beaten_songs) / max_songs;
+
+        // Draw background panel (glassmorphism look)
+        DrawRectangleRounded(Rectangle{static_cast<float>(bar_x - 20), static_cast<float>(bar_y - 25), static_cast<float>(bar_w + 40), 65.0f}, 0.2f, 4, Color{ 20, 20, 30, 200 });
+        DrawRectangleRoundedLines(Rectangle{static_cast<float>(bar_x - 20), static_cast<float>(bar_y - 25), static_cast<float>(bar_w + 40), 65.0f}, 0.2f, 4, Color{ 80, 80, 100, 100 });
+
+        // Draw text
+        std::string progress_text = "SONGS BEATEN: " + std::to_string(beaten_songs) + " / " + std::to_string(max_songs);
+        int text_w = MeasureText(progress_text.c_str(), 18);
+        DrawText(progress_text.c_str(), bar_x + (bar_w - text_w) / 2, bar_y - 18, 18, GOLD);
+
+        // Draw bar background
+        DrawRectangleRounded(Rectangle{static_cast<float>(bar_x), static_cast<float>(bar_y + 10), static_cast<float>(bar_w), static_cast<float>(bar_h)}, 0.5f, 4, Color{ 40, 40, 50, 255 });
+
+        // Draw bar fill
+        if (progress > 0.0f) {
+            Color fill_color = ColorFromHSV(progress * 120.0f, 0.85f, 0.9f); // From red to green
+            DrawRectangleRounded(Rectangle{static_cast<float>(bar_x), static_cast<float>(bar_y + 10), static_cast<float>(bar_w * progress), static_cast<float>(bar_h)}, 0.5f, 4, fill_color);
+        }
+        DrawRectangleRoundedLines(Rectangle{static_cast<float>(bar_x), static_cast<float>(bar_y + 10), static_cast<float>(bar_w), static_cast<float>(bar_h)}, 0.5f, 4, Color{ 100, 100, 120, 255 });
     }
 }
 
