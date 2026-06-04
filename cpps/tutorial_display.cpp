@@ -79,17 +79,17 @@ void TutorialDisplay::tick() {
         LoreLine lines[] = {
             { "You are trapped.",                          Color{200,255,210,255}, 50 },
             { "",                                         WHITE,                   12 },
-            { "Locked inside an endless corridor,",       Color{180,220,190,255}, 50 },
-            { "deep within the digital prison of the",   Color{180,220,190,255}, 50 },
-            { "MATRIX.",                                   Color{0,255,100,255},   50 },
+            { "Locked in a deadly dungeon,",       Color{180,220,190,255}, 50 },
+            { "You were locked in for playing the flute",   Color{180,220,190,255}, 50 },
+            { "EVERYWHERE.",                                   Color{0,255,100,255},   50 },
             { "",                                         WHITE,                   12 },
             { "10 guardians stand between you",           Color{180,220,190,255}, 50 },
             { "and freedom.",                              Color{180,220,190,255}, 50 },
             { "",                                         WHITE,                   12 },
             { "Each one must be defeated through",        Color{200,200,220,255}, 50 },
-            { "RHYTHM — the language of the Matrix.",     Color{120,180,255,255}, 50 },
+            { "MUSIC - the kryptonite of the guardians.",     Color{120,180,255,255}, 50 },
             { "",                                         WHITE,                   12 },
-            { "Beat all 11 bosses to ESCAPE.",            Color{255,230,80,255},  50 },
+            { "Beat all 10 bosses to ESCAPE.",            Color{255,230,80,255},  50 },
         };
 
         int line_y = 185;
@@ -197,7 +197,7 @@ void TutorialDisplay::tick() {
             int iw = MeasureText(r.icon, 50);
             DrawText(r.icon, 500, info_y, 50, GOLD);
             DrawText(r.text, 500 + iw, info_y, 50, r.col);
-            info_y += 70;
+            info_y += 100;
         }
 
         // Page indicator dots
