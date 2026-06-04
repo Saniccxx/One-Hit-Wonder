@@ -54,7 +54,8 @@ add_executable(major_jam
         cpps/particles/particle_system.cpp
         cpps/config.cpp
         cpps/map_display_save_load.cpp
-        headers/randomizer.h)
+        headers/randomizer.h
+        headers/songs_data.h)
 
 # Dependencies
 set(RAYLIB_VERSION 6.0)
