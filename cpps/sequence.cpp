@@ -210,7 +210,7 @@ void Sequence::check() {
     progress();
 }
 void Sequence::play() {
-    float step = GetFrameTime() * 60.0f;
+    float step = GetFrameTime() * 100.0f; // different diff level imo
     global_timer += step;
 
     if (completed == 0) {
