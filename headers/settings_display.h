@@ -34,6 +34,8 @@ private:
     std::unique_ptr<Button> back_button;
     std::unique_ptr<Button> prev_res_button;
     std::unique_ptr<Button> next_res_button;
+    std::unique_ptr<Button> fullscreen_button;
+    bool is_fullscreen = false;
 
     ParticleSystem particle_system;
     std::unique_ptr<ParticleGenerator> note_generator;

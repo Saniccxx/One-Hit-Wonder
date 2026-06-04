@@ -82,9 +82,22 @@ void SettingsDisplay::reposition_ui() {
         SKYBLUE
     );
 
-    back_button = std::make_unique<Button>(
+    fullscreen_button = std::make_unique<Button>(
         x,
         y + button_height + 40.0f,
+        button_width,
+        button_height,
+        is_fullscreen ? "Fullscreen: ON" : "Fullscreen: OFF",
+        30,
+        WHITE,
+        DARKBLUE,
+        BLUE,
+        SKYBLUE
+    );
+
+    back_button = std::make_unique<Button>(
+        x,
+        y + (button_height + 40.0f) * 2.0f,
         button_width,
         button_height,
         "Back",
@@ -109,6 +122,7 @@ void SettingsDisplay::reposition_ui() {
 }
 
 void SettingsDisplay::init() {
+    is_fullscreen = game.config.get_fullscreen();
     setup_resolutions();
 
     note_generator = std::make_unique<ParticleGenerator>(
@@ -192,6 +206,11 @@ void SettingsDisplay::tick() {
         next_res_button->Draw();
     }
 
+    if (fullscreen_button) {
+        fullscreen_button->Update(nullptr);
+        fullscreen_button->Draw();
+    }
+
     if (back_button) {
         back_button->Update(nullptr);
         back_button->Draw();
@@ -220,7 +239,13 @@ void SettingsDisplay::tick() {
         Renderer::resize_target(new_w, new_h);
         reposition_ui();
     }
-    // GDZIEŚ WYWOŁAJ FUNKCJĘ game.config.set_fullscreen(bool fullscreen)
+    if (fullscreen_button && fullscreen_button->IsClicked()) {
+        is_fullscreen = !is_fullscreen;
+        Renderer::toggle_fullscreen();
+        game.config.set_fullscreen(is_fullscreen);
+        fullscreen_button->SetText(is_fullscreen ? "Fullscreen: ON" : "Fullscreen: OFF");
+    }
+
     if (back_button && back_button->IsClicked()) {
         if (return_target == SettingsReturn::PauseMenu) {
             auto display = std::make_unique<PauseDisplay>(game);
