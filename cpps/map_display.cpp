@@ -9,6 +9,7 @@
 #include "combat_display.h"
 #include "sequence.h"
 #include "end_display.h"
+
 MapDisplay::MapDisplay(Game& game): game(game) {}
 
 MapDisplay::~MapDisplay() = default;
