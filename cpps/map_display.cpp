@@ -200,7 +200,7 @@ void MapDisplay::place_block(int x, int y, int type, const std::optional<int> id
         if (type == -1) {
             coll_objects[tile_y][tile_x].reset();
         } else {
-            Texture2D tilesheet = game.get_texture("tekstury.png");
+            Texture2D tilesheet = game.get_texture("decorative_cracks_walls.png");
             coll_objects[tile_y][tile_x] = std::make_unique<CollisionObject>(
                 tile_x * tile_size, tile_y * tile_size, tile_size, tile_size, id.value_or(current_block), tilesheet, *this);
         }
