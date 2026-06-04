@@ -24,7 +24,7 @@ class Game {
     ~Game();
     std::unique_ptr<InteractionObject> interaction_object;
     std::vector<std::unique_ptr<InteractionObject>> interaction_objects;
-
+    int level=1;
 
     void init();
     void tick();

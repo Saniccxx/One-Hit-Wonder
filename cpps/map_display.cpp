@@ -26,6 +26,7 @@ void MapDisplay::init() {
 
     );
 
+
     light.color = Renderer::white;
     light.position_radius = {
         player->get_x() + static_cast<float>(player->size) * 0.5f,
@@ -66,6 +67,13 @@ void MapDisplay::init() {
 }
 
 void MapDisplay::tick() {
+    std::cout<<player->x<<std::endl;
+    if (player->x>1000) {
+        player->x=0;
+        game.level+=1;
+        std::cout<<game.level;
+    }
+
     if (camera) camera->begin_mode();
     if (debug) {
 

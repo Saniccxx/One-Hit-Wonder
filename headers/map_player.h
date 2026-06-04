@@ -20,12 +20,12 @@ public:
 	std::array<int, 2> get_tile(int tile_size) const;
 
 	int size = 40;
-
+	float x;
+	float y;
 
 
 private:
-	float x;
-	float y;
+
 	float archive_x;
 	float archive_y;
 
