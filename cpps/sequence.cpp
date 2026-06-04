@@ -197,6 +197,7 @@ void Sequence::progress() {
 
         if (score >= interaction_object->minimum_score) {
             interaction_object->beaten = true;
+            interaction_object->setTexture(game.get_texture("beaten.png")); // Set texture here
             std::cout << "WIN: " << score << std::endl;
         } else {
             interaction_object->beaten = false;
@@ -210,7 +211,7 @@ void Sequence::check() {
     progress();
 }
 void Sequence::play() {
-    float step = GetFrameTime() * 60.0f;
+    float step = GetFrameTime() * 100.0f; // different diff level imo
     global_timer += step;
 
     if (completed == 0) {
@@ -309,8 +310,13 @@ void Sequence::draw_progress_bar_chords(int x,int y,int w,int h) {
     DrawText(pct_text.c_str(), panel_x + panel_w - 30 - MeasureText(pct_text.c_str(), 16), panel_y + 90, 16, WHITE);
 
     DrawText("SCORE", panel_x + 30, panel_y + 170, 18, Color{ 180, 180, 200, 255 });
+    if (interaction_object) {
+        std::string target_str = "TARGET: " + std::to_string(interaction_object->minimum_score);
+        DrawText(target_str.c_str(), panel_x + 130, panel_y + 195, 16, GOLD);
+    }
     std::string score_str = std::to_string(score);
-    DrawText(score_str.c_str(), panel_x + 30, panel_y + 195, 36, WHITE);
+    Color score_color = (interaction_object && score >= interaction_object->minimum_score) ? GREEN : WHITE;
+    DrawText(score_str.c_str(), panel_x + 30, panel_y + 195, 36, score_color);
 
     if (combo > 0) {
         float combo_scale = 1.0f + 0.15f * sinf(global_timer * 0.1f);

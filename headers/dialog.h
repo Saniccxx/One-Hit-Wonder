@@ -3,6 +3,7 @@
 #include <string>
 #include <memory>
 #include "Button.h"
+#include <raylib.h> // For Rectangle
 
 class Camera2D;
 
@@ -14,7 +15,7 @@ enum class DialogResult {
 
 class Dialog {
 public:
-    Dialog(std::string_view text, float x, float y);
+    Dialog(std::string_view text, float centerX, float centerY);
     void Update(const Camera2D* camera);
     void Draw() const;
     [[nodiscard]] DialogResult GetResult() const;
@@ -22,9 +23,12 @@ public:
 
 private:
     std::string text;
-    float x;
-    float y;
+    Rectangle bounds;
+    float padding;
+    float center_x; // Store center_x and center_y for recalculation
+    float center_y;
     std::unique_ptr<Button> yes_button;
     std::unique_ptr<Button> no_button;
-};
 
+    void recalculate_layout(); // New method to adjust bounds and button positions
+};
