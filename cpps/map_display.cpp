@@ -113,7 +113,7 @@ void MapDisplay::tick() {
             std::cout << "clicked backspace";
         }
     }
-    Renderer::draw_rectangle(0, 0, 1920, 1080, Renderer::blue);
+    // Renderer::draw_rectangle(0, 0, 1920, 1080, Renderer::blue);
 
     /////////////////////////////////////////////// light stuff
     Vector2 light_world_pos{light.position_radius.x, light.position_radius.y};
