@@ -59,6 +59,10 @@ add_executable(major_jam
         headers/end_display.h
         cpps/end_display.cpp)
 
+target_include_directories(${PROJECT_NAME} PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/headers
+)
+
 # Dependencies
 set(RAYLIB_VERSION 6.0)
 
