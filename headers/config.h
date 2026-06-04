@@ -19,8 +19,8 @@ class Config {
 
 namespace config {
     inline constexpr bool enableBloom = false;
-    inline constexpr int defaultScreenWidth = 1280;
-    inline constexpr int defaultScreenHeight = 720;
+    inline constexpr int defaultScreenWidth = 1600;
+    inline constexpr int defaultScreenHeight = 900;
     inline constexpr bool defaultFullScreen = false;
     inline constexpr std::string_view configFileName = "config";
     inline constexpr double animation_frame_delay_ms = 64.0;
