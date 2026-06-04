@@ -18,6 +18,7 @@ public:
     void Update(const Camera2D* camera);
     void Draw() const;
     [[nodiscard]] DialogResult GetResult() const;
+    void randomize_text();
 
 private:
     std::string text;
@@ -26,3 +27,4 @@ private:
     std::unique_ptr<Button> yes_button;
     std::unique_ptr<Button> no_button;
 };
+

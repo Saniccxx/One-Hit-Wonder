@@ -78,12 +78,12 @@ void MapDisplay::tick() {
         if (game.level<=game.notes.size()) {
             game.interaction_objects.push_back(std::move(std::make_unique<InteractionObject>(
         700.0f, 550.0f, 100.0f,
-        "GET OUT!!! IM 13 YOU PERVERT",game.get_texture("enemy.png"), game.notes[game.level], game.durations[game.level])));
+        game.get_texture("enemy.png"), game.notes[game.level], game.durations[game.level])));
         }
         else {
             game.interaction_objects.push_back(std::move(std::make_unique<InteractionObject>(
         700.0f, 550.0f, 100.0f,
-        "PREPARE FOR FINAL BATTLE",game.get_texture("enemy.png"), game.notes[0], game.durations[0])));
+        game.get_texture("enemy.png"), game.notes[0], game.durations[0])));
         }
 
         for (const auto& interact_obj : game.interaction_objects) {
