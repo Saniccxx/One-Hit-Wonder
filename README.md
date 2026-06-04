@@ -3,10 +3,11 @@
   # One Hit Wonder 🎵
   **A rhythm game made for Major Game Jam.**
 
-  <!-- [![GitHub license](https://img.shields.io/github/license/USER/REPO?style=flat-square)](LICENSE)
-  [![GitHub release](https://img.shields.io/github/v/release/USER/REPO?style=flat-square)](https://github.com/USER/REPO/releases) -->
-  [![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20Windows-blue?style=flat-square)](https://github.com/USER/REPO)
+  
+  [![GitHub release](https://img.shields.io/github/v/release/Saniccxx/One-Hit-Wonder?style=flat-square)](https://github.com/Saniccxx/One-Hit-Wonder/releases)
+  [![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20Windows-blue?style=flat-square)](https://github.com/Saniccxx/One-Hit-Wonder)
   <img src="Resources/title/title scr.png">
+  ### <a href="https://saniccxx.itch.io/one-hit-wonder">Game on Itch.io</a>
 
 </div>
 
