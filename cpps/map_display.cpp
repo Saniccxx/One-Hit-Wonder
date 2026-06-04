@@ -68,8 +68,8 @@ void MapDisplay::init() {
 
 void MapDisplay::tick() {
     std::cout<<player->x<<std::endl;
-    if (player->x>1000) {
-        player->x=0;
+    if (player->x>1100) {
+        player->x=200;
         game.level+=1;
         std::cout<<game.level<<std::endl;
         if (game.interaction_objects.size()==1) {
