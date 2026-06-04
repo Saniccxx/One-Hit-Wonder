@@ -14,12 +14,12 @@
 
 ## About the Game
 
-An rhythm game where you play as a hero trapped in a dungeon. Can you escape the dungeon and become a One Hit Wonder?
+A rhythm game where you play as a hero trapped in a dungeon. Can you escape the dungeon and become the One Hit Wonder?
 
-You got trapped in a dungeon because you were too good at playing the flute. Now you have to fight your way out using your musical skills. Can you escape the dungeon and become a One Hit Wonder?
+You got trapped in a dungeon because you were too good at playing the flute. Now you have to fight your way out using your musical skills. Can you escape the dungeon and become the One Hit Wonder?
 
 
-> You need to escape from dungeon by defeating the enemies on each floor. Fight using the music and your flute 
+> You need to escape from dungeon by defeating the enemies on each floor. Fight by playing music on your flute. 
 ### Screenshots
 
 <div align="center">
