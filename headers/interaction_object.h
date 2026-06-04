@@ -5,6 +5,7 @@
 #include "renderer.h"
 #include "dialog.h"
 #include "randomizer.h"
+#include "map_player.h"
 
 enum class PATROLLING_DIRECTION {
     HORIZONTAL,
@@ -15,7 +16,7 @@ class InteractionObject {
 public:
     InteractionObject(float x, float y, float radius, std::string_view text, Texture2D tex, std::vector<int> notes, std::vector<int> durations);
 
-    DialogResult tick(float player_x, float player_y, double delta_time, const Camera2D* camera = nullptr);
+    DialogResult tick(MapPlayer* player, double delta_time, const Camera2D* camera = nullptr);
 
     // std::vector<int> notes = {
     //     0,4,3, 2,1,7,4, 3, 2,1,7, 4, 3, 2,3, 1
