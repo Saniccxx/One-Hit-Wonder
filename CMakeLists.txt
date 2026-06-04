@@ -116,6 +116,7 @@ if (EMSCRIPTEN)
     )
 elseif(WIN32)
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -static -static-libgcc -static-libstdc++")
+    set(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE} -mwindows")
 else()
     # Use dynamic linking on Linux and ensure Wayland support
     set(CMAKE_EXE_LINKER_FLAGS "") # Remove static linking
