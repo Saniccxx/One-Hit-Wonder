@@ -78,7 +78,7 @@ class Sequence {
     Sound A ;
     Sound B ;
     Sound C2 ;
-    std::unordered_map<int, int> keys={{KEY_A,0},{KEY_S,1},{KEY_D,2},{KEY_F,3},{KEY_J,4},{KEY_K,5},{KEY_L,6},{KEY_SEMICOLON,7}};
+    std::unordered_map<int, int> keys={{KEY_S,0},{KEY_D,1},{KEY_F,2},{KEY_G,3},{KEY_H,4},{KEY_J,5},{KEY_K,6},{KEY_L,7}};
     float bar_progress;
     int bar_changing=0;
     float d_bar=0.0f;

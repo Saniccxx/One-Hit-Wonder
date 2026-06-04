@@ -8,7 +8,7 @@
 
 InteractionObject::InteractionObject(float x, float y, float radius, Texture2D tex, const std::vector<int> notes, const std::vector<int> durations)
     : x(x), y(y), radius(radius), texture(tex), notes(notes), durations(durations)  {
-
+    minimum_score = notes.size() * 200;
     dialog = std::make_unique<Dialog>(text, x, y - 80);
 }
 

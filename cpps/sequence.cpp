@@ -100,7 +100,7 @@ void Sequence::get_key() {
 
 }
 void Sequence::progress() {
-    static const std::array<int,8> kc = { KEY_A, KEY_S, KEY_D, KEY_F, KEY_J, KEY_K, KEY_L, KEY_SEMICOLON };
+    static const std::array<int,8> kc = { KEY_S, KEY_D, KEY_F, KEY_G, KEY_H, KEY_J, KEY_K, KEY_L };
 
     while (next_note_to_hit < target_times.size() && global_timer > target_times[next_note_to_hit] + 18) {
         int nv = notes[next_note_to_hit];
@@ -210,7 +210,7 @@ void Sequence::check() {
     progress();
 }
 void Sequence::play() {
-    float step = GetFrameTime() * 60.0f;
+    float step = GetFrameTime() * 100.0f; // different diff level imo
     global_timer += step;
 
     if (completed == 0) {
@@ -309,8 +309,13 @@ void Sequence::draw_progress_bar_chords(int x,int y,int w,int h) {
     DrawText(pct_text.c_str(), panel_x + panel_w - 30 - MeasureText(pct_text.c_str(), 16), panel_y + 90, 16, WHITE);
 
     DrawText("SCORE", panel_x + 30, panel_y + 170, 18, Color{ 180, 180, 200, 255 });
+    if (interaction_object) {
+        std::string target_str = "TARGET: " + std::to_string(interaction_object->minimum_score);
+        DrawText(target_str.c_str(), panel_x + 130, panel_y + 195, 16, GOLD);
+    }
     std::string score_str = std::to_string(score);
-    DrawText(score_str.c_str(), panel_x + 30, panel_y + 195, 36, WHITE);
+    Color score_color = (interaction_object && score >= interaction_object->minimum_score) ? GREEN : WHITE;
+    DrawText(score_str.c_str(), panel_x + 30, panel_y + 195, 36, score_color);
 
     if (combo > 0) {
         float combo_scale = 1.0f + 0.15f * sinf(global_timer * 0.1f);
@@ -369,8 +374,8 @@ void Sequence::draw_falling_keys() {
     }
 
     std::array<std::pair<int, std::string>, 8> key_bindings = {{
-        { KEY_A, "A" }, { KEY_S, "S" }, { KEY_D, "D" }, { KEY_F, "F" },
-        { KEY_J, "J" }, { KEY_K, "K" }, { KEY_L, "L" }, { KEY_SEMICOLON, ";" }
+        { KEY_S, "S" }, { KEY_D, "D" }, { KEY_F, "F" }, { KEY_G, "G" },
+        { KEY_H, "H" }, { KEY_J, "J" }, { KEY_K, "K" }, { KEY_L, "L" }
     }};
 
     for (int col = 0; col < 8; col++) {
@@ -438,7 +443,7 @@ void Sequence::draw_falling_keys() {
 
         if (j < next_note_to_hit) {
             bool was_hit = (j < note_results.size() && note_results[j] == 1);
-            static const std::array<int,8> hkc = { KEY_A, KEY_S, KEY_D, KEY_F, KEY_J, KEY_K, KEY_L, KEY_SEMICOLON };
+            static const std::array<int,8> hkc = { KEY_S, KEY_D, KEY_F, KEY_G, KEY_H, KEY_J, KEY_K, KEY_L };
             int h_nk = (notes[j] >= 0 && notes[j] < 8) ? hkc[notes[j]] : -1;
             bool still_holding = was_hit && (h_nk >= 0) && Renderer::is_key_down(h_nk);
 
@@ -447,7 +452,7 @@ void Sequence::draw_falling_keys() {
             draw_glow = still_holding;
 
         } else if (j == next_note_to_hit) {
-            std::array<int,8> key_codes = { KEY_A, KEY_S, KEY_D, KEY_F, KEY_J, KEY_K, KEY_L, KEY_SEMICOLON };
+            std::array<int,8> key_codes = {  KEY_S, KEY_D, KEY_F, KEY_G, KEY_H, KEY_J, KEY_K, KEY_L  };
             int note_key = (notes[j] >= 0 && notes[j] < 8) ? key_codes[notes[j]] : -1;
             bool holding = (note_key >= 0) && Renderer::is_key_down(note_key);
 
