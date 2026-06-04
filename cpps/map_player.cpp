@@ -32,6 +32,8 @@ void MapPlayer::tick(float delta_time) {
 	x += dx * speed * delta_time;
 	y += dy * speed * delta_time;
 
+
+
 	const Texture2D* texture = nullptr;
 	bool mirror_x = false;
 

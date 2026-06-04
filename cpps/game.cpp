@@ -64,7 +64,7 @@ Sound Game::get_sound(std::string_view name) const {
 void Game::init() {
     images = load_all_images("Resources/Images");
     sounds = load_all_sounds("Resources");
-    std::vector<std::vector<int>> notes = {
+    notes = {
         {
             // "Never gonna give you up, never gonna let you down"
             4,4,5,4,3,2, 4,4,5,4,3,1,
@@ -180,7 +180,7 @@ void Game::init() {
     }
     };
 
-    std::vector<std::vector<int>> durations = {
+    durations = {
         {
             // "Never gonna give you up, never gonna let you down"
             20,20,20,20,20,50, 20,20,20,20,20,60,

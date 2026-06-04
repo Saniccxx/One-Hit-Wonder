@@ -18,9 +18,8 @@ public:
 	std::array<int, 3> get_archive() const;
 	std::array<int, 3> get_pos() const;
 	std::array<int, 2> get_tile(int tile_size) const;
+
 	int size = 40;
-
-
 
 private:
 	float x;

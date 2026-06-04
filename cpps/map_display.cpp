@@ -26,6 +26,7 @@ void MapDisplay::init() {
 
     );
 
+
     light.color = Renderer::white;
     light.position_radius = {
         player->get_x() + static_cast<float>(player->size) * 0.5f,
@@ -66,6 +67,22 @@ void MapDisplay::init() {
 }
 
 void MapDisplay::tick() {
+    std::cout<<player->x<<std::endl;
+    if (player->x>1000) {
+        player->x=0;
+        game.level+=1;
+        std::cout<<game.level<<std::endl;
+        if (game.interaction_objects.size()==1) {
+            game.interaction_objects.pop_back();
+        }
+        game.interaction_objects.push_back(std::move(std::make_unique<InteractionObject>(
+        940.0f, 550.0f, 100.0f,
+        "GET OUT!!! IM 13 YOU PERVERT",game.get_texture("Sigma_salto.png"), game.notes[1], game.durations[1])));
+
+
+
+    }
+
     if (camera) camera->begin_mode();
     if (debug) {
 

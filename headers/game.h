@@ -24,12 +24,13 @@ class Game {
     ~Game();
     std::unique_ptr<InteractionObject> interaction_object;
     std::vector<std::unique_ptr<InteractionObject>> interaction_objects;
-
+    int level=1;
 
     void init();
     void tick();
     std::unique_ptr<Sequence> sequence;
-
+    std::vector<std::vector<int>> notes;
+    std::vector<std::vector<int>> durations;
     void request_display_change(std::unique_ptr<Display> new_display);
     void revert_display();
     [[nodiscard]] Display* get_display() const;
@@ -39,11 +40,11 @@ class Game {
 
     int width;
     int height;
+    bool reverting = false;
     Config& config;
     std::unique_ptr<Display> paused_display;
 
     private:
-    bool reverting = false;
     std::vector<LoadedTex> images;
     std::vector<LoadedSound> sounds;
     void set_display(std::unique_ptr<Display> new_display);
