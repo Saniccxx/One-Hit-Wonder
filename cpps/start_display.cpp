@@ -124,11 +124,11 @@ void StartDisplay::tick() {
     particle_system.draw();
 
     const int title_size = 90;
-    const int title_width = Renderer::measure_text("Major Jam", title_size);
+    const int title_width = Renderer::measure_text("One Hit Wonder", title_size);
     const int title_x = (game.width - title_width) / 2;
     const int title_y = game.height / 2 - 240;
 
-    Renderer::draw_text("Major Jam", title_x, title_y, title_size, WHITE);
+    Renderer::draw_text("One Hit Wonder", title_x, title_y, title_size, WHITE);
 
     if (start_button) {
         start_button->Update(nullptr);

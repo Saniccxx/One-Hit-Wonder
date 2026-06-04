@@ -3,8 +3,8 @@
 #include "../headers/config.h"
 #include <cmath>
 
-InteractionObject::InteractionObject(float x, float y, bool has_collision, float radius, std::string_view text, Texture2D tex)
-    : x(x), y(y), has_collision(has_collision), radius(radius), text(text), texture(tex) {
+InteractionObject::InteractionObject(float x, float y, float radius, std::string_view text, Texture2D tex)
+    : x(x), y(y), radius(radius), text(text), texture(tex) {
     dialog = std::make_unique<Dialog>(text, x, y - 80);
 }
 
@@ -54,7 +54,4 @@ DialogResult InteractionObject::tick(float player_x, float player_y, double delt
     Renderer::draw_circle_lines(static_cast<int>(x), static_cast<int>(y), radius, Renderer::red);
 #endif
     return result;
-}
-    bool has_collision(float dx, float dy) {
-    return false; //dokoncze to pozniej
 }

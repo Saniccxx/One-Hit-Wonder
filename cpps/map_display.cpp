@@ -26,7 +26,7 @@ void MapDisplay::init() {
 
     );
 
-    interact_obj = std::make_unique<InteractionObject>(940.0f, 550.0f, false, 100.0f, "GET OUT!!! IM 13 YOU PERVERT",  game.get_texture("Sigma_salto.png"));
+    interact_obj = std::make_unique<InteractionObject>(940.0f, 550.0f, 100.0f, "GET OUT!!! IM 13 YOU PERVERT",  game.get_texture("Sigma_salto.png"));
 
     light.color = Renderer::white;
     light.position_radius = {
@@ -151,11 +151,11 @@ void MapDisplay::tick() {
     if (interact_obj && player) {
         DialogResult res = interact_obj->tick(player->get_x(), player->get_y(), game.get_delta_time(), camera ? &camera->get_camera() : nullptr);
         if (res == DialogResult::No) {
-            auto display = std::make_unique<CombatDisplay>(game);
+            auto display = std::make_unique<CombatDisplay>(game, *interact_obj);
             game.request_display_change(std::move(display));
         }
         else if (res == DialogResult::Yes) {
-            player->collision_nudge(0, 1000);
+            player->collision_nudge(2, 1200);
         }
     }
 

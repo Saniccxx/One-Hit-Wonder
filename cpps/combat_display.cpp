@@ -7,16 +7,17 @@
 #include "../headers/combat_player.h"
 #include "../headers/Button.h"
 #include "../headers/map_display.h"
+#include "../headers/interaction_object.h"
 #include "../headers/renderer.h"
 
-CombatDisplay::CombatDisplay(Game& game): game(game) {}
+CombatDisplay::CombatDisplay(Game& game, InteractionObject& interaction_object): game(game), interaction_object(interaction_object) {}
 
 CombatDisplay::~CombatDisplay() = default;
 
 void CombatDisplay::init() {
     player = std::make_unique<CombatPlayer>(game);
     button = std::make_unique<Button>(100.0f, 730.0f, 450.0f, 50.0f, "Return to Map", 24, BLACK, SKYBLUE, LIGHTGRAY, DARKBLUE);
-    
+
     std::vector<int> notes = {
         0,4,3, 2,1,7,4, 3, 2,1,7, 4, 3, 2,3, 1
     };
