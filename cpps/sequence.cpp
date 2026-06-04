@@ -417,12 +417,10 @@ void Sequence::draw_progress_bar_chords(int x, int y, int w, int h) {
         DrawText("Press keys as they cross the line!", panel_x + S(30), panel_y + S(515), S(16), GRAY);
     }
 
-    // --- Dynamic, Centered "Return to Map" Button ---
-    // Safely positioned at the bottom, drawn regardless of completion status
     int btn_w = S(220);
     int btn_h = S(45);
-    int btn_x = panel_x + (panel_w / 2) - (btn_w / 2); // Perfectly centers the button inside the panel width
-    int btn_y = panel_y + panel_h - btn_h - S(25);     // Keeps it anchored neatly near the bottom border
+    int btn_x = panel_x + (panel_w / 2) - (btn_w / 2);
+    int btn_y = panel_y + panel_h - btn_h - S(25);
 
     Rectangle btn_rec = { (float)btn_x, (float)btn_y, (float)btn_w, (float)btn_h };
     Vector2 mouse = GetMousePosition();
@@ -436,10 +434,8 @@ void Sequence::draw_progress_bar_chords(int x, int y, int w, int h) {
     int text_w = MeasureText(btn_text.c_str(), S(18));
     DrawText(btn_text.c_str(), btn_x + (btn_w / 2) - (text_w / 2), btn_y + (btn_h / 2) - S(9), S(18), WHITE);
 
-    // Interactive switch handler
     if (is_hovered && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
-        auto display = std::make_unique<MapDisplay>(game);
-        game.request_display_change(std::move(display));
+        game.revert_display();
     }
 }
 
