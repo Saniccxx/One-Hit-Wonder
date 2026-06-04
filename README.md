@@ -26,7 +26,7 @@ You got trapped in a dungeon because you were too good at playing the flute. Now
 <div align="center">
   <!-- HTML allows controlling the image width so they look nice next to each other -->
   <img src="Resources/Images/scr1.png" width="45%" alt="Combat gameplay"/>
-  <img src="Resources/Images/scr1.png" width="45%" alt="Map gameplay"/>
+  <img src="Resources/Images/scr2.png" width="45%" alt="Map gameplay"/>
 </div>
 
 ---
