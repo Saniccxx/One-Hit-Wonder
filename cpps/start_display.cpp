@@ -124,7 +124,7 @@ void StartDisplay::tick() {
     particle_system.draw();
 
     const int title_size = 90;
-    const int title_width = Renderer::measure_text("One Hit Wonder", title_size);
+    const int title_width = Renderer::measure_text("Horny pianista molestuje rosyjskie bloby", title_size);
     const int title_x = (game.width - title_width) / 2;
     const int title_y = game.height / 2 - 240;
 
