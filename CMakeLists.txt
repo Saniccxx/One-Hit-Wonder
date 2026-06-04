@@ -55,7 +55,9 @@ add_executable(major_jam
         headers/randomizer.h
         headers/songs_data.h
         headers/end_display.h
-        cpps/end_display.cpp)
+        cpps/end_display.cpp
+        headers/tutorial_display.h
+        cpps/tutorial_display.cpp)
 
 target_include_directories(${PROJECT_NAME} PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/headers
