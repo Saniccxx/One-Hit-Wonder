@@ -21,6 +21,8 @@ class Game {
     public:
     Game(Config& config);
     ~Game();
+    std::unique_ptr<InteractionObject> interaction_object;
+
 
     void init();
     void tick();

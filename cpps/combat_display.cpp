@@ -10,21 +10,14 @@
 #include "../headers/interaction_object.h"
 #include "../headers/renderer.h"
 
-CombatDisplay::CombatDisplay(Game& game, InteractionObject& interaction_object): game(game), interaction_object(interaction_object) {}
+CombatDisplay::CombatDisplay(Game& game, InteractionObject* interaction_object): game(game), interaction_object(interaction_object) {}
 
 CombatDisplay::~CombatDisplay() = default;
 
 void CombatDisplay::init() {
     player = std::make_unique<CombatPlayer>(game);
     button = std::make_unique<Button>(100.0f, 730.0f, 450.0f, 50.0f, "Return to Map", 24, BLACK, SKYBLUE, LIGHTGRAY, DARKBLUE);
-
-    std::vector<int> notes = {
-        0,4,3, 2,1,7,4, 3, 2,1,7, 4, 3, 2,3, 1
-    };
-    std::vector<int> durations = {
-        70, 60, 20, 20, 20, 60, 40, 20, 20, 20, 60, 40, 20, 20, 20, 60
-    };
-    sequence = std::make_unique<Sequence>(game, notes, durations);
+    sequence = std::make_unique<Sequence>(game, interaction_object);
 }
 
 void CombatDisplay::tick() {

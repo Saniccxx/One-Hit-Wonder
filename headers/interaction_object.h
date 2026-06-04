@@ -17,7 +17,8 @@ public:
     std::vector<int> durations = {
         70, 60, 20, 20, 20, 60, 40, 20, 20, 20, 60, 40, 20, 20, 20, 60
     };
-
+    std::vector<int> get_notes() const { return notes; }
+    std::vector<int> get_durations() const { return durations; }
     int minimum_score = 100;
 private:
     float x;
