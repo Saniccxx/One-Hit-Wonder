@@ -83,7 +83,7 @@ void TutorialDisplay::tick() {
             { "deep within the digital prison of the",   Color{180,220,190,255}, 22 },
             { "MATRIX.",                                   Color{0,255,100,255},   26 },
             { "",                                         WHITE,                   12 },
-            { "11 guardians stand between you",           Color{180,220,190,255}, 22 },
+            { "10 guardians stand between you",           Color{180,220,190,255}, 22 },
             { "and freedom.",                              Color{180,220,190,255}, 22 },
             { "",                                         WHITE,                   12 },
             { "Each one must be defeated through",        Color{200,200,220,255}, 22 },
