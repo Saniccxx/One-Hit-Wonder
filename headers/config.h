@@ -11,6 +11,7 @@ class Config {
     Config();
     [[nodiscard]] int get_screen_width() const { return screenWidth; }
     [[nodiscard]] int get_screen_height() const { return screenHeight; }
+    [[nodiscard]] bool get_fullscreen() const { return fullScreen; }
     void set_resolution(int width, int height);
     void set_fullscreen(bool fullScreen);
 };

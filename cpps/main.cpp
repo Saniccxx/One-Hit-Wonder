@@ -14,6 +14,9 @@ int main() {
     Config config;
     Renderer::init_audio_device();
     Renderer::init_window(config.get_screen_width(), config.get_screen_height(), "One hit wonder™");
+    if (config.get_fullscreen()) {
+        Renderer::toggle_fullscreen();
+    }
     int text_x = 10;
     int text_y = 10;
     Renderer::begin_drawing();

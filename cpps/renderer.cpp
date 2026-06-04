@@ -40,6 +40,10 @@ void Renderer::resize_target(const int width, const int height) {
     target = LoadRenderTexture(width, height);
 }
 
+void Renderer::toggle_fullscreen() {
+    ToggleFullscreen();
+}
+
 void Renderer::init_lighting_shader(const char* fragmentShaderPath) {
     if (lighting.id != 0) return;
     lighting = LoadShader(nullptr, fragmentShaderPath);
