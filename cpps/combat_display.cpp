@@ -38,11 +38,11 @@ void CombatDisplay::tick() {
         button->Update(nullptr);
         button->Draw();
         if (button->IsClicked()) {
-            if (interaction_object && interaction_object->beaten) {
-                interaction_object->setTexture(game.get_texture("beaten.png"));
-            }
+            // The setTexture call is now handled in Sequence::progress()
+            // if (interaction_object && interaction_object->beaten) {
+            //     interaction_object->setTexture(game.get_texture("beaten.png"));
+            // }
             game.revert_display();
         }
     }
 }
-

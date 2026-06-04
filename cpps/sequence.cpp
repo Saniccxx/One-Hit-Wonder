@@ -197,6 +197,7 @@ void Sequence::progress() {
 
         if (score >= interaction_object->minimum_score) {
             interaction_object->beaten = true;
+            interaction_object->setTexture(game.get_texture("beaten.png")); // Set texture here
             std::cout << "WIN: " << score << std::endl;
         } else {
             interaction_object->beaten = false;
