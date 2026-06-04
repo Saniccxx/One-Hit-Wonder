@@ -12,6 +12,7 @@ public:
     static void close_window();
     static bool window_should_close();
     static void resize_target(int width, int height);
+    static void toggle_fullscreen();
 
     static void begin_drawing();
     static void end_drawing();
