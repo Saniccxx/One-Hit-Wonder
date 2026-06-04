@@ -72,7 +72,7 @@ void MapDisplay::tick() {
     if (player->x>1100) {
         player->x=200;
         game.level+=1;
-        std::cout<<game.level<<std::endl;
+        //std::cout<<game.level<<std::endl;
         if (game.interaction_objects.size()==1) {
             game.interaction_objects.pop_back();
         }
@@ -82,7 +82,7 @@ void MapDisplay::tick() {
         game.get_texture("enemy.png"), game.notes[game.level-1], game.durations[game.level-1])));
         }
         else {
-            std::cout<<"victory"<<std::endl;
+            //std::cout<<"victory"<<std::endl;
             std::unique_ptr<EndDisplay> end=std::make_unique<EndDisplay>(game);
             game.request_display_change(std::move(end));
         }
