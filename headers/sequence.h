@@ -36,7 +36,7 @@ class Sequence {
     void spawn_rating(const std::string& text, Color color, float x, float y);
 
     void progress();
-
+    void play2();
     void play();
     void draw_progress_bar();
     void draw_progress_bar_chords(int x,int y,int w,int h);

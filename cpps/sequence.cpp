@@ -231,7 +231,47 @@ void Sequence::play() {
         }
     }
 }
+void Sequence::play2() {
 
+
+    if (end==0) {
+        if (timer==0) {
+
+            Renderer::set_sound_volume(plays[notes[current]], volumes[notes[current]]);
+            Renderer::play_sound(plays[notes[current]]);
+
+        }
+        if (timer<=offset and timer>0) {
+            volumes[notes[current]]+=1.0f/offset;
+            //std::cout<<"change"<<std::endl;
+            Renderer::set_sound_volume(plays[notes[current]], volumes[notes[current]]);
+        }
+        if (timer<durations[current]+offset and timer>=durations[current]-offset) {
+            volumes[notes[current]]-=1.0f/offset;
+            Renderer::set_sound_volume(plays[notes[current]], volumes[notes[current]]);
+        }
+        //std::cout<<volumes[notes[current]]<<std::endl;
+        if (timer==durations[current]) {
+
+            timer=-1;
+
+            Renderer::stop_sound(plays[notes[current]]);
+
+            current+=1;
+
+
+
+            if (current>=length) {
+
+                end=1;
+            }
+        }
+        timer++;
+    }
+
+
+
+}
 void Sequence::draw_progress_bar() {
 
     if (std::abs(bar_progress-compleation_level)>0.01 and bar_changing==0) {
