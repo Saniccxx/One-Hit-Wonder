@@ -449,7 +449,8 @@ void Sequence::draw_falling_keys() {
         float top_y = bottom_y - key_height;
 
         if (time_diff >= 750) continue;
-        if (bottom_y > hit_y + 200) continue;
+
+        if (top_y > hit_y) continue;
 
         int x = start_x + (notes[j] * key_width);
 
@@ -459,55 +460,41 @@ void Sequence::draw_falling_keys() {
         else if (notes[j] == 2 || notes[j] == 5) note_color = LIME;
         else note_color = GOLD;
 
+        float draw_bottom = std::min(bottom_y, (float)hit_y);
+        float draw_h = draw_bottom - top_y;
+        if (draw_h <= 0) continue;
+
+        Rectangle rec = { (float)x + 6, top_y, (float)key_width - 12, draw_h };
+
+        Color current_draw_color = note_color;
+        Color current_border_color = WHITE;
+        bool draw_glow = false;
+
         if (j < next_note_to_hit) {
-            float draw_bottom = std::min(bottom_y, (float)hit_y);
-            float draw_h = draw_bottom - top_y;
-            if (draw_h <= 0) continue;
-
             bool was_hit = (j < note_results.size() && note_results[j] == 1);
-
             static const std::array<int,8> hkc = { KEY_A, KEY_S, KEY_D, KEY_F, KEY_J, KEY_K, KEY_L, KEY_SEMICOLON };
             int h_nk = (notes[j] >= 0 && notes[j] < 8) ? hkc[notes[j]] : -1;
             bool still_holding = was_hit && (h_nk >= 0) && Renderer::is_key_down(h_nk);
 
-            Color draw_color = was_hit
-                ? (still_holding ? note_color : ColorAlpha(note_color, 0.6f))
-                : Color{ 45, 45, 55, 210 };
-            Color border_color = was_hit
-                ? (still_holding ? WHITE : ColorAlpha(WHITE, 0.35f))
-                : Color{ 70, 70, 80, 150 };
+            current_draw_color = was_hit ? (still_holding ? note_color : ColorAlpha(note_color, 0.6f)) : Color{ 45, 45, 55, 210 };
+            current_border_color = was_hit ? (still_holding ? WHITE : ColorAlpha(WHITE, 0.35f)) : Color{ 70, 70, 80, 150 };
+            draw_glow = still_holding;
 
-            Rectangle rec = { (float)x + 6, top_y, (float)key_width - 12, draw_h };
-            DrawRectangleRounded(rec, 0.2f, 4, draw_color);
-            DrawRectangleRoundedLines(rec, 0.2f, 4, border_color);
-
-            if (still_holding) {
-                DrawRectangleRounded({ (float)x + 6, (float)hit_y - 4, (float)key_width - 12, 8 }, 0.4f, 4, ColorAlpha(WHITE, 0.6f));
-            }
         } else if (j == next_note_to_hit) {
-            int note_key = -1;
             std::array<int,8> key_codes = { KEY_A, KEY_S, KEY_D, KEY_F, KEY_J, KEY_K, KEY_L, KEY_SEMICOLON };
-            if (notes[j] >= 0 && notes[j] < 8) note_key = key_codes[notes[j]];
+            int note_key = (notes[j] >= 0 && notes[j] < 8) ? key_codes[notes[j]] : -1;
             bool holding = (note_key >= 0) && Renderer::is_key_down(note_key);
 
-            float draw_bottom = std::min(bottom_y, (float)hit_y);
-            float draw_h = draw_bottom - top_y;
-            if (draw_h <= 0) continue;
-
-            Rectangle rec = { (float)x + 6, top_y, (float)key_width - 12, draw_h };
-            DrawRectangleRounded(rec, 0.2f, 4, note_color);
-            DrawRectangleRoundedLines(rec, 0.2f, 4, WHITE);
-
             if (holding && bottom_y >= hit_y) {
-                DrawRectangleRounded({ (float)x + 6, (float)hit_y - 4, (float)key_width - 12, 8 }, 0.4f, 4, ColorAlpha(WHITE, 0.6f));
+                draw_glow = true;
             }
-        } else {
-            float draw_bottom = std::min(bottom_y, (float)hit_y);
-            float draw_h = draw_bottom - top_y;
-            if (draw_h <= 0) continue;
-            Rectangle rec = { (float)x + 6, top_y, (float)key_width - 12, draw_h };
-            DrawRectangleRounded(rec, 0.2f, 4, note_color);
-            DrawRectangleRoundedLines(rec, 0.2f, 4, WHITE);
+        }
+
+        DrawRectangleRounded(rec, 0.2f, 4, current_draw_color);
+        DrawRectangleRoundedLines(rec, 0.2f, 4, current_border_color);
+
+        if (draw_glow) {
+            DrawRectangleRounded({ (float)x + 6, (float)hit_y - 4, (float)key_width - 12, 8 }, 0.4f, 4, ColorAlpha(WHITE, 0.6f));
         }
     }
 
