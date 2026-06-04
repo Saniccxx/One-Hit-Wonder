@@ -6,8 +6,9 @@
 #include <cmath>
 #include <iostream>
 
-InteractionObject::InteractionObject(float x, float y, float radius, std::string_view text, Texture2D tex, const std::vector<int> notes, const std::vector<int> durations)
-    : x(x), y(y), radius(radius), text(text), texture(tex), notes(notes), durations(durations)  {
+InteractionObject::InteractionObject(float x, float y, float radius, Texture2D tex, const std::vector<int> notes, const std::vector<int> durations)
+    : x(x), y(y), radius(radius), texture(tex), notes(notes), durations(durations)  {
+
     dialog = std::make_unique<Dialog>(text, x, y - 80);
 }
 
@@ -53,6 +54,8 @@ DialogResult InteractionObject::tick(MapPlayer* player, double delta_time, const
             dialog->Update(camera);
             dialog->Draw();
             result = dialog->GetResult();
+            if (result != DialogResult::None)
+                dialog ->randomize_text();
         }
 
     }

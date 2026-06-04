@@ -14,7 +14,7 @@ enum class PATROLLING_DIRECTION {
 class MapPlayer;
 class InteractionObject {
 public:
-    InteractionObject(float x, float y, float radius, std::string_view text, Texture2D tex, std::vector<int> notes, std::vector<int> durations);
+    InteractionObject(float x, float y, float radius, Texture2D tex, std::vector<int> notes, std::vector<int> durations);
     DialogResult tick(MapPlayer* player, double delta_time, const Camera2D* camera = nullptr);
 
     // std::vector<int> notes = {
@@ -25,6 +25,7 @@ public:
     // };
     std::vector<int> notes;
     std::vector<int> durations;
+    std::string_view text ="";
     [[nodiscard]] std::vector<int> get_notes() const { return notes; }
     [[nodiscard]] std::vector<int> get_durations() const { return durations; }
     int minimum_score = 0;
@@ -34,7 +35,6 @@ private:
     float x;
     float y;
     float radius;
-    std::string text;
     Texture2D texture;
     PATROLLING_DIRECTION patrolling_direction = static_cast<PATROLLING_DIRECTION>(randomizer::get_random_int(0, 1));
     int current_frame = 0;
