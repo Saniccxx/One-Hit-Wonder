@@ -11,7 +11,7 @@
 #include <iostream>
 #include <typeinfo>
 #include <array>
-#include <raylib.h> // Required for Image and SetWindowIcon
+#include <raylib.h>
 
 
 Game::Game(Config& config) : width(config.get_screen_width()), height(config.get_screen_height()), config(config) {}
@@ -66,7 +66,7 @@ void Game::init() {
 
     // Set window icon
     std::cout << "Attempting to load icon from: Resources/Images/logo.png" << std::endl;
-    Image icon = LoadImage("Resources/Images/logo.png"); // Assuming logo.png is in Resources/Images
+    Image icon = LoadImage("Resources/Images/logo.png");
     if (icon.data) {
         std::cout << "Icon loaded successfully. Setting window icon." << std::endl;
         SetWindowIcon(icon);
@@ -78,250 +78,15 @@ void Game::init() {
 
     images = load_all_images("Resources/Images");
     sounds = load_all_sounds("Resources");
-//     notes = {
-//
-//         // 0. Mary Had a Little Lamb
-//         {2,1,0,1,2,2,2,1,1,1,2,4,4},
-//         {   // Line 1: "Twinkle, twinkle, little star"
-//         0, 0, 4, 4, 5, 5, 4,
-//         // Line 2: "How I wonder what you are"
-//         3, 3, 2, 2, 1, 1, 0,
-//         // Line 3: "Up above the world so high, like a diamond in the sky"
-//         4, 4, 3, 3, 2, 2, 1
-//     },
-//
-//     // ── 1. Happy Birthday To You (Traditional, public domain) ────────────────
-//     {   // Line 1: "Happy birthday to you"
-//         0, 0, 1, 0, 3, 2,
-//         // Line 2: "Happy birthday to you"
-//         0, 0, 1, 0, 4, 3,
-//         // Line 3: "Happy birthday, dear [Name] — happy birthday to you"
-//         0, 0, 7, 5, 3, 2, 1
-//     },
-//
-//     // ── 2. Jingle Bells (J.L. Pierpont, 1857, public domain) — chorus ────────
-//     {   // Line 1: "Jingle bells, jingle bells,"
-//         2, 2, 2, 2, 2, 2,
-//         // Line 2: "Jingle all the way!"
-//         2, 4, 0, 1, 2,
-//         // Line 3: "Oh what fun it is to ride in a one-horse open sleigh!"
-//         3, 3, 2, 2, 1, 4
-//     },
-//
-//     // ── 3. Ode to Joy (Beethoven, 1824, public domain) — main theme ──────────
-//     {   // Line 1: first phrase  (E E F G | G F E D)
-//         2, 2, 3, 4, 4, 3, 2, 1,
-//         // Line 2: resolution   (C C D E | E D D)
-//         0, 0, 1, 2, 2, 1, 1,
-//         // Line 3: third phrase (D D E C | D E F E D C)
-//         1, 1, 2, 0, 1, 2, 3, 2, 1, 0
-//     },
-//
-//     // ── 4. Amazing Grace (John Newton, 1772, public domain) ──────────────────
-//     {   // Line 1: "Amazing grace, how sweet the sound"
-//         0, 4, 4, 2, 4, 2, 0,
-//         // Line 2: "That saved a wretch like me"
-//         0, 4, 4, 5, 4, 2,
-//         // Line 3: "I once was lost but now am found, was blind but now I see"
-//         2, 0, 2, 4, 2, 0
-//     },
-//
-//     // ── 5. Mary Had a Little Lamb (Traditional, public domain) ───────────────
-//     {   // Line 1: "Mary had a little lamb"
-//         2, 1, 0, 1, 2, 2, 2,
-//         // Line 2: "Little lamb, little lamb"
-//         1, 1, 1, 2, 4, 4,
-//         // Line 3: "Mary had a little lamb, its fleece was white as snow"
-//         2, 1, 0, 1, 2, 2, 2, 1, 1, 2, 1, 0
-//     },
-//
-//     // ── 6. Row, Row, Row Your Boat (Traditional, public domain) ──────────────
-//     {   // Line 1: "Row, row, row your boat"
-//         0, 0, 0, 1, 2,
-//         // Line 2: "Gently down the stream"
-//         2, 1, 2, 3, 4,
-//         // Line 3: "Merrily merrily merrily merrily, life is but a dream"
-//         7, 7, 7, 4, 4, 4, 2, 2, 2, 0, 4, 3, 2, 1, 0
-//     },
-//
-//     // ── 7. When the Saints Go Marching In (Traditional, public domain) ────────
-//     {   // Line 1: "Oh when the saints"
-//         0, 2, 3, 4,
-//         // Line 2: "Oh when the saints"
-//         0, 2, 3, 4,
-//         // Line 3: "Go marching in — oh Lord, I want to be in that number"
-//         0, 2, 3, 4, 2, 0, 2, 4, 3, 2
-//     },
-//
-//     // ── 8. Yankee Doodle (Traditional, public domain) — transposed to C ───────
-//     // Original key: G major.  Mapping: G→C(0) A→D(1) B→E(2) C→F(3) D→G(4) F#→B(6)
-//     {   // Line 1: "Yankee Doodle went to town, a-riding on a pony"
-//         0, 0, 1, 6, 0, 1, 2, 0,
-//         // Line 2: "Stuck a feather in his cap and called it macaroni"
-//         1, 2, 3, 2, 1, 0, 6, 0, 1, 2, 3, 1, 0,
-//         // Line 3: "Yankee Doodle keep it up, Yankee Doodle dandy"
-//         2, 2, 2, 0, 1, 2, 3
-//     },
-//
-//     // ── 9. London Bridge is Falling Down (Traditional, public domain) ─────────
-//     {   // Line 1: "London Bridge is falling down"
-//         4, 5, 4, 3, 2, 3, 4,
-//         // Line 2: "Falling down, falling down"
-//         1, 2, 3, 2, 3, 4,
-//         // Line 3: "London Bridge is falling down, my fair lady"
-//         4, 5, 4, 3, 2, 4, 2, 0
-//     },
-//
-// {
-//     // "Never gonna give you up, never gonna let you down"
-//     4,4,5,4,3,2, 4,4,5,4,3,1,
-//     // "Never gonna run around and desert you"
-//     4,4,5,4,3,2,3, 2,1,0,
-//     // "Never gonna make you cry, never gonna say goodbye"
-//     4,4,5,4,3,2, 4,4,5,4,3,1,
-//     // "Never gonna tell a lie and hurt you"
-//     20,20,20,20,20,20,20, 30,30,60,
-//
-//     // --- repeat ---
-//     4,4,5,4,3,2, 4,4,5,4,3,1,
-//     4,4,5,4,3,2,3, 2,1,0,
-//     4,4,5,4,3,2, 4,4,5,4,3,1,
-//     4,4,5,4,3,2,3, 2,1,0,
-//
-//     // --- bridge ---
-//     5,4,3,4,5,4,3,2,
-//     5,4,3,4,5,4,3,2,
-//     3,4,5,4,3,2,1,0,
-//     2,3,4,3,2,1,0
-// }
-//     };
-//
-//     durations = {
-//
-//         // 0
-//         {50,50,50,50,50,50,100,50,50,100,50,50,100},
-//         {   // Line 1
-//         50, 50, 50, 50, 50, 50, 100,
-//         // Line 2
-//         50, 50, 50, 50, 50, 50, 100,
-//         // Line 3
-//         50, 50, 50, 50, 50, 50, 100
-//     },
-//
-//     // ── 1. Happy Birthday To You ─────────────────────────────────────────────
-//     {   // Line 1  (dotted-eighth + sixteenth pickup)
-//         37, 13, 50, 50, 50, 100,
-//         // Line 2
-//         37, 13, 50, 50, 50, 100,
-//         // Line 3
-//         37, 13, 50, 50, 75, 25, 150
-//     },
-//
-//     // ── 2. Jingle Bells ──────────────────────────────────────────────────────
-//     {   // Line 1
-//         50, 50, 100, 50, 50, 100,
-//         // Line 2
-//         50, 50, 50, 50, 200,
-//         // Line 3
-//         50, 50, 50, 50, 50, 100
-//     },
-//
-//     // ── 3. Ode to Joy ────────────────────────────────────────────────────────
-//     {   // Line 1
-//         50, 50, 50, 50, 50, 50, 50, 100,
-//         // Line 2
-//         50, 50, 50, 75, 25, 50, 100,
-//         // Line 3
-//         50, 50, 50, 50, 50, 50, 50, 50, 50, 100
-//     },
-//
-//     // ── 4. Amazing Grace (3/4 time) ──────────────────────────────────────────
-//     {   // Line 1
-//         50, 100, 75, 25, 100, 50, 150,
-//         // Line 2
-//         50, 100, 75, 25, 100, 150,
-//         // Line 3
-//         100, 50, 50, 150, 50, 200
-//     },
-//
-//     // ── 5. Mary Had a Little Lamb ────────────────────────────────────────────
-//     {   // Line 1
-//         50, 50, 50, 50, 50, 50, 100,
-//         // Line 2
-//         50, 50, 100, 50, 50, 100,
-//         // Line 3
-//         50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 100
-//     },
-//
-//     // ── 6. Row, Row, Row Your Boat ───────────────────────────────────────────
-//     {   // Line 1
-//         100, 100, 75, 25, 100,
-//         // Line 2
-//         75, 25, 75, 25, 200,
-//         // Line 3  (eighth-note triplet merrily run → quarter-note cadence)
-//         25, 25, 25, 25, 25, 25, 25, 25, 25, 50, 50, 50, 50, 50, 100
-//     },
-//
-//     // ── 7. When the Saints Go Marching In ────────────────────────────────────
-//     {   // Line 1
-//         50, 50, 50, 100,
-//         // Line 2
-//         50, 50, 50, 100,
-//         // Line 3
-//         50, 50, 50, 100, 50, 50, 50, 50, 50, 100
-//     },
-//
-//     // ── 8. Yankee Doodle (Traditional, public domain) — transposed to C ───────
-//     // Original key: G major.  Mapping: G→C(0) A→D(1) B→E(2) C→F(3) D→G(4) F#→B(6)
-//     {   // Line 1: "Yankee Doodle went to town, a-riding on a pony"
-//         0, 0, 1, 6, 0, 1, 2, 0,
-//         // Line 2: "Stuck a feather in his cap and called it macaroni"
-//         1, 2, 3, 2, 1, 0, 6, 0, 1, 2, 3, 1, 0,
-//         // Line 3: "Yankee Doodle keep it up, Yankee Doodle dandy"
-//         2, 2, 2, 0, 1, 2, 3
-//     },
-//
-//     // ── 9. London Bridge is Falling Down (Traditional, public domain) ─────────
-//     {   // Line 1: "London Bridge is falling down"
-//         4, 5, 4, 3, 2, 3, 4,
-//         // Line 2: "Falling down, falling down"
-//         1, 2, 3, 2, 3, 4,
-//         // Line 3: "London Bridge is falling down, my fair lady"
-//         4, 5, 4, 3, 2, 4, 2, 0
-//     },
-//
-// {
-//     // "Never gonna give you up, never gonna let you down"
-//     20,20,20,20,20,50, 20,20,20,20,20,60,
-//     // "Never gonna run around and desert you"
-//     20,20,20,20,20,20,20, 30,30,60,
-//     // "Never gonna make you cry, never gonna say goodbye"
-//     20,20,20,20,20,50, 20,20,20,20,20,60,
-//     // "Never gonna tell a lie and hurt you"
-//     20,20,20,20,20,20,20, 30,30,60,
-//
-//     // --- repeat ---
-//     20,20,20,20,20,50, 20,20,20,20,20,60,
-//     20,20,20,20,20,20,20, 30,30,60,
-//     20,20,20,20,20,50, 20,20,20,20,20,60,
-//     20,20,20,20,20,20,20, 30,30,80,
-//
-//     // --- bridge ---
-//     30,30,30,30,30,30,30,60,
-//     30,30,30,30,30,30,30,60,
-//     30,30,30,30,30,30,30,60,
-//     30,30,30,30,30,30,200
-// }
-// };
     notes = {
-        // 1. Never Gonna Give You Up (Podwójny pełny refren)
+        // 1. Never Gonna Give You Up
         {
             0, 1, 3, 1, 4, 4, 3,       0, 1, 3, 1, 3, 4, 2, 1, 0,
             0, 1, 3, 1, 5, 5, 4,       0, 1, 3, 1, 4, 3, 2, 1, 0,
             0, 1, 3, 1, 4, 4, 3,       0, 1, 3, 1, 3, 4, 2, 1, 0,
             0, 1, 3, 1, 5, 5, 4,       0, 1, 3, 1, 4, 3, 2, 1, 0
         },
-        // 2. All Star (Podwójny refren)
+        // 2. All Star
         {
             4, 6, 5, 4, 7, 6, 5, 4, 6, 5, 4, 3, 4,
             4, 6, 5, 4, 7, 6, 5, 4, 6, 5, 4, 3, 4,
@@ -329,52 +94,52 @@ void Game::init() {
             4, 6, 5, 4, 7, 6, 5, 4, 6, 5, 4, 3, 4,
             3, 3, 3, 3, 2, 0, 0,       2, 2, 1, 1, 0, 1, 0
         },
-        // 3. We Will Rock You (Rozbudowany do 20 fraz - pełny blok stadionowy)
+        // 3. We Will Rock You
         {
             2, 2, 1, 1, 2,  2, 2, 1, 1, 2,  2, 2, 1, 1, 2,  2, 2, 1, 1, 2,
             2, 2, 1, 1, 2,  2, 2, 1, 1, 2,  2, 2, 1, 1, 2,  2, 2, 1, 1, 2,
             2, 2, 1, 1, 2,  2, 2, 1, 1, 2,  2, 2, 1, 1, 2,  2, 2, 1, 1, 2,
             2, 2, 1, 1, 2,  2, 2, 1, 1, 2,  2, 2, 1, 1, 2,  2, 2, 1, 1, 2
         },
-        // 4. Let It Be (Podwójny refren z mocniejszym przejściem)
+        // 4. Let It Be
         {
             4, 5, 4, 2, 4, 5, 4, 2,    2, 2, 1, 0, 1, 0, 0,
             4, 5, 4, 2, 4, 5, 4, 2,    2, 2, 1, 0, 1, 0, 0,
             4, 5, 4, 2, 4, 5, 4, 2,    2, 2, 1, 0, 1, 0, 0,
             4, 5, 4, 2, 4, 5, 4, 2,    2, 2, 1, 0, 1, 0, 0
         },
-        // 5. Take On Me (Pełny refren powtórzony dwukrotnie z outro)
+        // 5. Take On Me
         {
             5, 6, 7,  5, 6, 7,  5, 4, 3, 4,  5, 4, 3, 4, 5, 2,
             5, 6, 7,  5, 6, 7,  5, 4, 3, 4,  5, 4, 3, 4, 5, 2
         },
-        // 6. Sweet Caroline (Podwójna eksplozja refrenu)
+        // 6. Sweet Caroline
         {
             0, 3, 4,    4, 5, 6,    7, 7, 6, 5, 4, 3, 4,
             0, 3, 4,    7, 7, 6, 5, 4, 3, 2,
             0, 3, 4,    4, 5, 6,    7, 7, 6, 5, 4, 3, 4,
             0, 3, 4,    7, 7, 6, 5, 4, 3, 2
         },
-        // 7. Don't Stop Believin' (Wydłużony o drugą połowę z kulminacją)
+        // 7. Don't Stop Believin'
         {
             2, 2, 2, 3, 2, 0,    2, 2, 2, 3, 2, 1,    0, 2, 4, 5,    4, 3, 2,
             2, 2, 2, 3, 2, 0,    2, 2, 2, 3, 2, 1,    0, 2, 4, 5,    4, 3, 2
         },
-        // 8. Livin' On A Prayer (Podwójny refren - modulacja w głowie)
+        // 8. Livin' On A Prayer
         {
             4, 4, 5, 6, 6,          4, 4, 2, 1, 2,
             4, 4, 5, 6, 6, 5, 4, 5, 4, 4, 2, 1, 2,
             4, 4, 5, 6, 6,          4, 4, 2, 1, 2,
             4, 4, 5, 6, 6, 5, 4, 5, 4, 4, 2, 1, 2
         },
-        // 9. I Want It That Way (Podwójny, pełny epicki refren chłopięcy)
+        // 9. I Want It That Way
         {
             4, 5, 6,    6, 6, 6, 6, 5, 4, 5,    4, 5, 6,    6, 6, 6, 6, 5, 4, 5,
             4, 5, 6,    6, 6, 6, 5, 4, 3, 2,    2, 3, 4, 4, 4,
             4, 5, 6,    6, 6, 6, 6, 5, 4, 5,    4, 5, 6,    6, 6, 6, 6, 5, 4, 5,
             4, 5, 6,    6, 6, 6, 5, 4, 3, 2,    2, 3, 4, 4, 4
         },
-        // 10. I Gotta Feeling (Podwójny, zapętlony klubowy refren)
+        // 10. I Gotta Feeling
         {
             4, 4, 4, 7,    7, 6, 5, 4, 4, 4, 5, 6,
             7, 6, 5, 4, 4, 4, 5, 6,    7, 6, 5, 4, 4, 4, 5, 4, 2,
@@ -384,61 +149,67 @@ void Game::init() {
     };
 
     durations = {
-        // 1. Never Gonna Give You Up (32 wartości)
+        // 1. Never Gonna Give You Up
         {
+            25, 25, 25, 25, 50, 50, 100,  25, 25, 25, 25, 50, 50, 50, 25, 100,
+            25, 25, 25, 25, 50, 50, 100,  25, 25, 25, 25, 50, 50, 50, 25, 100,
             25, 25, 25, 25, 50, 50, 100,  25, 25, 25, 25, 50, 50, 50, 25, 100,
             25, 25, 25, 25, 50, 50, 100,  25, 25, 25, 25, 50, 50, 50, 25, 100
         },
-        // 2. All Star (40 wartości)
+        // 2. All Star
         {
             50, 50, 25, 25, 50, 50, 25, 25, 50, 50, 50, 50, 100,
             50, 50, 25, 25, 50, 50, 25, 25, 50, 50, 50, 50, 100,
+            50, 50, 50, 50, 50, 50, 100,  50, 50, 50, 50, 50, 50, 100,
+            50, 50, 25, 25, 50, 50, 25, 25, 50, 50, 50, 50, 100,
             50, 50, 50, 50, 50, 50, 100,  50, 50, 50, 50, 50, 50, 100
         },
-        // 3. We Will Rock You (80 wartości)
+        // 3. We Will Rock You
         {
             50, 50, 50, 50, 100, 50, 50, 50, 50, 100, 50, 50, 50, 50, 100, 50, 50, 50, 50, 100,
             50, 50, 50, 50, 100, 50, 50, 50, 50, 100, 50, 50, 50, 50, 100, 50, 50, 50, 50, 100,
             50, 50, 50, 50, 100, 50, 50, 50, 50, 100, 50, 50, 50, 50, 100, 50, 50, 50, 50, 100,
             50, 50, 50, 50, 100, 50, 50, 50, 50, 100, 50, 50, 50, 50, 100, 50, 50, 50, 50, 100
         },
-        // 4. Let It Be (30 wartości)
+        // 4. Let It Be
         {
+            50, 50, 100, 100, 50, 50, 100, 100,  50, 50, 50, 50, 50, 50, 150,
+            50, 50, 100, 100, 50, 50, 100, 100,  50, 50, 50, 50, 50, 50, 150,
             50, 50, 100, 100, 50, 50, 100, 100,  50, 50, 50, 50, 50, 50, 150,
             50, 50, 100, 100, 50, 50, 100, 100,  50, 50, 50, 50, 50, 50, 150
         },
-        // 5. Take On Me (32 wartości)
+        // 5. Take On Me
         {
             50, 50, 100, 50, 50, 100, 50, 50, 50, 150, 50, 50, 50, 50, 50, 200,
             50, 50, 100, 50, 50, 100, 50, 50, 50, 150, 50, 50, 50, 50, 50, 200
         },
-        // 6. Sweet Caroline (26 wartości)
+        // 6. Sweet Caroline
         {
             50, 50, 150,   50, 50, 150,   50, 50, 50, 50, 50, 50, 150,
             50, 50, 150,   50, 50, 50, 50, 50, 50, 150,
             50, 50, 150,   50, 50, 150,   50, 50, 50, 50, 50, 50, 150,
             50, 50, 150,   50, 50, 50, 50, 50, 50, 150
         },
-        // 7. Don't Stop Believin' (24 wartości)
+        // 7. Don't Stop Believin'
         {
             50, 50, 50, 50, 50, 150,  50, 50, 50, 50, 50, 150,  50, 50, 50, 150,  50, 50, 150,
             50, 50, 50, 50, 50, 150,  50, 50, 50, 50, 50, 150,  50, 50, 50, 150,  50, 50, 150
         },
-        // 8. Livin' On A Prayer (20 wartości)
+        // 8. Livin' On A Prayer
         {
             100, 50, 50, 50, 150,  100, 50, 50, 50, 150,
             50, 50, 50, 50, 50, 50, 50, 100, 100, 50, 50, 50, 150,
             100, 50, 50, 50, 150,  100, 50, 50, 50, 150,
             50, 50, 50, 50, 50, 50, 50, 100, 100, 50, 50, 50, 150
         },
-        // 9. I Want It That Way (50 wartości)
+        // 9. I Want It That Way
         {
             50, 50, 100,  50, 50, 50, 50, 50, 50, 100,  50, 50, 100,  50, 50, 50, 50, 50, 50, 100,
             50, 50, 100,  50, 50, 50, 50, 50, 50, 100,  50, 50, 50, 50, 150,
             50, 50, 100,  50, 50, 50, 50, 50, 50, 100,  50, 50, 100,  50, 50, 50, 50, 50, 50, 100,
             50, 50, 100,  50, 50, 50, 50, 50, 50, 100,  50, 50, 50, 50, 150
         },
-        // 10. I Gotta Feeling (24 wartości)
+        // 10. I Gotta Feeling
         {
             50, 50, 50, 150,  50, 50, 50, 50, 50, 50, 50, 100,
             50, 50, 50, 50, 50, 50, 50, 100,  50, 50, 50, 50, 50, 50, 50, 50, 150,

@@ -77,19 +77,19 @@ void TutorialDisplay::tick() {
         // Lore text block
         struct LoreLine { const char* text; Color col; int size; };
         LoreLine lines[] = {
-            { "You are trapped.",                          Color{200,255,210,255}, 28 },
+            { "You are trapped.",                          Color{200,255,210,255}, 50 },
             { "",                                         WHITE,                   12 },
-            { "Locked inside an endless corridor,",       Color{180,220,190,255}, 22 },
-            { "deep within the digital prison of the",   Color{180,220,190,255}, 22 },
-            { "MATRIX.",                                   Color{0,255,100,255},   26 },
+            { "Locked inside an endless corridor,",       Color{180,220,190,255}, 50 },
+            { "deep within the digital prison of the",   Color{180,220,190,255}, 50 },
+            { "MATRIX.",                                   Color{0,255,100,255},   50 },
             { "",                                         WHITE,                   12 },
-            { "11 guardians stand between you",           Color{180,220,190,255}, 22 },
-            { "and freedom.",                              Color{180,220,190,255}, 22 },
+            { "10 guardians stand between you",           Color{180,220,190,255}, 50 },
+            { "and freedom.",                              Color{180,220,190,255}, 50 },
             { "",                                         WHITE,                   12 },
-            { "Each one must be defeated through",        Color{200,200,220,255}, 22 },
-            { "RHYTHM — the language of the Matrix.",     Color{120,180,255,255}, 24 },
+            { "Each one must be defeated through",        Color{200,200,220,255}, 50 },
+            { "RHYTHM — the language of the Matrix.",     Color{120,180,255,255}, 50 },
             { "",                                         WHITE,                   12 },
-            { "Beat all 11 bosses to ESCAPE.",            Color{255,230,80,255},  28 },
+            { "Beat all 11 bosses to ESCAPE.",            Color{255,230,80,255},  50 },
         };
 
         int line_y = 185;
@@ -186,18 +186,18 @@ void TutorialDisplay::tick() {
         // Info rows
         struct InfoRow { const char* icon; const char* text; Color col; };
         InfoRow infos[] = {
-            { "[BACKSPACE]", "Reset the current song if you mess up", Color{200,200,255,255} },
-            { "[ESC]",       "Pause the game at any time",            Color{200,200,255,255} },
-            { "★ TIP:",      "Hit notes on time for PERFECT rating",  Color{255,220,80,255}  },
-            { "★ TIP:",      "Build combos for a score multiplier",   Color{255,220,80,255}  },
+            { "[BACKSPACE]  ", "Reset the current song if you mess up", Color{200,200,255,255} },
+            { "[ESC]  ",       "Pause the game at any time",            Color{200,200,255,255} },
+            { "TIP:  ",      "Hit notes on time for PERFECT rating",  Color{255,220,80,255}  },
+            { "TIP:  ",      "Build combos for a score multiplier",   Color{255,220,80,255}  },
         };
 
         int info_y = row_y + key_h + 55;
         for (auto& r : infos) {
-            int iw = MeasureText(r.icon, 18);
-            DrawText(r.icon, game.width/2 - 320, info_y, 18, GOLD);
-            DrawText(r.text, game.width/2 - 300 + iw, info_y, 18, r.col);
-            info_y += 38;
+            int iw = MeasureText(r.icon, 50);
+            DrawText(r.icon, 500, info_y, 50, GOLD);
+            DrawText(r.text, 500 + iw, info_y, 50, r.col);
+            info_y += 70;
         }
 
         // Page indicator dots
