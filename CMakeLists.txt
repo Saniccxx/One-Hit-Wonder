@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 4.2.2)
-project(major_jam)
+project(OneHitWonder)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(major_jam
+add_executable(${PROJECT_NAME}
         cpps/main.cpp
         cpps/renderer.cpp
         headers/renderer.h
@@ -18,9 +18,7 @@ add_executable(major_jam
         cpps/combat_player.cpp
         headers/camera.h
         cpps/camera.cpp
-        cpps/combat_display.cpp
         cpps/assets.cpp
-        headers/assets.h
         headers/assets.h
         cpps/Button.cpp
         headers/Button.h
@@ -39,7 +37,6 @@ add_executable(major_jam
         cpps/credits_display.cpp
         headers/collision_object.h
         cpps/collision_object.cpp
-        cpps/settings_display.cpp
         headers/pause_display.h
         cpps/pause_display.cpp
         headers/dialog.h
@@ -93,8 +90,8 @@ if (NOT raylib_FOUND) # If there's none, fetch and build raylib
     endif()
 endif()
 
-
 target_link_libraries(${PROJECT_NAME} raylib nlohmann_json::nlohmann_json)
+
 # Copy assets for native builds
 if (NOT EMSCRIPTEN)
     add_custom_command(
@@ -123,5 +120,5 @@ else()
     # Use dynamic linking on Linux and ensure Wayland support
     set(CMAKE_EXE_LINKER_FLAGS "") # Remove static linking
     set(GLFW_USE_WAYLAND ON)
-    set(GLFW_BUILD_X11 OFF) # Disable X11 support hihihiha
+    set(GLFW_BUILD_X11 OFF) # Disable X11 support
 endif()

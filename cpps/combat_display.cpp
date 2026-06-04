@@ -15,7 +15,6 @@ CombatDisplay::~CombatDisplay() = default;
 
 void CombatDisplay::init() {
     player = std::make_unique<CombatPlayer>(game);
-    button = std::make_unique<Button>(100.0f, 730.0f, 450.0f, 50.0f, "Return to Map", 24, BLACK, SKYBLUE, LIGHTGRAY, DARKBLUE);
     sequence = std::make_unique<Sequence>(game, interaction_object);
 }
 
@@ -34,15 +33,4 @@ void CombatDisplay::tick() {
         player->tick(static_cast<float>(delta_time));
     }
 
-    if (button) {
-        button->Update(nullptr);
-        button->Draw();
-        if (button->IsClicked()) {
-            // The setTexture call is now handled in Sequence::progress()
-            // if (interaction_object && interaction_object->beaten) {
-            //     interaction_object->setTexture(game.get_texture("beaten.png"));
-            // }
-            game.revert_display();
-        }
-    }
 }

@@ -3,20 +3,22 @@
 #include <iostream>
 #include "raylib.h"
 #include "game.h"
+#include "map_display.h" // Added so the return button can actually route back to the map
 #include <cmath>
+#include <algorithm>
 
 Sequence::Sequence(Game& game, InteractionObject* interaction_object): game(game), interaction_object(interaction_object) {
     notes = interaction_object -> get_notes();
     durations = interaction_object -> get_durations();
     std::cout << "post notes";
 
-    for (i=0; i<notes.size(); i++) {
-        volumes[i]=0;
+    for (size_t i = 0; i < notes.size(); i++) {
+        volumes[i] = 0;
     }
-    current=0;
-    end=0;
-    offset=20;
-    compleation_level=0.0f;
+    current = 0;
+    end = 0;
+    offset = 20;
+    compleation_level = 0.0f;
     C = game.get_sound("C.wav");
     D = game.get_sound("D.wav");
     E = game.get_sound("E.wav");
@@ -35,11 +37,11 @@ Sequence::Sequence(Game& game, InteractionObject* interaction_object): game(game
         {6, B},
         {7, C2}
     };
-    length=notes.size();
-    level=0;
-    current_note=-1;
-    completed=0;
-    timer=0;
+    length = notes.size();
+    level = 0;
+    current_note = -1;
+    completed = 0;
+    timer = 0;
 
     next_note_to_hit = 0;
     perfect_count = 0;
@@ -55,51 +57,52 @@ Sequence::Sequence(Game& game, InteractionObject* interaction_object): game(game
         target_times.push_back(acc);
         acc += d;
     }
-
 }
+
 void Sequence::spawn_rating(const std::string& text, Color color, float x, float y) {
+    const float scale = static_cast<float>(game.height) / 1080.0f;
+
     FloatingRating r;
     r.text = text;
     r.color = color;
     r.pos = { x, y };
-    r.vel = { 0.0f, -1.5f };
+    r.vel = { 0.0f, -1.5f * scale };
     r.alpha = 1.0f;
     r.scale = 1.0f;
     r.life = 1.0f;
     ratings.push_back(r);
 }
 
-void Sequence::test() {
+void Sequence::test() {}
 
-
-}
 void Sequence::add_level() {
-    level+=1;
+    level += 1;
 }
-
 
 void Sequence::get_key() {
-    int a=0;
+    int a = 0;
     for (auto& pair : keys) {
         if (Renderer::is_key_pressed(pair.first)) {
             int index = pair.second;
             std::cout << "Key index " << index << " pressed\n";
-            a=1;
-            current_note=index;
+            a = 1;
+            current_note = index;
         }
     }
     if (Renderer::is_key_pressed(KEY_BACKSPACE)) {
-        a=1;
-        current_note=-2;
+        a = 1;
+        current_note = -2;
     }
 
-
-    if (a==0) {
-        current_note=-1;
+    if (a == 0) {
+        current_note = -1;
     }
-
 }
+
 void Sequence::progress() {
+    const float scale = static_cast<float>(game.height) / 1080.0f;
+    auto S = [&](float v) { return static_cast<int>(v * scale); };
+
     static const std::array<int,8> kc = { KEY_S, KEY_D, KEY_F, KEY_G, KEY_H, KEY_J, KEY_K, KEY_L };
 
     while (next_note_to_hit < target_times.size() && global_timer > target_times[next_note_to_hit] + 18) {
@@ -107,13 +110,13 @@ void Sequence::progress() {
         int nk = (nv >= 0 && nv < 8) ? kc[nv] : -1;
         if (nk >= 0 && Renderer::is_key_down(nk)) break;
 
-        const int key_width = 80;
-        const int start_x = 1000 - (8 * key_width) / 2;
+        const int key_width = S(80);
+        const int start_x = S(680);
         float missed_x = start_x + (nv * key_width) + key_width / 2.0f;
-        const int hit_y = 800;
+        const int hit_y = S(800);
 
         note_results[next_note_to_hit] = -1;
-        spawn_rating("MISS", RED, missed_x, hit_y - 40);
+        spawn_rating("MISS", RED, missed_x, hit_y - S(40));
         combo = 0;
         miss_count++;
         next_note_to_hit++;
@@ -144,10 +147,10 @@ void Sequence::progress() {
         int target_time = target_times[next_note_to_hit];
         int diff = global_timer - target_time;
 
-        const int key_width = 80;
-        const int start_x = 1000 - (8 * key_width) / 2;
+        const int key_width = S(80);
+        const int start_x = S(680);
         float note_center_x = start_x + (target_note * key_width) + key_width / 2.0f;
-        const int hit_y = 800;
+        const int hit_y = S(800);
 
         if (current_note == target_note) {
             int abs_diff = std::abs(diff);
@@ -167,11 +170,11 @@ void Sequence::progress() {
                 combo++;
                 score += points * (1 + combo / 10);
                 note_results[next_note_to_hit] = 1;
-                spawn_rating(rating_str, rating_color, note_center_x, hit_y - 40);
+                spawn_rating(rating_str, rating_color, note_center_x, hit_y - S(40));
                 next_note_to_hit++;
 
             } else if (diff < -18 && diff >= -45) {
-                spawn_rating("MISS", RED, note_center_x, hit_y - 40);
+                spawn_rating("MISS", RED, note_center_x, hit_y - S(40));
                 combo = 0;
                 miss_count++;
                 next_note_to_hit++;
@@ -180,7 +183,7 @@ void Sequence::progress() {
             if (std::abs(diff) <= 18) {
                 float wrong_note_center_x = start_x + (current_note * key_width) + key_width / 2.0f;
                 note_results[next_note_to_hit] = -1;
-                spawn_rating("MISS", RED, wrong_note_center_x, hit_y - 40);
+                spawn_rating("MISS", RED, wrong_note_center_x, hit_y - S(40));
                 combo = 0;
                 miss_count++;
                 next_note_to_hit++;
@@ -202,7 +205,7 @@ void Sequence::progress() {
 
         if (score >= interaction_object->minimum_score) {
             interaction_object->beaten = true;
-            interaction_object->setTexture(game.get_texture("beaten.png")); // Set texture here
+            interaction_object->setTexture(game.get_texture("beaten.png"));
             std::cout << "WIN: " << score << std::endl;
         } else {
             interaction_object->beaten = false;
@@ -215,8 +218,9 @@ void Sequence::check() {
     get_key();
     progress();
 }
+
 void Sequence::play() {
-    float step = GetFrameTime() * 100.0f; // different diff level imo
+    float step = GetFrameTime() * 100.0f;
     global_timer += step;
 
     if (completed == 0) {
@@ -273,108 +277,109 @@ void Sequence::play2() {
 
 }
 void Sequence::draw_progress_bar() {
+    const float scale = static_cast<float>(game.height) / 1080.0f;
+    auto S = [&](float v) { return static_cast<int>(v * scale); };
 
-    if (std::abs(bar_progress-compleation_level)>0.01 and bar_changing==0) {
-        bar_changing=1;
-        d_bar=(compleation_level-bar_progress)/bar_change_speed;
-        if (compleation_level==0) {
-            bar_color=RED;
+    if (std::abs(bar_progress - compleation_level) > 0.01 && bar_changing == 0) {
+        bar_changing = 1;
+        d_bar = (compleation_level - bar_progress) / bar_change_speed;
+        if (compleation_level == 0) {
+            bar_color = RED;
         }
-
     }
-    if (bar_changing>0) {
-        bar_progress+=d_bar;
+    if (bar_changing > 0) {
+        bar_progress += d_bar;
         bar_changing++;
-        if (bar_changing>=bar_change_speed+1) {
-            bar_changing=0;
-            if (compleation_level==1) {
-                bar_progress=1;
+        if (bar_changing >= bar_change_speed + 1) {
+            bar_changing = 0;
+            if (compleation_level == 1) {
+                bar_progress = 1;
             }
-            else if (compleation_level==0) {
-                bar_progress=0;
-                bar_color=GREEN;
+            else if (compleation_level == 0) {
+                bar_progress = 0;
+                bar_color = GREEN;
             }
-
         }
     }
-    std::cout<<bar_progress<<" "<<bar_changing<<std::endl;
-    DrawRectangle(100,100,bar_width,bar_height,LIGHTGRAY);
-    DrawRectangle(100,100,bar_width*bar_progress,bar_height,bar_color);
 
+    DrawRectangle(S(100), S(100), S(bar_width), S(bar_height), LIGHTGRAY);
+    DrawRectangle(S(100), S(100), S(bar_width * bar_progress), S(bar_height), bar_color);
 }
-void Sequence::draw_progress_bar_chords(int x,int y,int w,int h) {
-    if (std::abs(bar_progress-compleation_level)>0.01 and bar_changing==0) {
-        bar_changing=1;
-        d_bar=(compleation_level-bar_progress)/bar_change_speed;
-        if (compleation_level==0) {
-            bar_color=RED;
-        }
 
+void Sequence::draw_progress_bar_chords(int x, int y, int w, int h) {
+    const float scale = static_cast<float>(game.height) / 1080.0f;
+    auto S = [&](float v) { return static_cast<int>(v * scale); };
+
+    if (std::abs(bar_progress - compleation_level) > 0.01 && bar_changing == 0) {
+        bar_changing = 1;
+        d_bar = (compleation_level - bar_progress) / bar_change_speed;
+        if (compleation_level == 0) {
+            bar_color = RED;
+        }
     }
-    if (bar_changing>0) {
-        bar_progress+=d_bar;
+    if (bar_changing > 0) {
+        bar_progress += d_bar;
         bar_changing++;
-        if (bar_changing>=bar_change_speed+1) {
-            bar_changing=0;
-            if (compleation_level==1) {
-                bar_progress=1;
+        if (bar_changing >= bar_change_speed + 1) {
+            bar_changing = 0;
+            if (compleation_level == 1) {
+                bar_progress = 1;
             }
-            else if (compleation_level==0) {
-                bar_progress=0;
-                bar_color=GREEN;
+            else if (compleation_level == 0) {
+                bar_progress = 0;
+                bar_color = GREEN;
             }
-
         }
     }
 
-    int panel_x = x;
-    int panel_y = y;
-    int panel_w = w;
-    int panel_h = 600;
+    int panel_x = S(x);
+    int panel_y = S(y);
+    int panel_w = S(w);
+    int panel_h = S(640); // Increased from 600 to 640 to fit the button cleanly
 
     DrawRectangleRounded(Rectangle{(float)panel_x, (float)panel_y, (float)panel_w, (float)panel_h}, 0.05f, 4, Color{ 25, 25, 35, 200 });
     DrawRectangleRoundedLines(Rectangle{(float)panel_x, (float)panel_y, (float)panel_w, (float)panel_h}, 0.05f, 4, Color{ 80, 80, 120, 120 });
 
-    DrawText("RHYTHM COMBAT", panel_x + 30, panel_y + 30, 28, GOLD);
-    DrawLine(panel_x + 30, panel_y + 70, panel_x + panel_w - 30, panel_y + 70, Color{ 80, 80, 100, 100 });
+    DrawText("RHYTHM COMBAT", panel_x + S(30), panel_y + S(30), S(28), GOLD);
+    DrawLine(panel_x + S(30), panel_y + S(70), panel_x + panel_w - S(30), panel_y + S(70), Color{ 80, 80, 100, 100 });
 
-    DrawText("TARGET PROGRESS", panel_x + 30, panel_y + 90, 16, Color{ 180, 180, 200, 255 });
+    DrawText("TARGET PROGRESS", panel_x + S(30), panel_y + S(90), S(16), Color{ 180, 180, 200, 255 });
 
-    int bar_y = panel_y + 115;
-    int bar_w = panel_w - 60;
-    int bar_h = h;
-    DrawRectangleRounded(Rectangle{(float)(panel_x + 30), (float)bar_y, (float)bar_w, (float)bar_h}, 0.3f, 4, Color{ 40, 40, 50, 255 });
+    int bar_y = panel_y + S(115);
+    int bar_w = panel_w - S(60);
+    int bar_h = S(h);
+    DrawRectangleRounded(Rectangle{(float)(panel_x + S(30)), (float)bar_y, (float)bar_w, (float)bar_h}, 0.3f, 4, Color{ 40, 40, 50, 255 });
 
-    Color fill_color = ColorFromHSV(bar_progress * 120.0f, 0.9f, 0.9f); // dynamic color from red (0) to green (120)
+    Color fill_color = ColorFromHSV(bar_progress * 120.0f, 0.9f, 0.9f);
     if (bar_progress > 0) {
-        DrawRectangleRounded(Rectangle{(float)(panel_x + 30), (float)bar_y, (float)(bar_w * bar_progress), (float)bar_h}, 0.3f, 4, fill_color);
+        DrawRectangleRounded(Rectangle{(float)(panel_x + S(30)), (float)bar_y, (float)(bar_w * bar_progress), (float)bar_h}, 0.3f, 4, fill_color);
     }
-    DrawRectangleRoundedLines(Rectangle{(float)(panel_x + 30), (float)bar_y, (float)bar_w, (float)bar_h}, 0.3f, 4, Color{ 80, 80, 100, 255 });
+    DrawRectangleRoundedLines(Rectangle{(float)(panel_x + S(30)), (float)bar_y, (float)bar_w, (float)bar_h}, 0.3f, 4, Color{ 80, 80, 100, 255 });
 
     std::string pct_text = std::to_string((int)(bar_progress * 100)) + "%";
-    DrawText(pct_text.c_str(), panel_x + panel_w - 30 - MeasureText(pct_text.c_str(), 16), panel_y + 90, 16, WHITE);
+    DrawText(pct_text.c_str(), panel_x + panel_w - S(30) - MeasureText(pct_text.c_str(), S(16)), panel_y + S(90), S(16), WHITE);
 
-    DrawText("SCORE", panel_x + 30, panel_y + 170, 18, Color{ 180, 180, 200, 255 });
+    DrawText("SCORE", panel_x + S(30), panel_y + S(170), S(18), Color{ 180, 180, 200, 255 });
     if (interaction_object) {
         std::string target_str = "TARGET: " + std::to_string(interaction_object->minimum_score);
-        DrawText(target_str.c_str(), panel_x + 130, panel_y + 195, 16, GOLD);
+        DrawText(target_str.c_str(), panel_x + S(130), panel_y + S(195), S(16), GOLD);
     }
     std::string score_str = std::to_string(score);
     Color score_color = (interaction_object && score >= interaction_object->minimum_score) ? GREEN : WHITE;
-    DrawText(score_str.c_str(), panel_x + 30, panel_y + 195, 36, score_color);
+    DrawText(score_str.c_str(), panel_x + S(30), panel_y + S(195), S(36), score_color);
 
     if (combo > 0) {
         float combo_scale = 1.0f + 0.15f * sinf(global_timer * 0.1f);
-        int combo_font_size = 32 * combo_scale;
+        int combo_font_size = S(32) * combo_scale;
         std::string combo_str = std::to_string(combo);
 
-        DrawText("COMBO", panel_x + panel_w - 150, panel_y + 170, 18, Color{ 180, 180, 200, 255 });
-        DrawText(combo_str.c_str(), panel_x + panel_w - 150, panel_y + 195, combo_font_size, GOLD);
+        DrawText("COMBO", panel_x + panel_w - S(150), panel_y + S(170), S(18), Color{ 180, 180, 200, 255 });
+        DrawText(combo_str.c_str(), panel_x + panel_w - S(150), panel_y + S(195), combo_font_size, GOLD);
     }
 
-    DrawLine(panel_x + 30, panel_y + 260, panel_x + panel_w - 30, panel_y + 260, Color{ 80, 80, 100, 100 });
+    DrawLine(panel_x + S(30), panel_y + S(260), panel_x + panel_w - S(30), panel_y + S(260), Color{ 80, 80, 100, 100 });
 
-    DrawText("PERFORMANCE", panel_x + 30, panel_y + 280, 20, GOLD);
+    DrawText("PERFORMANCE", panel_x + S(30), panel_y + S(280), S(20), GOLD);
 
     struct StatRow {
         std::string label;
@@ -388,40 +393,70 @@ void Sequence::draw_progress_bar_chords(int x,int y,int w,int h) {
         { "Miss", miss_count, RED }
     };
 
-    int row_y = panel_y + 320;
+    int row_y = panel_y + S(320);
     for (const auto& s : stats) {
-        DrawText(s.label.c_str(), panel_x + 40, row_y, 18, s.col);
+        DrawText(s.label.c_str(), panel_x + S(40), row_y, S(18), s.col);
         std::string val_str = std::to_string(s.val);
-        int val_w = MeasureText(val_str.c_str(), 18);
-        DrawText(val_str.c_str(), panel_x + panel_w - 40 - val_w, row_y, 18, WHITE);
-        row_y += 35;
+        int val_w = MeasureText(val_str.c_str(), S(18));
+        DrawText(val_str.c_str(), panel_x + panel_w - S(40) - val_w, row_y, S(18), WHITE);
+        row_y += S(35);
     }
 
-    DrawLine(panel_x + 30, panel_y + 480, panel_x + panel_w - 30, panel_y + 480, Color{ 80, 80, 100, 100 });
+    DrawLine(panel_x + S(30), panel_y + S(465), panel_x + panel_w - S(30), panel_y + S(465), Color{ 80, 80, 100, 100 });
 
     if (completed) {
         if (!interaction_object->beaten) {
-            DrawText("YOU FAILED!", panel_x + 740, panel_y + 310, 50, RED);
-            DrawText("Press backspace to restart", panel_x + 720, panel_y + 370, 25, WHITE);
+            DrawText("YOU FAILED!", panel_x + S(30), panel_y + S(485), S(28), RED);
+            DrawText("Press BACKSPACE to restart", panel_x + S(30), panel_y + S(520), S(16), WHITE);
         }
-        else DrawText("SONG COMPLETE!", panel_x + 30, panel_y + 510, 24, GREEN);
-
-
+        else {
+            DrawText("SONG COMPLETE!", panel_x + S(30), panel_y + S(490), S(24), GREEN);
+        }
     } else {
-        DrawText("Reset song: BACKSPACE", panel_x + 30, panel_y + 510, 16, GRAY);
-        DrawText("Press keys as they cross the line!", panel_x + 30, panel_y + 540, 16, GRAY);
+        DrawText("Reset song: BACKSPACE", panel_x + S(30), panel_y + S(485), S(16), GRAY);
+        DrawText("Press keys as they cross the line!", panel_x + S(30), panel_y + S(515), S(16), GRAY);
+    }
+
+    // --- Dynamic, Centered "Return to Map" Button ---
+    // Safely positioned at the bottom, drawn regardless of completion status
+    int btn_w = S(220);
+    int btn_h = S(45);
+    int btn_x = panel_x + (panel_w / 2) - (btn_w / 2); // Perfectly centers the button inside the panel width
+    int btn_y = panel_y + panel_h - btn_h - S(25);     // Keeps it anchored neatly near the bottom border
+
+    Rectangle btn_rec = { (float)btn_x, (float)btn_y, (float)btn_w, (float)btn_h };
+    Vector2 mouse = GetMousePosition();
+    bool is_hovered = CheckCollisionPointRec(mouse, btn_rec);
+
+    Color btn_fill = is_hovered ? Color{ 72, 172, 239, 255 } : Color{ 52, 152, 219, 255 };
+    DrawRectangleRounded(btn_rec, 0.3f, 4, btn_fill);
+    DrawRectangleRoundedLines(btn_rec, 0.3f, 4, WHITE);
+
+    std::string btn_text = "Return to Map";
+    int text_w = MeasureText(btn_text.c_str(), S(18));
+    DrawText(btn_text.c_str(), btn_x + (btn_w / 2) - (text_w / 2), btn_y + (btn_h / 2) - S(9), S(18), WHITE);
+
+    // Interactive switch handler
+    if (is_hovered && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+        auto display = std::make_unique<MapDisplay>(game);
+        game.request_display_change(std::move(display));
     }
 }
-void Sequence::draw_falling_keys() {
-    const int hit_y = 800;
-    const int start_x = 680;
-    const int key_width = 80;
-    const float speed = 4.0f;
 
-    DrawRectangle(start_x, 50, 8 * key_width, hit_y - 50, Color{ 15, 15, 20, 220 });
+void Sequence::draw_falling_keys() {
+    const float scale = static_cast<float>(game.height) / 1080.0f;
+    auto S = [&](float v) { return static_cast<int>(v * scale); };
+    auto Sf = [&](float v) { return v * scale; };
+
+    const int hit_y = S(800);
+    const int start_x = S(680);
+    const int key_width = S(80);
+    const float speed = Sf(4.0f);
+
+    DrawRectangle(start_x, S(50), 8 * key_width, hit_y - S(50), Color{ 15, 15, 20, 220 });
 
     for (int col = 0; col <= 8; col++) {
-        DrawLine(start_x + col * key_width, 50, start_x + col * key_width, hit_y + 40, Color{ 60, 60, 80, 100 });
+        DrawLine(start_x + col * key_width, S(50), start_x + col * key_width, hit_y + S(40), Color{ 60, 60, 80, 100 });
     }
 
     std::array<std::pair<int, std::string>, 8> key_bindings = {{
@@ -434,10 +469,10 @@ void Sequence::draw_falling_keys() {
         bool is_down = Renderer::is_key_down(key_bindings[col].first);
 
         if (is_down) {
-            DrawRectangle(x, 50, key_width, hit_y - 50, Color{ 255, 255, 255, 20 });
+            DrawRectangle(x, S(50), key_width, hit_y - S(50), Color{ 255, 255, 255, 20 });
         }
 
-        Rectangle target_rec = { (float)x + 6, (float)hit_y - 20, (float)key_width - 12, 40.0f };
+        Rectangle target_rec = { (float)x + Sf(6), (float)hit_y - Sf(20), (float)key_width - Sf(12), Sf(40.0f) };
         if (is_down) {
             DrawRectangleRounded(target_rec, 0.2f, 4, Color{ 80, 80, 120, 150 });
             DrawRectangleRoundedLines(target_rec, 0.2f, 4, WHITE);
@@ -446,8 +481,8 @@ void Sequence::draw_falling_keys() {
             DrawRectangleRoundedLines(target_rec, 0.2f, 4, Color{ 100, 100, 150, 150 });
         }
 
-        int text_w = MeasureText(key_bindings[col].second.c_str(), 18);
-        DrawText(key_bindings[col].second.c_str(), x + key_width/2 - text_w/2, hit_y - 9, 18, is_down ? WHITE : Color{ 180, 180, 220, 200 });
+        int text_w = MeasureText(key_bindings[col].second.c_str(), S(18));
+        DrawText(key_bindings[col].second.c_str(), x + key_width/2 - text_w/2, hit_y - S(9), S(18), is_down ? WHITE : Color{ 180, 180, 220, 200 });
     }
 
     DrawLine(start_x, hit_y, start_x + 8 * key_width, hit_y, ColorAlpha(WHITE, 0.4f));
@@ -471,7 +506,6 @@ void Sequence::draw_falling_keys() {
         float top_y = bottom_y - key_height;
 
         if (time_diff >= 750) continue;
-
         if (top_y > hit_y) continue;
 
         int x = start_x + (notes[j] * key_width);
@@ -486,7 +520,7 @@ void Sequence::draw_falling_keys() {
         float draw_h = draw_bottom - top_y;
         if (draw_h <= 0) continue;
 
-        Rectangle rec = { (float)x + 6, top_y, (float)key_width - 12, draw_h };
+        Rectangle rec = { (float)x + Sf(6), top_y, (float)key_width - Sf(12), draw_h };
 
         Color current_draw_color = note_color;
         Color current_border_color = WHITE;
@@ -503,7 +537,7 @@ void Sequence::draw_falling_keys() {
             draw_glow = still_holding;
 
         } else if (j == next_note_to_hit) {
-            std::array<int,8> key_codes = {  KEY_S, KEY_D, KEY_F, KEY_G, KEY_H, KEY_J, KEY_K, KEY_L  };
+            std::array<int,8> key_codes = { KEY_S, KEY_D, KEY_F, KEY_G, KEY_H, KEY_J, KEY_K, KEY_L };
             int note_key = (notes[j] >= 0 && notes[j] < 8) ? key_codes[notes[j]] : -1;
             bool holding = (note_key >= 0) && Renderer::is_key_down(note_key);
 
@@ -516,7 +550,7 @@ void Sequence::draw_falling_keys() {
         DrawRectangleRoundedLines(rec, 0.2f, 4, current_border_color);
 
         if (draw_glow) {
-            DrawRectangleRounded({ (float)x + 6, (float)hit_y - 4, (float)key_width - 12, 8 }, 0.4f, 4, ColorAlpha(WHITE, 0.6f));
+            DrawRectangleRounded({ (float)x + Sf(6), (float)hit_y - Sf(4), (float)key_width - Sf(12), Sf(8) }, 0.4f, 4, ColorAlpha(WHITE, 0.6f));
         }
     }
 
@@ -527,10 +561,10 @@ void Sequence::draw_falling_keys() {
         it->alpha = it->life / 1.0f;
         if (it->alpha < 0) it->alpha = 0;
 
-        int font_size = 28 * it->scale;
+        int font_size = S(28) * it->scale;
         int text_w = MeasureText(it->text.c_str(), font_size);
 
-        DrawText(it->text.c_str(), it->pos.x - text_w/2 + 2, it->pos.y + 2, font_size, ColorAlpha(BLACK, it->alpha));
+        DrawText(it->text.c_str(), it->pos.x - text_w/2 + S(2), it->pos.y + S(2), font_size, ColorAlpha(BLACK, it->alpha));
         DrawText(it->text.c_str(), it->pos.x - text_w/2, it->pos.y, font_size, ColorAlpha(it->color, it->alpha));
 
         if (it->life <= 0) {
@@ -539,5 +573,4 @@ void Sequence::draw_falling_keys() {
             ++it;
         }
     }
-
 }

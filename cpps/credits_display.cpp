@@ -90,11 +90,11 @@ void CreditsDisplay::tick() {
     };
 
     constexpr Participant participants[] = {
-        { "ruter uses arch",    "Proffesional vibe coder"   },
+        { "rutra8002",    "Display management, GUI, vibe coder"   },
         { "Tobias M",    "architecture and cross-class interactions"},
         { "student",      "Explaining basic programming to brained coworkers"       },
         { "klokleszcz",     "Sequencer sequencing sequence" },
-        { "metsej the gathering",   "Proffesional ass stealer"          },
+        { "metsej the gathering",   "Never before have I seen more professional ass stealer"          },
     };
     // constexpr Participant participants[] = {
     //     { "Artur + Copillo",    "Professional vibe coder"   },
