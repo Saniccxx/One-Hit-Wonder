@@ -29,7 +29,8 @@ class Game {
     void init();
     void tick();
     std::unique_ptr<Sequence> sequence;
-
+    std::vector<std::vector<int>> notes;
+    std::vector<std::vector<int>> durations;
     void request_display_change(std::unique_ptr<Display> new_display);
     void revert_display();
     [[nodiscard]] Display* get_display() const;
