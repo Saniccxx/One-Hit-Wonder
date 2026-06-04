@@ -25,7 +25,7 @@ DialogResult InteractionObject::tick(MapPlayer* player, double delta_time, const
 
         if (frame_count > 0) {
             frame_timer += delta_time;
-            double delay = beaten ? 250.0 : config::animation_frame_delay_ms;
+            double delay = beaten ? 125.0 : 250;
             if (frame_timer >= delay) {
                 frame_timer = 0;
                 if (beaten) {
