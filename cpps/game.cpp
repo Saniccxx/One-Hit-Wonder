@@ -211,7 +211,7 @@ void Game::init() {
             50, 50, 50, 50, 50, 50, 50, 100,  50, 50, 50, 50, 50, 50, 50, 50, 150
         }
     };
-    level=notes.size();
+    level=3.0f;
 
 
     interaction_objects.push_back(std::move(std::make_unique<InteractionObject>(
