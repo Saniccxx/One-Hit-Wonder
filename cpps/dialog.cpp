@@ -13,7 +13,7 @@ std::vector<std::string> wrap_text(const std::string& text, int font_size, float
     for (char c : text) {
         if (c == ' ' || c == '\n') {
             if (!current_word.empty()) {
-                if (Renderer::measure_text((current_line + current_word).c_str(), font_size) <= max_width) {
+                if (static_cast<float>(Renderer::measure_text((current_line + current_word).c_str(), font_size)) <= max_width) {
                     current_line += current_word;
                 } else {
                     wrapped_lines.push_back(current_line);
@@ -22,7 +22,7 @@ std::vector<std::string> wrap_text(const std::string& text, int font_size, float
                 current_word.clear();
             }
             if (c == ' ') {
-                if (Renderer::measure_text((current_line + " ").c_str(), font_size) <= max_width) {
+                if (static_cast<float>(Renderer::measure_text((current_line + " ").c_str(), font_size)) <= max_width) {
                     current_line += " ";
                 } else {
                     wrapped_lines.push_back(current_line);
@@ -38,7 +38,7 @@ std::vector<std::string> wrap_text(const std::string& text, int font_size, float
     }
 
     if (!current_word.empty()) {
-        if (Renderer::measure_text((current_line + current_word).c_str(), font_size) <= max_width) {
+        if (static_cast<float>(Renderer::measure_text((current_line + current_word).c_str(), font_size)) <= max_width) {
             current_line += current_word;
         } else {
             wrapped_lines.push_back(current_line);
@@ -53,7 +53,7 @@ std::vector<std::string> wrap_text(const std::string& text, int font_size, float
 
 
 Dialog::Dialog(const std::string_view text_view, float centerX, float centerY)
-    : padding(10.0f), center_x(centerX), center_y(centerY) {
+    : padding(10.0f), center_x(centerX), center_y(centerY), bounds({}) { // Initialize bounds
 
     randomize_text(); // This sets the 'text' member
     recalculate_layout(); // Calculate layout after text is set
@@ -64,10 +64,10 @@ void Dialog::recalculate_layout() {
     const float text_max_width = 250.0f; // Max width for the text content
 
     std::vector<std::string> wrapped_lines = wrap_text(text, font_size, text_max_width);
-    float text_content_height = static_cast<float>(wrapped_lines.size() * font_size);
+    auto text_content_height = static_cast<float>(wrapped_lines.size() * font_size);
     float max_line_width = 0.0f;
     for (const auto& line : wrapped_lines) {
-        float line_width = static_cast<float>(Renderer::measure_text(line.c_str(), font_size));
+        auto line_width = static_cast<float>(Renderer::measure_text(line.c_str(), font_size));
         if (line_width > max_line_width) {
             max_line_width = line_width;
         }
@@ -82,13 +82,24 @@ void Dialog::recalculate_layout() {
     bounds.x = center_x - bounds.width / 2.0f;
     bounds.y = center_y - bounds.height / 2.0f;
 
-Dialog::Dialog(const std::string_view text, float x, float y) : x(x), y(y) {
-    randomize_text();
+    // Button dimensions
+    float button_width = 70.0f;
+    float button_height = 40.0f;
+    float button_spacing = 10.0f;
+    float vertical_button_offset = 10.0f; // Space between dialog and buttons
+
+    // Position buttons below the dialog bounds
+    float buttons_y = bounds.y + bounds.height + vertical_button_offset;
+
     yes_button = std::make_unique<Button>(
-        x - 80, y + 20, 70, 40, "Yes", 20, GREEN, DARKBLUE, BLUE, SKYBLUE
+        center_x - button_width - button_spacing / 2.0f,
+        buttons_y,
+        button_width, button_height, "Yes", font_size, GREEN, DARKBLUE, BLUE, SKYBLUE
     );
     no_button = std::make_unique<Button>(
-        x + 10, y + 20, 70, 40, "No", 20, RED, DARKBLUE, BLUE, SKYBLUE
+        center_x + button_spacing / 2.0f,
+        buttons_y,
+        button_width, button_height, "No", font_size, RED, DARKBLUE, BLUE, SKYBLUE
     );
 }
 
@@ -108,7 +119,7 @@ void Dialog::Draw() const {
     float current_text_y = bounds.y + padding;
     for (const auto& line : wrapped_lines) {
         // Center the text horizontally within the dialog bounds
-        float text_x = bounds.x + (bounds.width - Renderer::measure_text(line.c_str(), font_size)) / 2.0f;
+        float text_x = bounds.x + (bounds.width - static_cast<float>(Renderer::measure_text(line.c_str(), font_size))) / 2.0f;
         Renderer::draw_text(line, static_cast<int>(text_x), static_cast<int>(current_text_y), font_size, Renderer::red);
         current_text_y += font_size;
     }
@@ -148,6 +159,7 @@ void Dialog::randomize_text() {
 
 
         };
-        int random_index = randomizer::get_random_int(0, possible_texts.size() - 1);
+        int random_index = randomizer::get_random_int(0, static_cast<int>(possible_texts.size() - 1));
         text = possible_texts[random_index];
+        recalculate_layout(); // Recalculate layout after text changes
 }
