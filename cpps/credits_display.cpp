@@ -92,7 +92,7 @@ void CreditsDisplay::tick() {
     constexpr Participant participants[] = {
         { "rutra8002",    "Display management, GUI, raylib support"   },
         { "Tobias M",    "Architecture and cross-class interactions"},
-        { "Sanuuu",      "Architecture and C++ inteligence"       },
+        { "Sanuuu",      "Architecture and C++ intelligence"       },
         { "Lolekszcz",     "Music and combat design" },
         { "JeiCamMetsej",   "Artist, asset management"          },
     };
