@@ -55,7 +55,9 @@ add_executable(major_jam
         cpps/config.cpp
         cpps/map_display_save_load.cpp
         headers/randomizer.h
-        headers/songs_data.h)
+        headers/songs_data.h
+        headers/end_display.h
+        cpps/end_display.cpp)
 
 # Dependencies
 set(RAYLIB_VERSION 6.0)

@@ -27,7 +27,7 @@ public:
     std::vector<int> durations;
     [[nodiscard]] std::vector<int> get_notes() const { return notes; }
     [[nodiscard]] std::vector<int> get_durations() const { return durations; }
-    int minimum_score = 100;
+    int minimum_score = 0;
     bool beaten = false;
     void setTexture(Texture2D texture);
 private:
