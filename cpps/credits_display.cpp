@@ -89,19 +89,19 @@ void CreditsDisplay::tick() {
         const char* role;
     };
 
-    // constexpr Participant participants[] = {
-    //     { "ruter uses arch",    "Proffesional vibe coder"   },
-    //     { "tczev",    "Semiproffesional mapper and level designer"           },
-    //     { "student",      "Explaining basic programming to brained coworkers"       },
-    //     { "klokleszcz",     "Sequencer sequencing sequence" },
-    //     { "metsej the gathering",   "Proffesional asset stealer"          },
-    // };
     constexpr Participant participants[] = {
-        { "Artur + Copillo",    "Professional vibe coder"   },
-        { "Kummer + Gepetto",    "Semiprofessional vibe coder and level viber"           },
-        { "Ruter + Klaudia",      "Explaining basic vibing to braindead colleagues from Erasmus+"       },
-        { "Rutra + Gemi",     "Sequentially vibing sequences" },
+        { "ruter uses arch",    "Proffesional vibe coder"   },
+        { "Tobias M",    "architecture and cross-class interactions"},
+        { "student",      "Explaining basic programming to brained coworkers"       },
+        { "klokleszcz",     "Sequencer sequencing sequence" },
+        { "metsej the gathering",   "Proffesional ass stealer"          },
     };
+    // constexpr Participant participants[] = {
+    //     { "Artur + Copillo",    "Professional vibe coder"   },
+    //     { "Kummer + Gepetto",    "Semiprofessional vibe coder and level viber"           },
+    //     { "Ruter + Klaudia",      "Explaining basic vibing to braindead colleagues from Erasmus+"       },
+    //     { "Rutra + Gemi",     "Sequentially vibing sequences" },
+    // };
 
     constexpr int name_size = 36;
     constexpr int role_size = 24;

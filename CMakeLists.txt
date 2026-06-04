@@ -107,7 +107,9 @@ if (EMSCRIPTEN)
             "-sASSERTIONS=1"
             "-sEXIT_RUNTIME=0"
             "-sASYNCIFY=1"
-            "--preload-file" "${CMAKE_CURRENT_SOURCE_DIR}/Resources@/Resources"
+            "--preload-file=${CMAKE_CURRENT_SOURCE_DIR}/Resources@/Resources"
+            "--preload-file=${CMAKE_CURRENT_SOURCE_DIR}/map_data.json@/map_data.json"
+            "--preload-file=${CMAKE_CURRENT_SOURCE_DIR}/config.json@/config.json"
     )
 elseif(WIN32)
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -static -static-libgcc -static-libstdc++")
