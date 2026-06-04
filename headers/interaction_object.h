@@ -4,6 +4,12 @@
 #include <memory>
 #include "renderer.h"
 #include "dialog.h"
+#include "randomizer.h"
+
+enum class PATROLLING_DIRECTION {
+    HORIZONTAL,
+    VERTICAL
+};
 
 class InteractionObject {
 public:
@@ -26,6 +32,7 @@ private:
     float radius;
     std::string text;
     Texture2D texture;
+    PATROLLING_DIRECTION patrolling_direction = static_cast<PATROLLING_DIRECTION>(randomizer::get_random_int(0, 1));
     int current_frame = 0;
     double frame_timer = 0;
     std::unique_ptr<Dialog> dialog;

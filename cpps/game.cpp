@@ -12,6 +12,8 @@
 #include <typeinfo>
 #include <array>
 
+
+
 Game::Game(Config& config) : width(config.get_screen_width()), height(config.get_screen_height()), config(config) {}
 
 Game::~Game()
@@ -26,6 +28,11 @@ void Game::set_display(std::unique_ptr<Display> new_display) {
 
 void Game::request_display_change(std::unique_ptr<Display> new_display) {
     pending_display = std::move(new_display);
+}
+
+void Game::revert_display() {
+    pending_display = std::move(backup_display);
+    reverting = true;
 }
 
 Display* Game::get_display() const {
@@ -96,8 +103,10 @@ void Game::tick(){
     }
 
     if (pending_display) {
+        if (!reverting) backup_display = std::move(display);
         set_display(std::move(pending_display));
-        display->init();
+        if (!reverting) display->init();
+        if (reverting) reverting = false, backup_display = nullptr;
 
     }
     delta_time = Renderer::get_delta_time() * 1000;

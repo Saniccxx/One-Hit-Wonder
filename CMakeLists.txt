@@ -53,7 +53,8 @@ add_executable(major_jam
         headers/particles/particle_system.h
         cpps/particles/particle_system.cpp
         cpps/config.cpp
-        cpps/map_display_save_load.cpp)
+        cpps/map_display_save_load.cpp
+        headers/randomizer.h)
 
 # Dependencies
 set(RAYLIB_VERSION 6.0)

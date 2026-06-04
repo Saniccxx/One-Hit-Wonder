@@ -38,7 +38,7 @@ void CombatDisplay::tick() {
         button->Update(nullptr);
         button->Draw();
         if (button->IsClicked()) {
-            game.request_display_change(std::make_unique<MapDisplay>(game));
+            game.revert_display();
         }
     }
 }
