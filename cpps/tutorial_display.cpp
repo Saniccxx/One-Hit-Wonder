@@ -244,9 +244,4 @@ void TutorialDisplay::tick() {
         }
     }
 
-    // ── Page hint ────────────────────────────────────────────────
-    const char* hint = (page == 0) ? "1 / 2" : "2 / 2";
-    int hintSz = S(16);
-    int hw = MeasureText(hint, hintSz);
-    DrawText(hint, (game.width - hw)/2, game.height - S(130), hintSz, Color{160,160,180,255});
 }
