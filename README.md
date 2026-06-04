@@ -54,7 +54,7 @@ git clone https://github.com/Saniccxx/One-Hit-Wonder.git
 cd One-Hit-Wonder
 
 mkdir build && cd build
-cmake ..
+cmake -DCMAKE_BUILD_TYPE=Release ..
 make
 
 ./OneHitWonder
