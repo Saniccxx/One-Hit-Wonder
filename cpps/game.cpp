@@ -65,6 +65,28 @@ void Game::init() {
     images = load_all_images("Resources/Images");
     sounds = load_all_sounds("Resources");
     std::vector<std::vector<int>> notes = {
+        {
+            // "Never gonna give you up, never gonna let you down"
+            4,4,5,4,3,2, 4,4,5,4,3,1,
+            // "Never gonna run around and desert you"
+            4,4,5,4,3,2,3, 2,1,0,
+            // "Never gonna make you cry, never gonna say goodbye"
+            4,4,5,4,3,2, 4,4,5,4,3,1,
+            // "Never gonna tell a lie and hurt you"
+            4,4,5,4,3,2,3, 2,1,0,
+
+            // --- repeat ---
+            4,4,5,4,3,2, 4,4,5,4,3,1,
+            4,4,5,4,3,2,3, 2,1,0,
+            4,4,5,4,3,2, 4,4,5,4,3,1,
+            4,4,5,4,3,2,3, 2,1,0,
+
+            // --- bridge ---
+            5,4,3,4,5,4,3,2,
+            5,4,3,4,5,4,3,2,
+            3,4,5,4,3,2,1,0,
+            2,3,4,3,2,1,0
+        },
         // 0. Mary Had a Little Lamb
         {2,1,0,1,2,2,2,1,1,1,2,4,4},
 
@@ -93,10 +115,34 @@ void Game::init() {
         {4,4,4,1,2,4,4,4,1,2,4},
 
         // 9. Skip to My Lou
-        {0,2,4,4,2,0,2,4,5,4,2,0}
+        {0,2,4,4,2,0,2,4,5,4,2,0},
+
+
     };
 
     std::vector<std::vector<int>> durations = {
+        {
+            // "Never gonna give you up, never gonna let you down"
+            20,20,20,20,20,50, 20,20,20,20,20,60,
+            // "Never gonna run around and desert you"
+            20,20,20,20,20,20,20, 30,30,60,
+            // "Never gonna make you cry, never gonna say goodbye"
+            20,20,20,20,20,50, 20,20,20,20,20,60,
+            // "Never gonna tell a lie and hurt you"
+            20,20,20,20,20,20,20, 30,30,60,
+
+            // --- repeat ---
+            20,20,20,20,20,50, 20,20,20,20,20,60,
+            20,20,20,20,20,20,20, 30,30,60,
+            20,20,20,20,20,50, 20,20,20,20,20,60,
+            20,20,20,20,20,20,20, 30,30,80,
+
+            // --- bridge ---
+            30,30,30,30,30,30,30,60,
+            30,30,30,30,30,30,30,60,
+            30,30,30,30,30,30,30,60,
+            30,30,30,30,30,30,200
+        },
         // 0
         {50,50,50,50,50,50,100,50,50,100,50,50,100},
 
@@ -131,7 +177,7 @@ void Game::init() {
 
     interaction_objects.push_back(std::move(std::make_unique<InteractionObject>(
         940.0f, 550.0f, 100.0f,
-        "GET OUT!!! IM 13 YOU PERVERT",get_texture("Sigma_salto.png"), notes[1], durations[1])));
+        "GET OUT!!! IM 13 YOU PERVERT",get_texture("Sigma_salto.png"), notes[0], durations[0])));
 
     if (!display) {
         set_display(std::make_unique<StartDisplay>(*this));
