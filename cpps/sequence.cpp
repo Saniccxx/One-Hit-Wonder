@@ -189,7 +189,12 @@ void Sequence::progress() {
     }
 
     level = next_note_to_hit;
-    compleation_level = (float)level / length;
+    float target_level = 0.0f;
+    if (interaction_object && interaction_object->minimum_score > 0) {
+        target_level = (float)score / interaction_object->minimum_score;
+        if (target_level > 1.0f) target_level = 1.0f;
+    }
+    compleation_level = target_level;
 
     if (next_note_to_hit >= length && completed == 0) {
         completed = 1;
@@ -293,7 +298,7 @@ void Sequence::draw_progress_bar_chords(int x,int y,int w,int h) {
     DrawText("RHYTHM COMBAT", panel_x + 30, panel_y + 30, 28, GOLD);
     DrawLine(panel_x + 30, panel_y + 70, panel_x + panel_w - 30, panel_y + 70, Color{ 80, 80, 100, 100 });
 
-    DrawText("SONG PROGRESS", panel_x + 30, panel_y + 90, 16, Color{ 180, 180, 200, 255 });
+    DrawText("TARGET PROGRESS", panel_x + 30, panel_y + 90, 16, Color{ 180, 180, 200, 255 });
 
     int bar_y = panel_y + 115;
     int bar_w = panel_w - 60;
