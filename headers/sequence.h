@@ -20,6 +20,7 @@ class Sequence {
     int great_count = 0;
     int good_count = 0;
     int miss_count = 0;
+    std::vector<int> note_results; // 1 = hit, -1 = miss, 0 = pending
 
     struct FloatingRating {
         std::string text;
@@ -86,6 +87,16 @@ class Sequence {
     int bar_height=30;
     Color bar_color=GREEN;
 
+    // struct HeldNote {
+    //     std::size_t index;
+    //     int key_code;
+    // };
+    // std::vector<HeldNote> held_notes;
+    // int key_code_for_note(int note) const;
+    // void update_held_notes();
+    void getBarProgress() {
+
+    }
 
     void test();
     void add_level();
