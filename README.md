@@ -1,6 +1,6 @@
 <!-- Centering logo and header using HTML -->
 <div align="center">
-
+<img src="Resources/title/title scr.png">
   # One Hit Wonder 🎵
   **A rhythm game made for Major Game Jam.**
 
@@ -25,8 +25,8 @@ You got trapped in a dungeon because you were too good at playing the flute. Now
 
 <div align="center">
   <!-- HTML allows controlling the image width so they look nice next to each other -->
-  <img src="screenshots/gameplay1.png" width="45%" alt="Map gameplay"/>
-  <img src="screenshots/gameplay2.png" width="45%" alt="Combat gameplay"/>
+  <img src="Resources/Images/scr1.png" width="45%" alt="Combat gameplay"/>
+  <img src="Resources/Images/scr2.png" width="45%" alt="Map gameplay"/>
 </div>
 
 ---
