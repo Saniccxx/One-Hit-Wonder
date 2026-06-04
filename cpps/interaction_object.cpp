@@ -11,6 +11,10 @@ InteractionObject::InteractionObject(float x, float y, float radius, std::string
     dialog = std::make_unique<Dialog>(text, x, y - 80);
 }
 
+void InteractionObject::setTexture(Texture2D texture) {
+    this->texture = texture;
+}
+
 DialogResult InteractionObject::tick(MapPlayer* player, double delta_time, const Camera2D* camera) {
     // animation stuff, magic numbers specific for all my fellas (only one unfortunatelly), maybe fix later ig
     if (texture.id != 0) {

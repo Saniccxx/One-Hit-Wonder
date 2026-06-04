@@ -71,7 +71,6 @@ void Sequence::spawn_rating(const std::string& text, Color color, float x, float
 
 void Sequence::test() {
 
-
 }
 void Sequence::add_level() {
     level+=1;
@@ -125,6 +124,10 @@ void Sequence::progress() {
 
         if (next_note_to_hit == length) {
             completed = 1;
+
+            game.player_speed = 20.0f*0.01;
+            interaction_object->beaten = true;
+
             std::cout << "Completed (by miss progression)\n";
         }
     }
@@ -468,6 +471,7 @@ void Sequence::draw_falling_keys() {
 
         if (j < next_note_to_hit) {
             bool was_hit = (j < note_results.size() && note_results[j] == 1);
+
             static const std::array<int,8> hkc = { KEY_A, KEY_S, KEY_D, KEY_F, KEY_J, KEY_K, KEY_L, KEY_SEMICOLON };
             int h_nk = (notes[j] >= 0 && notes[j] < 8) ? hkc[notes[j]] : -1;
             bool still_holding = was_hit && (h_nk >= 0) && Renderer::is_key_down(h_nk);

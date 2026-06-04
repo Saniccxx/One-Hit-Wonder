@@ -29,6 +29,7 @@ public:
     [[nodiscard]] std::vector<int> get_durations() const { return durations; }
     int minimum_score = 100;
     bool beaten = false;
+    void setTexture(Texture2D texture);
 private:
     float x;
     float y;
