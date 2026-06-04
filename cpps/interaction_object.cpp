@@ -13,6 +13,8 @@ InteractionObject::InteractionObject(float x, float y, float radius, std::string
 
 void InteractionObject::setTexture(Texture2D texture) {
     this->texture = texture;
+    this->current_frame = 0;
+    this->frame_timer = 0;
 }
 
 DialogResult InteractionObject::tick(MapPlayer* player, double delta_time, const Camera2D* camera) {
@@ -23,11 +25,18 @@ DialogResult InteractionObject::tick(MapPlayer* player, double delta_time, const
 
         if (frame_count > 0) {
             frame_timer += delta_time;
-            if (frame_timer >= config::animation_frame_delay_ms) {
-                current_frame++;
+            double delay = beaten ? 250.0 : config::animation_frame_delay_ms;
+            if (frame_timer >= delay) {
                 frame_timer = 0;
-                if (current_frame >= frame_count) {
-                    current_frame = 0;
+                if (beaten) {
+                    if (current_frame < frame_count - 1) {
+                        current_frame++;
+                    }
+                } else {
+                    current_frame++;
+                    if (current_frame >= frame_count) {
+                        current_frame = 0;
+                    }
                 }
             }
 
