@@ -7,7 +7,9 @@
 #include "../headers/map_player.h"
 #include "../headers/renderer.h"
 #include "../headers/combat_display.h"
+#include "../headers/end_display.h"
 #include "../headers/sequence.h"
+#include "../headers/end_display.h"
 MapDisplay::MapDisplay(Game& game): game(game) {}
 
 MapDisplay::~MapDisplay() = default;
@@ -76,15 +78,18 @@ void MapDisplay::tick() {
             game.interaction_objects.pop_back();
         }
         if (game.level<=game.notes.size()) {
+            std::cout<<"aaa";
             game.interaction_objects.push_back(std::move(std::make_unique<InteractionObject>(
         700.0f, 550.0f, 100.0f,
-        game.get_texture("enemy.png"), game.notes[game.level], game.durations[game.level])));
+        game.get_texture("enemy.png"), game.notes[game.level-1], game.durations[game.level-1])));
         }
         else {
-            game.interaction_objects.push_back(std::move(std::make_unique<InteractionObject>(
-        700.0f, 550.0f, 100.0f,
-        game.get_texture("enemy.png"), game.notes[0], game.durations[0])));
+            std::cout<<"victory"<<std::endl;
+            std::unique_ptr<EndDisplay> end=std::make_unique<EndDisplay>(game);
+            game.request_display_change(std::move(end));
         }
+
+
 
         for (const auto& interact_obj : game.interaction_objects) {
             if (interact_obj->beaten) {
@@ -96,6 +101,7 @@ void MapDisplay::tick() {
 
 
     }
+    std::cout<<game.level<<" "<<game.notes.size();
 
     if (camera) camera->begin_mode();
     if (debug) {
