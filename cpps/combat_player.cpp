@@ -25,14 +25,14 @@ CombatPlayer::CombatPlayer(Game& game): game(game) {
     C2 = game.get_sound("C2.wav");
     retry = game.get_sound("retry2.wav");
 
-    pianoKeys[0] = { KEY_A, C };
-    pianoKeys[1] = { KEY_S, D };
-    pianoKeys[2] = { KEY_D, E };
-    pianoKeys[3] = { KEY_F, F };
-    pianoKeys[4] = { KEY_J, G };
-    pianoKeys[5] = { KEY_K, A };
-    pianoKeys[6] = { KEY_L, B };
-    pianoKeys[7] = { KEY_SEMICOLON, C2 };
+    pianoKeys[0] = { KEY_S, C };
+    pianoKeys[1] = { KEY_D, D };
+    pianoKeys[2] = { KEY_F, E };
+    pianoKeys[3] = { KEY_G, F };
+    pianoKeys[4] = { KEY_H, G };
+    pianoKeys[5] = { KEY_J, A };
+    pianoKeys[6] = { KEY_K, B };
+    pianoKeys[7] = { KEY_L, C2 };
 
 }
 
