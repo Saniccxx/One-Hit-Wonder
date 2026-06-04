@@ -82,19 +82,25 @@ void CreditsDisplay::tick() {
     const int title_width = Renderer::measure_text("Credits", title_size);
     const int title_x = (game.width - title_width) / 2;
     const int title_y = game.height / 2 - 290;
-    Renderer::draw_text("Credits", title_x, title_y, title_size, WHITE);
+    Renderer::draw_text("Credits: ", title_x, title_y, title_size, WHITE);
 
     struct Participant {
         const char* name;
         const char* role;
     };
 
+    // constexpr Participant participants[] = {
+    //     { "ruter uses arch",    "Proffesional vibe coder"   },
+    //     { "tczev",    "Semiproffesional mapper and level designer"           },
+    //     { "student",      "Explaining basic programming to brained coworkers"       },
+    //     { "klokleszcz",     "Sequencer sequencing sequence" },
+    //     { "metsej the gathering",   "Proffesional asset stealer"          },
+    // };
     constexpr Participant participants[] = {
-        { "ruter uses arch",    "Proffesional vibe coder"   },
-        { "tczev",    "Semiproffesional mapper and level designer"           },
-        { "student",      "Explaining basic programming to brained coworkers"       },
-        { "klokleszcz",     "Sequencer sequencing sequence" },
-        { "metsej the gathering",   "Proffesional asset stealer"          },
+        { "Artur + Copillo",    "Professional vibe coder"   },
+        { "Kummer + Gepetto",    "Semiprofessional vibe coder and level viber"           },
+        { "Ruter + Klaudia",      "Explaining basic vibing to braindead colleagues from Erasmus+"       },
+        { "Rutra + Gemi",     "Sequentially vibing sequences" },
     };
 
     constexpr int name_size = 36;

@@ -122,85 +122,7 @@ void Sequence::progress() {
             std::cout << "Completed (by miss progression)\n";
         }
     }
-
-    if (current_note >= 0) {
-        if (next_note_to_hit < length) {
-            int target_note = notes[next_note_to_hit];
-            int target_time = target_times[next_note_to_hit];
-            int diff = global_timer - target_time;
-
-            const int key_width = 80;
-            const int start_x = 1000 - (8 * key_width) / 2;
-            float note_center_x = start_x + (target_note * key_width) + key_width / 2.0f;
-            const int hit_y = 800;
-
-            if (current_note == target_note) {
-                int abs_diff = std::abs(diff);
-                if (abs_diff <= 18) { // 18 frames
-                    std::string rating_str = "GOOD";
-                    Color rating_color = ORANGE;
-                    int points = 100;
-
-                    if (abs_diff <= 5) { // 5 frames
-                        rating_str = "PERFECT";
-                        rating_color = GOLD;
-                        points = 300;
-                        perfect_count++;
-                    } else if (abs_diff <= 11) { // 11 frames
-                        rating_str = "GREAT";
-                        rating_color = SKYBLUE;
-                        points = 200;
-                        great_count++;
-                    } else {
-                        good_count++;
-                    }
-
-                    combo++;
-                    score += points * (1 + combo / 10);
-
-                    spawn_rating(rating_str, rating_color, note_center_x, hit_y - 40);
-
-                    next_note_to_hit++;
-                    level = next_note_to_hit;
-                    flevel = level;
-                    compleation_level = flevel / length;
-
-                    if (next_note_to_hit == length) {
-                        completed = 1;
-
-                        std::cout << "Completed! Score: " << score << std::endl;
-                    }
-                } else if (diff < -18 && diff >= -45) {
-                    spawn_rating("MISS", RED, note_center_x, hit_y - 40);
-                    combo = 0;
-                    miss_count++;
-                    next_note_to_hit++;
-                    level = next_note_to_hit;
-                    flevel = level;
-                    compleation_level = flevel / length;
-
-                    if (next_note_to_hit == length) {
-                        completed = 1;
-                    }
-                }
-            } else {
-                if (std::abs(diff) <= 18) {
-                    float wrong_note_center_x = start_x + (current_note * key_width) + key_width / 2.0f;
-                    spawn_rating("MISS", RED, wrong_note_center_x, hit_y - 40);
-                    combo = 0;
-                    miss_count++;
-                    next_note_to_hit++;
-                    level = next_note_to_hit;
-                    flevel = level;
-                    compleation_level = flevel / length;
-
-                    if (next_note_to_hit == length) {
-                        completed = 1;
-                    }
-                }
-            }
-        }
-    } else if (current_note == -2) {
+    if (current_note == -2) {
         //esret
         level = 0;
         next_note_to_hit = 0;
@@ -217,8 +139,86 @@ void Sequence::progress() {
         good_count = 0;
         miss_count = 0;
         ratings.clear();
+        return;
     }
-}
+    if (current_note < 0) return;
+    if (next_note_to_hit >= length) return;
+
+    int target_note = notes[next_note_to_hit];
+    int target_time = target_times[next_note_to_hit];
+    int diff = global_timer - target_time;
+
+    const int key_width = 80;
+    const int start_x = 1000 - (8 * key_width) / 2;
+    float note_center_x = start_x + (target_note * key_width) + key_width / 2.0f;
+    const int hit_y = 800;
+
+    if (current_note == target_note) {
+            int abs_diff = std::abs(diff);
+            if (abs_diff <= 18) { // 18 frames
+                std::string rating_str = "GOOD";
+                Color rating_color = ORANGE;
+                int points = 100;
+
+                if (abs_diff <= 5) { // 5 frames
+                    rating_str = "PERFECT";
+                    rating_color = GOLD;
+                    points = 300;
+                    perfect_count++;
+                } else if (abs_diff <= 11) { // 11 frames
+                    rating_str = "GREAT";
+                    rating_color = SKYBLUE;
+                    points = 200;
+                    great_count++;
+                } else {
+                    good_count++;
+                }
+
+                combo++;
+                score += points * (1 + combo / 10);
+
+                spawn_rating(rating_str, rating_color, note_center_x, hit_y - 40);
+
+                next_note_to_hit++;
+                level = next_note_to_hit;
+                flevel = level;
+                compleation_level = flevel / length;
+
+                if (next_note_to_hit == length) {
+                    completed = 1;
+
+                    std::cout << "Completed! Score: " << score << std::endl;
+                }
+            } else if (diff < -18 && diff >= -45) {
+                spawn_rating("MISS", RED, note_center_x, hit_y - 40);
+                combo = 0;
+                miss_count++;
+                next_note_to_hit++;
+                level = next_note_to_hit;
+                flevel = level;
+                compleation_level = flevel / length;
+
+                if (next_note_to_hit == length) {
+                    completed = 1;
+                }
+            }
+        }
+    else {
+            if (std::abs(diff) > 18) return;
+            float wrong_note_center_x = start_x + (current_note * key_width) + key_width / 2.0f;
+            spawn_rating("MISS", RED, wrong_note_center_x, hit_y - 40);
+            combo = 0;
+            miss_count++;
+            next_note_to_hit++;
+            level = next_note_to_hit;
+            flevel = level;
+            compleation_level = flevel / length;
+
+            if (next_note_to_hit == length) completed = 1;
+        }
+    }
+
+
 void Sequence::check() {
     get_key();
     progress();

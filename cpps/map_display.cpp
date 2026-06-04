@@ -26,7 +26,6 @@ void MapDisplay::init() {
 
     );
 
-    interact_obj = game.interaction_object.get();
     light.color = Renderer::white;
     light.position_radius = {
         player->get_x() + static_cast<float>(player->size) * 0.5f,
@@ -146,16 +145,16 @@ void MapDisplay::tick() {
     }
 
 
-
-    if (
-        interact_obj && player) {
-        DialogResult res = interact_obj->tick(player->get_x(), player->get_y(), game.get_delta_time(), camera ? &camera->get_camera() : nullptr);
-        if (res == DialogResult::No) {
-            auto display = std::make_unique<CombatDisplay>(game, interact_obj);
-            game.request_display_change(std::move(display));
-        }
-        else if (res == DialogResult::Yes) {
-            player->collision_nudge(2, 1200);
+    for (const auto& interact_obj : game.interaction_objects) {
+        if (interact_obj && player) {
+            DialogResult res = interact_obj->tick(player->get_x(), player->get_y(), game.get_delta_time(), camera ? &camera->get_camera() : nullptr);
+            if (res == DialogResult::No) {
+                auto display = std::make_unique<CombatDisplay>(game, interact_obj.get());
+                game.request_display_change(std::move(display));
+            }
+            else if (res == DialogResult::Yes) {
+                player->collision_nudge(2, 1200);
+            }
         }
     }
 
@@ -193,16 +192,16 @@ void MapDisplay::tick() {
     }
 }
 
-void MapDisplay::place_block(int x, int y, int type, const std::optional<int> id) {
+void MapDisplay::place_block(int x, int y, int type, const std::optional<int> id, const std::string& file) {
     int tile_x = x / tile_size;
     int tile_y = y / tile_size;
     if (tile_x >= 0 && tile_x < width_in_tiles && tile_y >= 0 && tile_y < height_in_tiles) {
         if (type == -1) {
             coll_objects[tile_y][tile_x].reset();
         } else {
-            Texture2D tilesheet = game.get_texture("decorative_cracks_walls.png");
+            Texture2D tilesheet = game.get_texture(file);
             coll_objects[tile_y][tile_x] = std::make_unique<CollisionObject>(
-                tile_x * tile_size, tile_y * tile_size, tile_size, tile_size, id.value_or(current_block), tilesheet, *this);
+                tile_x * tile_size, tile_y * tile_size, tile_size, tile_size, id.value_or(current_block), tilesheet, file, *this);
         }
     }
 }
