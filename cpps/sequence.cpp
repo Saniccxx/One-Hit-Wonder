@@ -71,7 +71,6 @@ void Sequence::spawn_rating(const std::string& text, Color color, float x, float
 
 void Sequence::test() {
 
-
 }
 void Sequence::add_level() {
     level+=1;
@@ -130,6 +129,7 @@ void Sequence::progress() {
 
             game.player_speed = 20.0f*0.01;
             interaction_object->beaten = true;
+
             std::cout << "Completed (by miss progression)\n";
         }
     }

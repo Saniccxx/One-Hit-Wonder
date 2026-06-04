@@ -102,9 +102,5 @@ class Sequence {
     void add_level();
     void get_key();
 
-
-
-
-
 };
 

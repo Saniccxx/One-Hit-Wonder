@@ -298,7 +298,7 @@ void Game::init() {
 
     interaction_objects.push_back(std::move(std::make_unique<InteractionObject>(
         700.0f, 550.0f, 100.0f,
-        "GET OUT!!! IM 13 YOU PERVERT",get_texture("Sigma_salto.png"), notes[0], durations[0])));
+        "GET OUT!!! IM 13 YOU PERVERT",get_texture("enemy.png"), notes[0], durations[0])));
 
 
     if (!display) {
