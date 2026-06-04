@@ -1,5 +1,5 @@
 #include "game.h"
-#include "map_display.h"
+#include "start_display.h"
 #include "renderer.h"
 #include "Button.h"
 #include "credits_display.h"
@@ -82,7 +82,7 @@ void EndDisplay::tick() {
     }
 
     if (end_button && end_button->IsClicked()) {
-        auto display = std::make_unique<MapDisplay>(game);
+        auto display = std::make_unique<StartDisplay>(game);
         game.request_display_change(std::move(display));
     }
 

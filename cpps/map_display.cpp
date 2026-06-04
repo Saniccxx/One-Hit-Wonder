@@ -73,7 +73,7 @@ void MapDisplay::tick() {
     if (player->x>1100) {
         player->x=200;
         game.level+=1;
-        std::cout<<game.level<<std::endl;
+        //std::cout<<game.level<<std::endl;
         if (game.interaction_objects.size()==1) {
             game.interaction_objects.pop_back();
         }
@@ -83,7 +83,7 @@ void MapDisplay::tick() {
         game.get_texture("enemy.png"), game.notes[game.level-1], game.durations[game.level-1])));
         }
         else {
-            std::cout<<"victory"<<std::endl;
+            //std::cout<<"victory"<<std::endl;
             std::unique_ptr<EndDisplay> end=std::make_unique<EndDisplay>(game);
             game.request_display_change(std::move(end));
         }
@@ -248,7 +248,7 @@ void MapDisplay::tick() {
         DrawRectangleRoundedLines(Rectangle{static_cast<float>(bar_x - 20), static_cast<float>(bar_y - 25), static_cast<float>(bar_w + 40), 65.0f}, 0.2f, 4, Color{ 80, 80, 100, 100 });
 
         // Draw text
-        std::string progress_text = "SONGS BEATEN: " + std::to_string(beaten_songs) + " / " + std::to_string(max_songs);
+        std::string progress_text = "SONGS BEATEN: " + std::to_string(beaten_songs) + " / " + std::to_string(max_songs+1);
         int text_w = MeasureText(progress_text.c_str(), 18);
         DrawText(progress_text.c_str(), bar_x + (bar_w - text_w) / 2, bar_y - 18, 18, GOLD);
 
