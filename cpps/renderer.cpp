@@ -1,5 +1,5 @@
-#include "../headers/renderer.h"
-#include "../headers/config.h"
+#include "renderer.h"
+#include "config.h"
 #include <raylib.h>
 #include <string>
 #include <iostream>
@@ -15,7 +15,9 @@ int Renderer::lighting_num_lights_loc = -1;
 int Renderer::lighting_ambient_loc = -1;
 
 void Renderer::init_window(const int width, const int height, const char *title) {
+    Image image = LoadImage("Resources/Images/icon.png");
     InitWindow(width, height, title);
+    SetWindowIcon(image);
     SetExitKey(0);
 
     // Set window icon

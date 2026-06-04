@@ -1,7 +1,7 @@
 #include <iostream>
-#include "../headers/renderer.h"
-#include "../headers/game.h"
-#include "../headers/config.h"
+#include "renderer.h"
+#include "game.h"
+#include "config.h"
 
 
 

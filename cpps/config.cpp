@@ -1,29 +1,38 @@
-#include "../headers/config.h"
+#include "config.h"
+#include "utils.h" // Załączamy nasz nowy plik pomocniczy
 #include <fstream>
+#include <stdexcept>
+
+inline constexpr std::string_view configFileName = "config";
 
 void Config::parseConfig() {
-    const std::string full_path = std::string(config::configFilePath) + std::string(config::configFileName) + ".json";
+    const std::string fileName = std::string(configFileName) + ".json";
+
+    configFullPath = utils::getRootFilePath(fileName);
+
     try {
-        nlohmann::ordered_json config;
-        std::ifstream config_file(full_path);
+        nlohmann::ordered_json config_json;
+        std::ifstream config_file(configFullPath);
 
         if (!config_file.is_open()) {
-            config["screenWidth"] = config::defaultScreenWidth;
-            config["screenHeight"] = config::defaultScreenHeight;
+            config_json["screenWidth"] = config::defaultScreenWidth;
+            config_json["screenHeight"] = config::defaultScreenHeight;
 
-            std::ofstream out(full_path);
+            std::ofstream out(configFullPath);
             if (!out.is_open()) {
-                throw std::runtime_error("Could not create config file: " + full_path);
+                throw std::runtime_error("Could not create config file: " + configFullPath);
             }
-            out << config.dump(4);
+            out << config_json.dump(4);
 
             screenWidth = config::defaultScreenWidth;
             screenHeight = config::defaultScreenHeight;
             return;
         }
-        config_file >> config;
-        screenWidth = config.at("screenWidth").get<int>();
-        screenHeight = config.at("screenHeight").get<int>();
+
+        config_file >> config_json;
+        screenWidth = config_json.at("screenWidth").get<int>();
+        screenHeight = config_json.at("screenHeight").get<int>();
+
     } catch (const std::exception& e) {
         throw std::runtime_error("Error parsing config file: " + std::string(e.what()));
     }
@@ -37,13 +46,12 @@ void Config::set_resolution(int width, int height) {
     screenWidth = width;
     screenHeight = height;
 
-    const std::string full_path = std::string(config::configFilePath) + std::string(config::configFileName) + ".json";
     try {
         nlohmann::ordered_json config_json;
         config_json["screenWidth"] = screenWidth;
         config_json["screenHeight"] = screenHeight;
 
-        std::ofstream out(full_path);
+        std::ofstream out(configFullPath);
         if (out.is_open()) {
             out << config_json.dump(4);
         }

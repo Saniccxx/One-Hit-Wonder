@@ -1,6 +1,6 @@
-#include "../headers/dialog.h"
-#include "../headers/renderer.h"
-#include "../headers/randomizer.h"
+#include "dialog.h"
+#include "renderer.h"
+#include "randomizer.h"
 #include <iostream>
 #include <vector> // For text wrapping
 

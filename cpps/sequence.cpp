@@ -1,8 +1,8 @@
-#include "../headers/sequence.h"
-#include "../headers/renderer.h"
+#include "sequence.h"
+#include "renderer.h"
 #include <iostream>
 #include "raylib.h"
-#include "../headers/game.h"
+#include "game.h"
 #include <cmath>
 
 Sequence::Sequence(Game& game, InteractionObject* interaction_object): game(game), interaction_object(interaction_object) {

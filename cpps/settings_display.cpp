@@ -1,9 +1,9 @@
-#include "../headers/settings_display.h"
-#include "../headers/game.h"
-#include "../headers/start_display.h"
-#include "../headers/pause_display.h"
-#include "../headers/renderer.h"
-#include "../headers/Button.h"
+#include "settings_display.h"
+#include "game.h"
+#include "start_display.h"
+#include "pause_display.h"
+#include "renderer.h"
+#include "Button.h"
 
 SettingsDisplay::SettingsDisplay(Game& game, SettingsReturn return_target)
     : game(game), return_target(return_target) {}

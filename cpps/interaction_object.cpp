@@ -1,7 +1,7 @@
-#include "../headers/interaction_object.h"
-#include "../headers/renderer.h"
-#include "../headers/config.h"
-#include "../headers/map_player.h"
+#include "interaction_object.h"
+#include "renderer.h"
+#include "config.h"
+#include "map_player.h"
 
 #include <cmath>
 #include <iostream>

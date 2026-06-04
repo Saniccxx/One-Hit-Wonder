@@ -1,10 +1,10 @@
-#include "../headers/pause_display.h"
+#include "pause_display.h"
 
-#include "../headers/game.h"
-#include "../headers/Button.h"
-#include "../headers/renderer.h"
-#include "../headers/settings_display.h"
-#include "../headers/start_display.h"
+#include "game.h"
+#include "Button.h"
+#include "renderer.h"
+#include "settings_display.h"
+#include "start_display.h"
 
 PauseDisplay::PauseDisplay(Game& game) : game(game) {}
 

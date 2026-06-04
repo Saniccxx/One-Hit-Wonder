@@ -1,9 +1,9 @@
-#include "../headers/game.h"
-#include "../headers/map_display.h"
-#include "../headers/renderer.h"
-#include "../headers/Button.h"
-#include "../headers/credits_display.h"
-#include "../headers/end_display.h"
+#include "game.h"
+#include "map_display.h"
+#include "renderer.h"
+#include "Button.h"
+#include "credits_display.h"
+#include "end_display.h"
 
 EndDisplay::EndDisplay(Game& game): game(game) {}
 
@@ -17,10 +17,10 @@ void EndDisplay::init() {
 
     end_button = std::make_unique<Button>(
         x,
-        y - button_height - 20,
+        y - (button_height / 2) + 35,
         button_width,
         button_height,
-        "Return To Main Menu",
+        "Main Menu",
         36,
         WHITE,
         DARKBLUE,

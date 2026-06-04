@@ -1,5 +1,5 @@
-#include "../../headers/particles/particle_generator.h"
-#include "../../headers/particles/particle_system.h"
+#include "particles/particle_generator.h"
+#include "particles/particle_system.h"
 
 ParticleGenerator::ParticleGenerator(ParticleSystem* ps, float x, float y, float vx, float vy, float angle, float speed, float lifespan, int size, Color color, float rate, std::optional<float> x_var, std::optional<float> y_var, std::optional<float> vx_var, std::optional<float> vy_var) :
      particle_system(ps), x(x), y(y), vx(vx), vy(vy), angle(angle), speed(speed), lifespan(lifespan), size(size), color(color), rate(rate), x_variance(x_var.value_or(0.0f)), y_variance(y_var.value_or(0.0f)), vx_variance(vx_var.value_or(0.0f)), vy_variance(vy_var.value_or(0.0f)) {}

@@ -1,15 +1,14 @@
-#include "../headers/map_display.h"
+#include "map_display.h"
 
 #include <format>
 #include <iostream>
-#include "../headers/camera.h"
-#include "../headers/game.h"
-#include "../headers/map_player.h"
-#include "../headers/renderer.h"
-#include "../headers/combat_display.h"
-#include "../headers/end_display.h"
-#include "../headers/sequence.h"
-#include "../headers/end_display.h"
+#include "camera.h"
+#include "game.h"
+#include "map_player.h"
+#include "renderer.h"
+#include "combat_display.h"
+#include "sequence.h"
+#include "end_display.h"
 MapDisplay::MapDisplay(Game& game): game(game) {}
 
 MapDisplay::~MapDisplay() = default;

@@ -1,12 +1,21 @@
-#include "../headers/map_display.h"
+#include "map_display.h"
+#include "utils.h"
 #include "nlohmann/json.hpp"
 #include <fstream>
+#include <iostream>
+
+void MapDisplay::resolveMapDataPath() {
+    if (!mapDataFullPath.empty()) {
+        return;
+    }
+
+    mapDataFullPath = utils::getRootFilePath("map_data.json");
+}
 
 void MapDisplay::saveMapToJson() {
+    resolveMapDataPath();
+
     nlohmann::ordered_json json;
-    // json["width_in_tiles"] = width_in_tiles;
-    // json["height_in_tiles"] = height_in_tiles;
-    // json["tile_size"] = tile_size;
 
     for (auto & coll_object : coll_objects) {
         for (const auto & j : coll_object) {
@@ -23,13 +32,20 @@ void MapDisplay::saveMapToJson() {
         }
     }
 
-    std::ofstream file("../map_data.json");
+    std::ofstream file(mapDataFullPath);
+    if (!file.is_open()) {
+        std::cerr << "Could not open file for writing: " << mapDataFullPath << std::endl;
+        return;
+    }
+
     file << json.dump(4);
-    std::cout << "Saved map data.json" << std::endl;
+    std::cout << "Saved " << mapDataFullPath << std::endl;
 }
 
 void MapDisplay::loadMapFromJson() {
-    std::ifstream file("../map_data.json");
+    resolveMapDataPath();
+
+    std::ifstream file(mapDataFullPath);
     if (!file.is_open()) {
         return;
     }
@@ -45,15 +61,11 @@ void MapDisplay::loadMapFromJson() {
         return;
     }
 
-    // int width_in_tiles = json["width_in_tiles"];
-    // int height_in_tiles = json["height_in_tiles"];
-    // int tile_size = json["tile_size"];
-
     for (const auto& obj : json["coll_objects"]) {
         int x = obj["x"];
         int y = obj["y"];
         int id = obj["id"];
-        std::string file = obj.value("file", "decorative_cracks_walls.png");
-        place_block(x, y, 1, id, file);
+        std::string file_str = obj.value("file", "decorative_cracks_walls.png");
+        place_block(x, y, 1, id, file_str);
     }
 }
