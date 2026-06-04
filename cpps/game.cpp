@@ -11,7 +11,7 @@
 #include <iostream>
 #include <typeinfo>
 #include <array>
-
+#include <raylib.h> // Required for Image and SetWindowIcon
 
 
 Game::Game(Config& config) : width(config.get_screen_width()), height(config.get_screen_height()), config(config) {}
@@ -62,6 +62,20 @@ Sound Game::get_sound(std::string_view name) const {
 }
 
 void Game::init() {
+    std::cout << "Game::init() called." << std::endl;
+
+    // Set window icon
+    std::cout << "Attempting to load icon from: Resources/Images/logo.png" << std::endl;
+    Image icon = LoadImage("Resources/Images/logo.png"); // Assuming logo.png is in Resources/Images
+    if (icon.data) {
+        std::cout << "Icon loaded successfully. Setting window icon." << std::endl;
+        SetWindowIcon(icon);
+        UnloadImage(icon);
+        std::cout << "Window icon set and image unloaded." << std::endl;
+    } else {
+        std::cerr << "Warning: Could not load logo.png for window icon. Check file path and existence." << std::endl;
+    }
+
     images = load_all_images("Resources/Images");
     sounds = load_all_sounds("Resources");
     notes = {
@@ -157,6 +171,7 @@ void Game::init() {
         // Line 3: "London Bridge is falling down, my fair lady"
         4, 5, 4, 3, 2, 4, 2, 0
     },
+
 {
     // "Never gonna give you up, never gonna let you down"
     4,4,5,4,3,2, 4,4,5,4,3,1,
@@ -165,7 +180,7 @@ void Game::init() {
     // "Never gonna make you cry, never gonna say goodbye"
     4,4,5,4,3,2, 4,4,5,4,3,1,
     // "Never gonna tell a lie and hurt you"
-    4,4,5,4,3,2,3, 2,1,0,
+    20,20,20,20,20,20,20, 30,30,60,
 
     // --- repeat ---
     4,4,5,4,3,2, 4,4,5,4,3,1,
@@ -256,22 +271,23 @@ void Game::init() {
         50, 50, 50, 100, 50, 50, 50, 50, 50, 100
     },
 
-    // ── 8. Yankee Doodle ─────────────────────────────────────────────────────
-    {   // Line 1
-        50, 50, 50, 50, 50, 50, 50, 100,
-        // Line 2
-        50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 100,
-        // Line 3
-        50, 50, 50, 50, 50, 50, 100
+    // ── 8. Yankee Doodle (Traditional, public domain) — transposed to C ───────
+    // Original key: G major.  Mapping: G→C(0) A→D(1) B→E(2) C→F(3) D→G(4) F#→B(6)
+    {   // Line 1: "Yankee Doodle went to town, a-riding on a pony"
+        0, 0, 1, 6, 0, 1, 2, 0,
+        // Line 2: "Stuck a feather in his cap and called it macaroni"
+        1, 2, 3, 2, 1, 0, 6, 0, 1, 2, 3, 1, 0,
+        // Line 3: "Yankee Doodle keep it up, Yankee Doodle dandy"
+        2, 2, 2, 0, 1, 2, 3
     },
 
-    // ── 9. London Bridge is Falling Down ─────────────────────────────────────
-    {   // Line 1
-        50, 50, 50, 50, 50, 50, 100,
-        // Line 2
-        50, 50, 100, 50, 50, 100,
-        // Line 3
-        50, 50, 50, 50, 100, 50, 50, 200
+    // ── 9. London Bridge is Falling Down (Traditional, public domain) ─────────
+    {   // Line 1: "London Bridge is falling down"
+        4, 5, 4, 3, 2, 3, 4,
+        // Line 2: "Falling down, falling down"
+        1, 2, 3, 2, 3, 4,
+        // Line 3: "London Bridge is falling down, my fair lady"
+        4, 5, 4, 3, 2, 4, 2, 0
     },
 
 {
@@ -300,7 +316,7 @@ void Game::init() {
 
 
     interaction_objects.push_back(std::move(std::make_unique<InteractionObject>(
-        700.0f, 550.0f, 100.0f, get_texture("enemy.png"), notes[0], durations[0])));
+        700.0f, 550.0f, 100.0f, get_texture("enemy.png"), notes[level-1], durations[level-1])));
 
 
     if (!display) {
