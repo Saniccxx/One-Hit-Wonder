@@ -17,7 +17,8 @@ void MapDisplay::saveMapToJson() {
                 {"y", params[1]},
                 {"width", params[2]},
                 {"height", params[3]},
-                {"id", params[4]}
+                {"id", params[4]},
+                {"file", j->get_filename()}
             });
         }
     }
@@ -52,6 +53,7 @@ void MapDisplay::loadMapFromJson() {
         int x = obj["x"];
         int y = obj["y"];
         int id = obj["id"];
-        place_block(x, y, 1, id);
+        std::string file = obj.value("file", "decorative_cracks_walls.png");
+        place_block(x, y, 1, id, file);
     }
 }

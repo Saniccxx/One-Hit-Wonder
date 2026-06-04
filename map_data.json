@@ -103,14 +103,16 @@
             "y": 200,
             "width": 50,
             "height": 50,
-            "id": 1
+            "id": 1,
+            "file": "decorative_cracks_floor.png"
         },
         {
             "x": 350,
             "y": 250,
             "width": 50,
             "height": 50,
-            "id": 1
+            "id": 1,
+            "file": "decorative_cracks_floor.png"
         },
         {
             "x": 950,
@@ -124,7 +126,8 @@
             "y": 300,
             "width": 50,
             "height": 50,
-            "id": 1
+            "id": 1,
+            "file": "decorative_cracks_floor.png"
         },
         {
             "x": 950,
@@ -271,7 +274,8 @@
             "y": 400,
             "width": 50,
             "height": 50,
-            "id": 1
+            "id": 1,
+            "file": "decorative_cracks_floor.png"
         },
         {
             "x": 1150,
@@ -348,7 +352,8 @@
             "y": 450,
             "width": 50,
             "height": 50,
-            "id": 1
+            "id": 1,
+            "file": "decorative_cracks_floor.png"
         },
         {
             "x": 950,
@@ -369,7 +374,8 @@
             "y": 450,
             "width": 50,
             "height": 50,
-            "id": 1
+            "id": 1,
+            "file": "decorative_cracks_floor.png"
         },
         {
             "x": 1100,
@@ -418,7 +424,8 @@
             "y": 450,
             "width": 50,
             "height": 50,
-            "id": 1
+            "id": 1,
+            "file": "decorative_cracks_floor.png"
         },
         {
             "x": 1450,
