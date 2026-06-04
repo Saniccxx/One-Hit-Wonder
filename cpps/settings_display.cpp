@@ -220,7 +220,7 @@ void SettingsDisplay::tick() {
         Renderer::resize_target(new_w, new_h);
         reposition_ui();
     }
-
+    // GDZIEŚ WYWOŁAJ FUNKCJĘ game.config.set_fullscreen(bool fullscreen)
     if (back_button && back_button->IsClicked()) {
         if (return_target == SettingsReturn::PauseMenu) {
             auto display = std::make_unique<PauseDisplay>(game);
