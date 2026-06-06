@@ -53,6 +53,8 @@ class Sequence {
     Sequence(Game& game, InteractionObject* interaction_object);
     ~Sequence() = default;
     Sequence()=default;
+    int current_note = -2;
+
     private:
 
     float global_timer;
@@ -65,7 +67,6 @@ class Sequence {
     int length;
 
     float flevel;
-    int current_note;
 
     int current;
     int end;

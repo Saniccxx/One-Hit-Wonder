@@ -22,15 +22,21 @@ void CombatDisplay::tick() {
     const auto delta_time = game.get_delta_time();
 
     if (sequence) {
+
         sequence->check();
-        sequence->play();
 
         sequence->draw_falling_keys();
         sequence->draw_progress_bar_chords(100, 100, 450, 40);
+        if (sequence->current_note!=-2) {
+
+
+            sequence->play();
+
+        }
     }
 
-    if (player) {
-        player->tick(static_cast<float>(delta_time));
-    }
+    if (!player) return;
+    player->tick(static_cast<float>(delta_time));
+
 
 }

@@ -10,7 +10,6 @@
 Sequence::Sequence(Game& game, InteractionObject* interaction_object): game(game), interaction_object(interaction_object) {
     notes = interaction_object -> get_notes();
     durations = interaction_object -> get_durations();
-    std::cout << "post notes";
 
     for (size_t i = 0; i < notes.size(); i++) {
         volumes[i] = 0;
@@ -39,7 +38,6 @@ Sequence::Sequence(Game& game, InteractionObject* interaction_object): game(game
     };
     length = notes.size();
     level = 0;
-    current_note = -1;
     completed = 0;
     timer = 0;
 
@@ -52,7 +50,7 @@ Sequence::Sequence(Game& game, InteractionObject* interaction_object): game(game
     note_results.assign(notes.size(), 0);
 
     global_timer = 0;
-    int acc = 120; // start later
+    int acc = 200; // start later
     for (int d : durations) {
         target_times.push_back(acc);
         acc += d;
@@ -80,21 +78,21 @@ void Sequence::add_level() {
 }
 
 void Sequence::get_key() {
-    int a = 0;
+    int pressed = 0;
     for (auto& pair : keys) {
         if (Renderer::is_key_pressed(pair.first)) {
             int index = pair.second;
             std::cout << "Key index " << index << " pressed\n";
-            a = 1;
+            pressed = 1;
             current_note = index;
         }
     }
     if (Renderer::is_key_pressed(KEY_BACKSPACE)) {
-        a = 1;
+        pressed = 1;
         current_note = -2;
     }
 
-    if (a == 0) {
+    if (pressed == 0&&current_note != -2) {
         current_note = -1;
     }
 }
@@ -139,6 +137,7 @@ void Sequence::progress() {
         miss_count = 0;
         ratings.clear();
         note_results.assign(notes.size(), 0);
+        if (Renderer::is_key_pressed(KEY_SPACE)) current_note = -1;
         return;
     }
 
@@ -402,6 +401,7 @@ void Sequence::draw_progress_bar_chords(int x, int y, int w, int h) {
         row_y += S(35);
     }
 
+
     DrawLine(panel_x + S(30), panel_y + S(465), panel_x + panel_w - S(30), panel_y + S(465), Color{ 80, 80, 100, 100 });
 
     if (completed) {
@@ -429,6 +429,9 @@ void Sequence::draw_progress_bar_chords(int x, int y, int w, int h) {
     Color btn_fill = is_hovered ? Color{ 72, 172, 239, 255 } : Color{ 52, 152, 219, 255 };
     DrawRectangleRounded(btn_rec, 0.3f, 4, btn_fill);
     DrawRectangleRoundedLines(btn_rec, 0.3f, 4, WHITE);
+
+    if (current_note == -2) DrawText("Press SPACE to start", S(760), panel_y + S(220), S(42), WHITE);
+
 
     std::string btn_text = "Return to Map";
     int text_w = MeasureText(btn_text.c_str(), S(18));
@@ -507,9 +510,9 @@ void Sequence::draw_falling_keys() {
         int x = start_x + (notes[j] * key_width);
 
         Color note_color = SKYBLUE;
-        if (notes[j] == 0 || notes[j] == 7) note_color = PINK;
-        else if (notes[j] == 1 || notes[j] == 6) note_color = PURPLE;
-        else if (notes[j] == 2 || notes[j] == 5) note_color = LIME;
+        if (notes[j] == 0 || notes[j] == 4) note_color = PINK;
+        else if (notes[j] == 1 || notes[j] == 5) note_color = PURPLE;
+        else if (notes[j] == 2 || notes[j] == 6) note_color = LIME;
         else note_color = GOLD;
 
         float draw_bottom = std::min(bottom_y, (float)hit_y);
